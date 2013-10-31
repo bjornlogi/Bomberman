@@ -49,7 +49,6 @@ main._iterCore = function (dt) {
         this.gameOver();
         return;
     }
-    
     gatherInputs();
     update(dt);
     render(g_ctx);
@@ -104,7 +103,6 @@ main._debugRender = function (ctx) {
 };
 
 main.init = function () {
-    
     // Grabbing focus is good, but it sometimes screws up jsfiddle,
     // so it's a risky option during "development"
     //

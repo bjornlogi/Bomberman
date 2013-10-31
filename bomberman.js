@@ -79,7 +79,8 @@ function updateSimulation(du) {
     
     processDiagnostics();
     
-    entityManager.update(du);
+    player.update(du);
+    //entityManager.update(du);
 
     // // Prevent perpetual firing!
     // eatKey(Ship.prototype.KEY_FIRE);
@@ -158,9 +159,11 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    entityManager.render(ctx);
+    player.render(ctx);
 
-    if (g_renderSpatialDebug) spatialManager.render(ctx);
+    //entityManager.render(ctx);
+
+    //if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
 
 
@@ -171,7 +174,6 @@ function renderSimulation(ctx) {
 var g_images = {};
 
 function requestPreloads() {
-
     var requiredImages = {
         ship   : "https://notendur.hi.is/~pk/308G/images/ship.png",
         ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
@@ -195,7 +197,7 @@ function preloadDone() {
     // entityManager.init();
     // createInitialShips();
 
-    // main.init();
+    main.init();
 }
 
 // Kick it off
