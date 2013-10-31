@@ -42,14 +42,14 @@ var g_ctx = g_canvas.getContext("2d");
 // CREATE INITIAL SHIPS
 // ====================
 
-function createInitialShips() {
+// function createInitialShips() {
 
-    entityManager.generateShip({
-        cx : 200,
-        cy : 200
-    });
+//     entityManager.generateShip({
+//         cx : 200,
+//         cy : 200
+//     });
     
-}
+// }
 
 // =============
 // GATHER INPUTS
@@ -81,8 +81,8 @@ function updateSimulation(du) {
     
     entityManager.update(du);
 
-    // Prevent perpetual firing!
-    eatKey(Ship.prototype.KEY_FIRE);
+    // // Prevent perpetual firing!
+    // eatKey(Ship.prototype.KEY_FIRE);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -109,36 +109,36 @@ var KEY_K = keyCode('K');
 
 function processDiagnostics() {
 
-    if (eatKey(KEY_MIXED))
-        g_allowMixedActions = !g_allowMixedActions;
+    // if (eatKey(KEY_MIXED))
+    //     g_allowMixedActions = !g_allowMixedActions;
 
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
+    // if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
 
-    if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
+    // if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
-    if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+    // if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
-    if (eatKey(KEY_HALT)) entityManager.haltShips();
+    // if (eatKey(KEY_HALT)) entityManager.haltShips();
 
-    if (eatKey(KEY_RESET)) entityManager.resetShips();
+    // if (eatKey(KEY_RESET)) entityManager.resetShips();
 
-    if (eatKey(KEY_0)) entityManager.toggleRocks();
+    // if (eatKey(KEY_0)) entityManager.toggleRocks();
 
-    if (eatKey(KEY_1)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
+    // if (eatKey(KEY_1)) entityManager.generateShip({
+    //     cx : g_mouseX,
+    //     cy : g_mouseY,
         
-        sprite : g_sprites.ship});
+    //     sprite : g_sprites.ship});
 
-    if (eatKey(KEY_2)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
+    // if (eatKey(KEY_2)) entityManager.generateShip({
+    //     cx : g_mouseX,
+    //     cy : g_mouseY,
         
-        sprite : g_sprites.ship2
-        });
+    //     sprite : g_sprites.ship2
+    //     });
 
-    if (eatKey(KEY_K)) entityManager.killNearestShip(
-        g_mouseX, g_mouseY);
+    // if (eatKey(KEY_K)) entityManager.killNearestShip(
+    //     g_mouseX, g_mouseY);
 }
 
 
