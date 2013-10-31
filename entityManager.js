@@ -4,19 +4,31 @@
 var entityManager = {
 
 
-_rocks   : [], // halló
+_players   : [], 
 _bullets : [],
 _ships   : [],
 
 // "PRIVATE" METHODS
 
-_generateRocks : function() {
-    var i,
-        NUM_ROCKS = 4;
+// _generateRocks : function() {
+//     var i,
+//         NUM_ROCKS = 4;
 
-    for (i = 0; i < NUM_ROCKS; ++i) {
-        this.generateRock();
-    }
+//     for (i = 0; i < NUM_ROCKS; ++i) {
+//         this.generateRock();
+//     }
+// },
+
+init: function() {
+    this._generatePlayers();
+},
+
+generatePlayer : function(descr) {
+    this._players.push(new Ship(descr));
+},
+
+deferredSetup : function () {
+    this._categories = [this._players];
 },
 
 _forEachOf: function(aCategory, fn) {
@@ -32,18 +44,8 @@ update: function(du) {
         var aCategory = this._categories[c];
         var i = 0;
 
-        while (i < aCategory.length) {
-
+        while (i++ < aCategory.length) {
             var status = aCategory[i].update(du);
-
-            if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
-                aCategory.splice(i,1);
-            }
-            else {
-                ++i;
-            }
         }
     }
     
@@ -53,23 +55,13 @@ update: function(du) {
 
 render: function(ctx) {
 
-    var debugX = 10, debugY = 100;
-
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
 
-        if (!this._bShowRocks && 
-            aCategory == this._rocks)
-            continue;
-
         for (var i = 0; i < aCategory.length; ++i) {
-
             aCategory[i].render(ctx);
-            //debug.text(".", debugX + i * 10, debugY);
-
         }
-        debugY += 10;
     }
 }
 
