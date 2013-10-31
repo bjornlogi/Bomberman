@@ -12,11 +12,6 @@ Player.prototype.render = function (ctx) {
                  this.halfHeight * 2)
 };
 
-Player.prototype.KEY_UP = 'W'.charCodeAt(0);
-Player.prototype.KEY_DOWN = 'S'.charCodeAt(0);
-Player.prototype.KEY_LEFT = 'A'.charCodeAt(0);
-Player.prototype.KEY_RIGHT = 'D'.charCodeAt(0);
-
 Player.prototype.update = function (du) {
     //batSprite.drawCentredAt(ctx, this.cx,this.cy,this.rotation, this.stretch);
    	if (eatKey(this.KEY_UP)) {
@@ -32,11 +27,3 @@ Player.prototype.update = function (du) {
         this.cx += 30;
     }
 };
-
-//Construct the player
-var player = new Player({
-    cx : 45,
-    cy : 45,
-    halfWidth: 15,
-    halfHeight: 15
-});

@@ -39,17 +39,36 @@ var g_ctx = g_canvas.getContext("2d");
 
 
 // ====================
-// CREATE INITIAL SHIPS
+// CREATE INITIAL PLAYERS
 // ====================
 
-// function createInitialShips() {
+var P1_UP = 'W'.charCodeAt(0);
+var P1_DOWN = 'S'.charCodeAt(0);
+var P1_LEFT = 'A'.charCodeAt(0);
+var P1_RIGHT = 'D'.charCodeAt(0);
 
-//     entityManager.generateShip({
-//         cx : 200,
-//         cy : 200
-//     });
+function createInitialPlayers(NUM_PLAYERS) {
+
+    entityManager._generatePlayer({
+        cx : 45,
+        cy : 45,
+        halfWidth: 15,
+        halfHeight: 15,
+        KEY_UP: P1_UP,
+        KEY_DOWN: P1_DOWN,
+        KEY_LEFT: P1_LEFT,
+        KEY_RIGHT: P1_RIGHT
+    });
+    if (NUM_PLAYERS == 2){
+        entityManager._generatePlayer({
+        cx : 555,
+        cy : 555,
+        halfWidth: 15,
+        halfHeight: 15
+    });
+    }
     
-// }
+}
 
 // =============
 // GATHER INPUTS
@@ -79,8 +98,8 @@ function updateSimulation(du) {
     
     processDiagnostics();
     
-    player.update(du);
-    //entityManager.update(du);
+    //player.update(du);
+    entityManager.update(du);
 
     // // Prevent perpetual firing!
     // eatKey(Ship.prototype.KEY_FIRE);
@@ -161,9 +180,9 @@ function renderSimulation(ctx) {
 
     gWall.render(ctx);
 
-    player.render(ctx);
+    //player.render(ctx);
 
-    //entityManager.render(ctx);
+    entityManager.render(ctx);
 
     //if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
@@ -196,8 +215,7 @@ function preloadDone() {
     // g_sprites.bullet = new Sprite(g_images.ship);
     // g_sprites.bullet.scale = 0.25;
 
-    // entityManager.init();
-    // createInitialShips();
+    createInitialPlayers(NUM_PLAYERS);
 
     main.init();
 }

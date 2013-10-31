@@ -18,12 +18,8 @@ _ships   : [],
 //     }
 // },
 
-init: function() {
-    this._generatePlayers();
-},
-
-generatePlayer : function(descr) {
-    this._players.push(new Ship(descr));
+_generatePlayer : function(descr) {
+    this._players.push(new Player(descr));
 },
 
 deferredSetup : function () {
@@ -43,12 +39,10 @@ update: function(du) {
         var aCategory = this._categories[c];
         var i = 0;
 
-        while (i++ < aCategory.length) {
-            var status = aCategory[i].update(du);
+        while (i < aCategory.length) {
+            var status = aCategory[i++].update(du);
         }
     }
-    
-    if (this._rocks.length === 0) this._generateRocks();
 
 },
 
