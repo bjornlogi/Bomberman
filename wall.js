@@ -1,3 +1,5 @@
+
+
 function wall(descr) {
     for (var property in descr) {
         this[property] = descr[property];
@@ -14,18 +16,22 @@ wall.prototype.render = function (ctx) {
 var xPos = this.halfWidth;
 var yPos = this.halfHeight;
     // (cx, cy) is the centre; must offset it for drawing
-    for(var i = 0; i < 10; i++)
+    for(var i = 0; i < 9; i++)
     {
-      for(var j = 0; j < 10; j++)
+      for(var j = 0; j < 9; j++)
       {
+        ctx.fillStyle = "blue";
        ctx.fillRect(this.cx - xPos, this.cy - yPos,this.halfWidth * 2,this.halfHeight * 2);
-    	    
-       yPos += 30;
+    	    ctx.fillStyle = "white";
+       yPos += 70;
       }
     yPos = this.halfHeight;
-    xPos += 30;
+    xPos += 70;
   }
 };
 
 
-
+var gWall = new wall({
+  cx : 533,
+  cy : 533
+});

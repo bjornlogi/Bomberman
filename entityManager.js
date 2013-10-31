@@ -3,7 +3,6 @@
 
 var entityManager = {
 
-
 _players   : [], 
 _bullets : [],
 _ships   : [],
