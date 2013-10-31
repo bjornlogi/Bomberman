@@ -4,7 +4,6 @@
 
 var entityManager = {
 
-// "PRIVATE" DATA
 
 _rocks   : [],
 _bullets : [],
