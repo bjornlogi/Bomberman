@@ -4,7 +4,7 @@
 var entityManager = {
 
 
-_rocks   : [], // halló
+_rocks   : [], 
 _bullets : [],
 _ships   : [],
 
