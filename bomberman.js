@@ -159,6 +159,8 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
+    gWall.render(ctx);
+
     player.render(ctx);
 
     //entityManager.render(ctx);
