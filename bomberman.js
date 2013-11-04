@@ -73,8 +73,7 @@ function createInitialPlayers(NUM_PLAYERS) {
 function createBrick(){
     
     entityManager._generateBricks({
-        cx : 80,
-        cy : 80
+        
     });
 }
 // =============
