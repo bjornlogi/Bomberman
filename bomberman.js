@@ -70,6 +70,13 @@ function createInitialPlayers(NUM_PLAYERS) {
     
 }
 
+function createBrick(){
+    
+    entityManager._generateBricks({
+        cx : 80,
+        cy : 80
+    });
+}
 // =============
 // GATHER INPUTS
 // =============
@@ -178,7 +185,6 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    gWall.render(ctx);
 
     //player.render(ctx);
 
@@ -216,6 +222,7 @@ function preloadDone() {
     // g_sprites.bullet.scale = 0.25;
 
     createInitialPlayers(NUM_PLAYERS);
+    createBrick();
 
     main.init();
 }
