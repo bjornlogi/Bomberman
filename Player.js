@@ -9,9 +9,13 @@ function Player(descr) {
 var g_cel = 0;
 Player.prototype.orientation = {
     down : 1,
-    left : 4,
-    right : 7,
-    up : 10
+    left : [3,4,5],
+    right : [6,7,8],
+    up : 10,
+    currLeft : 4,
+    switchLeft: true,
+    currRight : 7,
+    switchRight: true,
 }
 
 Player.prototype.render = function (ctx) {
@@ -38,12 +42,12 @@ Player.prototype.update = function (du) {
     if (keys[this.KEY_LEFT]) {
         this.cx -= 1.5;
         this.updateSteps("left");
-        this.playerOrientation = this.orientation.left;
+        this.playerOrientation = this.orientation.currLeft;
     }
     if (keys[this.KEY_RIGHT]) {
         this.cx += 1.5;
         this.updateSteps("right");
-        this.playerOrientation = this.orientation.right;
+        this.playerOrientation = this.orientation.currRight;
     }
 };
 
@@ -67,17 +71,23 @@ Player.prototype.updateSteps = function(keyPressed){
         }
 
         else if (keyPressed == "left"){
-            if (this.orientation.left == 5)
-                this.orientation.left = 3; 
-            else if (this.orientation.left == 3 || this.orientation.left == 4)
-                this.orientation.left = 5;
+            var leftArray = this.orientation.left;
+            var index = leftArray.indexOf(this.orientation.currLeft);
+
+            if (index == 0 || index == 2)
+                this.switchLeft = !this.switchLeft;
+            this.switchLeft ? ++index : --index;
+            this.orientation.currLeft = leftArray[index];
         }
 
         else{
-            if (this.orientation.right == 8)
-                this.orientation.right = 6; 
-            else if (this.orientation.right == 6 || this.orientation.right == 7)
-                this.orientation.right = 8;
+            var rightArray = this.orientation.right;
+            var index = rightArray.indexOf(this.orientation.currRight);
+
+            if (index == 0 || index == 2)
+                this.switchRight = !this.switchRight;
+            this.switchRight ? ++index : --index;
+            this.orientation.currRight = rightArray[index];
         }
 
         this.switchStep = this.switchStepReset;

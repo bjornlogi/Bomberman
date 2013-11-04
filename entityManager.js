@@ -59,8 +59,6 @@ update: function(du) {
         }
     }
 
-        console.log(this._categories);
-
 
 },
 
