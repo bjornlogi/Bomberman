@@ -50,10 +50,12 @@ var P1_RIGHT = 'D'.charCodeAt(0);
 function createInitialPlayers(NUM_PLAYERS) {
 
     entityManager._generatePlayer({
-        cx : 45,
+        cx : 80,
         cy : 45,
-        halfWidth: 15,
-        halfHeight: 15,
+        rotation: 0,
+        playerOrientation: 1,
+        halfWidth: 10,
+        halfHeight: 10,
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
@@ -63,6 +65,7 @@ function createInitialPlayers(NUM_PLAYERS) {
         entityManager._generatePlayer({
         cx : 555,
         cy : 555,
+        rotation : 0,
         halfWidth: 15,
         halfHeight: 15
     });
@@ -197,23 +200,55 @@ function renderSimulation(ctx) {
 // PRELOAD STUFF
 // =============
 
-var g_images = {};
+var g_sheets = {};
 
 function requestPreloads() {
-    var requiredImages = {
-        ship   : "https://notendur.hi.is/~pk/308G/images/ship.png",
-        ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
-        rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
+    var requiredSheets = {
+        players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png"
+        //ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
+        //rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
     };
 
-    imagesPreload(requiredImages, g_images, preloadDone);
+    //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
+
+    imagesPreload(requiredSheets, g_sheets, preloadDone);
 }
 
-var g_sprites = {};
+var g_sprites = [];
 
+var test = true;
 function preloadDone() {
 
-    // g_sprites.ship  = new Sprite(g_images.ship);
+    var celWidth  = 663/20;
+    var celHeight =  200/4;
+    var numCols = 20;
+    var numRows = test? 1:4;
+    var numCels = test? 20:80;
+
+    var sprite;
+
+    for (var row = 0; row < numRows; ++row) {
+        for (var col = 0; col < numCols; ++col) {
+            if (col>8) celWidth += 1;
+            sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
+                                celWidth, celHeight) 
+            g_sprites.push(sprite);
+            if (col>8) celWidth -= 1;
+        }
+    }
+
+    // for (var row = numRows/2; row < numRows/2; ++row) {
+    //     for (var col = 0; col < numCols/2; ++col) {
+
+    //         sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
+    //                             celWidth, celHeight) 
+    //         g_sprites.push(sprite);
+    //     }
+    // }
+    //console.log(g_sprites);
+    g_sprites.splice(numCels);
+
+    //g_sprites.players  = new Sprite(g_sheets.players);
     // g_sprites.ship2 = new Sprite(g_images.ship2);
     // g_sprites.rock  = new Sprite(g_images.rock);
 
