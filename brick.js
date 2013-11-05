@@ -1,19 +1,19 @@
 
 
-/*function brick(descr) {
+function brick(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
-}*/
+}
 
-function brick(descr) {
+// function brick(descr) {
 
-    // Common inherited setup logic from Entity
+//     // Common inherited setup logic from Entity
 
-    this.cx = 15;
-    this.cy = 15;
+//     this.cx = 15;
+//     this.cy = 15;
 
-};
+// };
 
 brick.prototype.halfWidth = 15;
 brick.prototype.halfHeight = 15;

@@ -74,10 +74,17 @@ function createInitialPlayers(NUM_PLAYERS) {
 }
 
 function createBrick(){
-    
-    entityManager._generateBricks({
-        
-    });
+    var cols = 5;
+    var rows = 5;
+    var number = cols*rows;
+    for (var i = 0; i < number; i++){
+        entityManager._generateBrick({
+            cx:90+100*(i%cols),
+            cy:30+100*Math.floor(i/cols),
+            halfHeight:20,
+            halfWidth:20
+        });
+    }   
 }
 // =============
 // GATHER INPUTS

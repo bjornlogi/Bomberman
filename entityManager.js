@@ -22,7 +22,7 @@ _generatePlayer : function(descr) {
     this._players.push(new Player(descr));
 },
 
-generateBrick : function(descr){
+_generateBrick : function(descr){
     this._brick.push(new brick(descr));
 },
 
