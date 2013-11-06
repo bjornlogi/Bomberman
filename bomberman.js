@@ -76,27 +76,7 @@ function createInitialPlayers(NUM_PLAYERS) {
 }
 
 function createBrick(){
-    // var cols = 5;
-    // var rows = 6;
-    // var number = cols*rows;
-    // //create the bricks in the middle
-    // for (var i = 0; i < number; i++){
-    //     entityManager._generateBrick({
-    //         cx:90+100*(i%cols),
-    //         cy:30+100*Math.floor(i/cols),
-    //         halfHeight:20,
-    //         halfWidth:20
-    //     });
-    // }
-    // var topAndBottom=12;
-    // for(var i = 0; i < topAndBottom; i++){
-    //     entityManager._generateBrick({
-    //         cx:90+100*(i%cols),
-    //         cy:30+100*Math.floor(i/cols),
-    //         halfHeight:20,
-    //         halfWidth:20
-    //     });
-    // }   
+
 }
 // =============
 // GATHER INPUTS
