@@ -104,7 +104,7 @@ function createWall()
 {
     for(var i = 0; i < 4; ++i)
     {
-        for(var j = 0; j < 19; ++j)
+        for(var j = 0; j < 18; ++j)
         {
             entityManager.generateWall({
                 cx : wallx,
@@ -114,15 +114,12 @@ function createWall()
                 wallx += 30;
             }
                 if(i === 1){
-                    wallx = 15;
                     wally += 30;
                 }
                 if(i===2){
-                    wally = 555;
-                    wallx +=30;
+                    wallx -=30;
                 }
                 if(i===3){
-                    wallx = 555;
                     wally -= 30;
                 }
 
