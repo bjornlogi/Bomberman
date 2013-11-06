@@ -40,12 +40,12 @@ Player.prototype.update = function (du) {
         this.playerOrientation = this.orientation.down;
     }
     if (keys[this.KEY_LEFT]) {
-        this.cx -= velX*du;
+        this.cx -= this.velX*du;
         this.updateSteps("left");
         this.playerOrientation = this.orientation.currLeft;
     }
     if (keys[this.KEY_RIGHT]) {
-        this.cx += velX*du;
+        this.cx += this.velX*du;
         this.updateSteps("right");
         this.playerOrientation = this.orientation.currRight;
     }

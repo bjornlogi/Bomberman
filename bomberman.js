@@ -75,8 +75,61 @@ function createInitialPlayers(NUM_PLAYERS) {
     
 }
 
-function createBrick(){
 
+var nextX = 75;
+var nextY = 75;
+function createBrick()
+{
+    for(var i = 0; i < 8; i++)
+    {
+        nextX = 75;
+        for (var j = 0; j < 8; j++) 
+        {
+        entityManager._generateBrick({
+            cx : nextX,
+            cy : nextY
+    
+        });
+       
+        nextX += 60;
+
+    }
+    nextY += 60;
+    }
+}
+
+var wallx = 15;
+var wally = 15;
+function createWall()
+{
+    for(var i = 0; i < 4; ++i)
+    {
+        for(var j = 0; j < 19; ++j)
+        {
+            entityManager.generateWall({
+                cx : wallx,
+                cy : wally
+            });
+                if(i === 0){
+                wallx += 30;
+            }
+                if(i === 1){
+                    wallx = 15;
+                    wally += 30;
+                }
+                if(i===2){
+                    wally = 555;
+                    wallx +=30;
+                }
+                if(i===3){
+                    wallx = 555;
+                    wally -= 30;
+                }
+
+        }
+
+
+    }
 }
 // =============
 // GATHER INPUTS
@@ -253,9 +306,10 @@ function preloadDone() {
 
     // g_sprites.bullet = new Sprite(g_images.ship);
     // g_sprites.bullet.scale = 0.25;
-
-    createInitialPlayers(NUM_PLAYERS);
     createBrick();
+    createWall();
+    createInitialPlayers(NUM_PLAYERS);
+    //createBrick();
 
     main.init();
 }
