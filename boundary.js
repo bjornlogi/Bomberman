@@ -1,4 +1,4 @@
-function wall(descr) {
+function boundary(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
@@ -6,13 +6,13 @@ function wall(descr) {
 
 
 
-wall.prototype.halfWidth = 15;
-wall.prototype.halfHeight = 15;
+boundary.prototype.halfWidth = 15;
+boundary.prototype.halfHeight = 15;
 
-wall.prototype.update = function (du) {
+boundary.prototype.update = function (du) {
 };
 
-wall.prototype.render = function (ctx) {
+boundary.prototype.render = function (ctx) {
 
     // (cx, cy) is the centre; must offset it for drawing
        ctx.fillStyle = "grey";

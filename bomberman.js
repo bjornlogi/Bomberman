@@ -100,13 +100,13 @@ function createBrick()
 
 var wallx = 15;
 var wally = 15;
-function createWall()
+function createBoundary()
 {
     for(var i = 0; i < 4; ++i)
     {
         for(var j = 0; j < 18; ++j)
         {
-            entityManager.generateWall({
+            entityManager.generateBoundary({
                 cx : wallx,
                 cy : wally
             });
@@ -304,7 +304,7 @@ function preloadDone() {
     // g_sprites.bullet = new Sprite(g_images.ship);
     // g_sprites.bullet.scale = 0.25;
     createBrick();
-    createWall();
+    createBoundary();
     createInitialPlayers(NUM_PLAYERS);
     //createBrick();
 

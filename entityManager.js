@@ -6,7 +6,7 @@ var entityManager = {
 _players   : [], 
 _bullets : [],
 _brick   : [],
-_wall : [],
+_boundary : [],
 
 // "PRIVATE" METHODS
 
@@ -28,26 +28,22 @@ _generateBrick : function(descr){
 },
 
 _generateBricks : function() {
-    var i,
-        NUM_BRICKS = 4;
-
-    for (i = 0; i < NUM_BRICKS; ++i) {
+   
         this.generateBrick();
-        this.cx += 30;
-    }
+        
 },
 
-generateWall : function(descr){
-    this._wall.push(new wall(descr));
+generateBoundary : function(descr){
+    this._boundary.push(new boundary(descr));
 },
 
-_generateWalls : function(descr){
-    this.generateWall();
+_generateBoundaries : function(descr){
+    this.generateBoundary();
 },
 
 
 deferredSetup : function () {
-    this._categories = [this._players, this._brick, this._wall];
+    this._categories = [this._brick, this._boundary, this._players];
 
 },
 
