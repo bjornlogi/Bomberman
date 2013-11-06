@@ -10,6 +10,7 @@ function handleKeydown(evt) {
 
 function handleKeyup(evt) {
     keys[evt.keyCode] = false;
+    //reset the position when the player halts
     if (keyCode('S') == evt.keyCode) entityManager._players[0].playerOrientation = 1;
     if (keyCode('W') == evt.keyCode) entityManager._players[0].playerOrientation = 10;
     if (keyCode('A') == evt.keyCode) entityManager._players[0].playerOrientation = 4;

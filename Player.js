@@ -30,22 +30,22 @@ Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.update = function (du) {
     this.switchStep -= du;
    	if (keys[this.KEY_UP]) {
-        this.cy -= 1.5;
+        this.cy -= this.velY*du;
         this.updateSteps("up");
         this.playerOrientation = this.orientation.up;
     }
     if (keys[this.KEY_DOWN]) {
-        this.cy += 1.5;
+        this.cy += this.velY*du;
         this.updateSteps("down");
         this.playerOrientation = this.orientation.down;
     }
     if (keys[this.KEY_LEFT]) {
-        this.cx -= 1.5;
+        this.cx -= velX*du;
         this.updateSteps("left");
         this.playerOrientation = this.orientation.currLeft;
     }
     if (keys[this.KEY_RIGHT]) {
-        this.cx += 1.5;
+        this.cx += velX*du;
         this.updateSteps("right");
         this.playerOrientation = this.orientation.currRight;
     }

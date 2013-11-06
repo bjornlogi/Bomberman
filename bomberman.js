@@ -52,6 +52,8 @@ function createInitialPlayers(NUM_PLAYERS) {
     entityManager._generatePlayer({
         cx : 80,
         cy : 45,
+        velX: 1,
+        velY: 1,
         rotation: 0,
         playerOrientation: 1,
         halfWidth: 10,
@@ -74,17 +76,27 @@ function createInitialPlayers(NUM_PLAYERS) {
 }
 
 function createBrick(){
-    var cols = 5;
-    var rows = 5;
-    var number = cols*rows;
-    for (var i = 0; i < number; i++){
-        entityManager._generateBrick({
-            cx:90+100*(i%cols),
-            cy:30+100*Math.floor(i/cols),
-            halfHeight:20,
-            halfWidth:20
-        });
-    }   
+    // var cols = 5;
+    // var rows = 6;
+    // var number = cols*rows;
+    // //create the bricks in the middle
+    // for (var i = 0; i < number; i++){
+    //     entityManager._generateBrick({
+    //         cx:90+100*(i%cols),
+    //         cy:30+100*Math.floor(i/cols),
+    //         halfHeight:20,
+    //         halfWidth:20
+    //     });
+    // }
+    // var topAndBottom=12;
+    // for(var i = 0; i < topAndBottom; i++){
+    //     entityManager._generateBrick({
+    //         cx:90+100*(i%cols),
+    //         cy:30+100*Math.floor(i/cols),
+    //         halfHeight:20,
+    //         halfWidth:20
+    //     });
+    // }   
 }
 // =============
 // GATHER INPUTS
