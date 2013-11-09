@@ -1,27 +1,21 @@
 
 
-function brick(descr) {
+function Brick(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
+    spatialManager.register(this);
 }
 
-// function brick(descr) {
+Brick.prototype = new Entity();
 
-//     // Common inherited setup logic from Entity
+Brick.prototype.halfWidth = 12;
+Brick.prototype.halfHeight = 12;
 
-//     this.cx = 15;
-//     this.cy = 15;
-
-// };
-
-brick.prototype.halfWidth = 15;
-brick.prototype.halfHeight = 15;
-
-brick.prototype.update = function (du) {
+Brick.prototype.update = function (du) {
 };
 
-brick.prototype.render = function (ctx) {
+Brick.prototype.render = function (ctx) {
 
     // (cx, cy) is the centre; must offset it for drawing
    
@@ -30,9 +24,3 @@ brick.prototype.render = function (ctx) {
     	 ctx.fillStyle = "white";
        
 };
-
-
-/*var gWall = new wall({
-  cx : 533,
-  cy : 533
-});*/

@@ -6,6 +6,8 @@ function Player(descr) {
      this.sprite = this.sprite || g_sprites.players;
 };	
 
+Player.prototype = new Entity(); 
+
 var g_cel = 0;
 Player.prototype.orientation = {
     down : 1,
@@ -28,27 +30,29 @@ Player.prototype.switchStepReset=250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 
 Player.prototype.update = function (du) {
+    spatialManager.unregister(this);
     this.switchStep -= du;
    	if (keys[this.KEY_UP]) {
         this.cy -= this.velY*du;
         this.updateSteps("up");
         this.playerOrientation = this.orientation.up;
     }
-    if (keys[this.KEY_DOWN]) {
+    else if (keys[this.KEY_DOWN]) {
         this.cy += this.velY*du;
         this.updateSteps("down");
         this.playerOrientation = this.orientation.down;
     }
-    if (keys[this.KEY_LEFT]) {
+    else if (keys[this.KEY_LEFT]) {
         this.cx -= this.velX*du;
         this.updateSteps("left");
         this.playerOrientation = this.orientation.currLeft;
     }
-    if (keys[this.KEY_RIGHT]) {
+    else if (keys[this.KEY_RIGHT]) {
         this.cx += this.velX*du;
         this.updateSteps("right");
         this.playerOrientation = this.orientation.currRight;
     }
+    spatialManager.register(this);
 };
 
 

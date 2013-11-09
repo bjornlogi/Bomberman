@@ -21,7 +21,6 @@ functions... shared data properties are potentially quite confusing.
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-
 function Entity() {
 
 /*
@@ -40,7 +39,7 @@ Entity.prototype.setup = function (descr) {
     }
     
     // Get my (unique) spatial ID
-    this._spatialID = spatialManager.getNewSpatialID();
+    this._ID = spatialManager.getNewID();
     
     // I am not dead yet!
     this._isDeadNow = false;
@@ -59,8 +58,8 @@ Entity.prototype.getRadius = function () {
     return 0;
 };
 
-Entity.prototype.getSpatialID = function () {
-    return this._spatialID;
+Entity.prototype.getID = function () {
+    return this._ID;
 };
 
 Entity.prototype.kill = function () {

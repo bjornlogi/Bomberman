@@ -1,27 +1,7 @@
 // =========
-// ASTEROIDS
+// BOMBERMAN
 // =========
 /*
-
-A sort-of-playable version of the classic arcade game.
-
-
-HOMEWORK INSTRUCTIONS:
-
-You have some "TODO"s to fill in again, particularly in:
-
-spatialManager.js
-
-But also, to a lesser extent, in:
-
-Rock.js
-Bullet.js
-Ship.js
-
-
-...Basically, you need to implement the core of the spatialManager,
-and modify the Rock/Bullet/Ship so that the register (and unregister)
-with it correctly, so that they can participate in collisions.
 
 */
 
@@ -76,14 +56,14 @@ function createInitialPlayers(NUM_PLAYERS) {
 }
 
 
-var nextX = 75;
-var nextY = 75;
+var nextX = 105;
+var nextY = 105;
 function createBrick()
 {
-    for(var i = 0; i < 8; i++)
+    for(var i = 0; i < 5; i++)
     {
-        nextX = 75;
-        for (var j = 0; j < 8; j++) 
+        nextX = 105;
+        for (var j = 0; j < 5; j++) 
         {
         entityManager._generateBrick({
             cx : nextX,
@@ -91,36 +71,36 @@ function createBrick()
     
         });
        
-        nextX += 60;
+        nextX += 90;
 
     }
-    nextY += 60;
+    nextY += 90;
     }
 }
 
-var wallx = 15;
-var wally = 15;
+var wallx = 20;
+var wally = 20;
 function createBoundary()
 {
     for(var i = 0; i < 4; ++i)
     {
-        for(var j = 0; j < 18; ++j)
+        for(var j = 0; j < 12; ++j)
         {
             entityManager.generateBoundary({
                 cx : wallx,
                 cy : wally
             });
                 if(i === 0){
-                wallx += 30;
+                wallx += 40;
             }
                 if(i === 1){
-                    wally += 30;
+                    wally += 40;
                 }
                 if(i===2){
-                    wallx -=30;
+                    wallx -=40;
                 }
                 if(i===3){
-                    wally -= 30;
+                    wally -= 40;
                 }
 
         }
@@ -268,8 +248,8 @@ var g_sprites = [];
 var test = true;
 function preloadDone() {
 
-    var celWidth  = 663/20;
-    var celHeight =  200/4;
+    var celWidth  = 497/20;
+    var celHeight =  152/4;
     var numCols = 20;
     var numRows = test? 1:4;
     var numCels = test? 20:80;
@@ -278,11 +258,11 @@ function preloadDone() {
 
     for (var row = 0; row < numRows; ++row) {
         for (var col = 0; col < numCols; ++col) {
-            if (col>8) celWidth += 1;
+            if (col>8) celWidth += 0.7;
             sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
                                 celWidth, celHeight) 
             g_sprites.push(sprite);
-            if (col>8) celWidth -= 1;
+            if (col>8) celWidth -= 0.7;
         }
     }
 
@@ -296,13 +276,6 @@ function preloadDone() {
     // }
     //console.log(g_sprites);
     g_sprites.splice(numCels);
-
-    //g_sprites.players  = new Sprite(g_sheets.players);
-    // g_sprites.ship2 = new Sprite(g_images.ship2);
-    // g_sprites.rock  = new Sprite(g_images.rock);
-
-    // g_sprites.bullet = new Sprite(g_images.ship);
-    // g_sprites.bullet.scale = 0.25;
     createBrick();
     createBoundary();
     createInitialPlayers(NUM_PLAYERS);

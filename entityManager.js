@@ -5,8 +5,8 @@ var entityManager = {
 
 _players   : [], 
 _bullets : [],
-_brick   : [],
-_boundary : [],
+_Brick   : [],
+_Boundary : [],
 
 // "PRIVATE" METHODS
 
@@ -24,7 +24,7 @@ _generatePlayer : function(descr) {
 },
 
 _generateBrick : function(descr){
-    this._brick.push(new brick(descr));
+    this._Brick.push(new Brick(descr));
 },
 
 _generateBricks : function() {
@@ -34,7 +34,7 @@ _generateBricks : function() {
 },
 
 generateBoundary : function(descr){
-    this._boundary.push(new boundary(descr));
+    this._Boundary.push(new Boundary(descr));
 },
 
 _generateBoundaries : function(descr){
@@ -43,7 +43,7 @@ _generateBoundaries : function(descr){
 
 
 deferredSetup : function () {
-    this._categories = [this._brick, this._boundary, this._players];
+    this._categories = [this._Brick, this._Boundary, this._players];
 
 },
 
@@ -69,7 +69,6 @@ update: function(du) {
 },
 
 render: function(ctx) {
-
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
