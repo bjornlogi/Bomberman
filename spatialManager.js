@@ -60,9 +60,29 @@ findEntityInRange: function(posX, posY, width, height) {
         var e = this._entities[ID];
         var distanceBetween = util.distSq(posX, posY, 
             e.posX, e.posY, g_canvas.width, g_canvas.height);
-        
-        // if (Math.sqrt(distanceBetween) < radius + e.radius)
-        //     return e;
+        e.color = "blue";
+        if (posX < 300-width/2){
+            if (posY < 300 - height/2){
+                if (e.posX < 300 && e.posY < 300){
+                    e.color = "red";
+                }
+            }else{
+                if (e.posX < 300 && e.posY > 300){
+                    e.color = "red";
+                }
+            }
+        }else{
+            if (posY < 300 - height/2){
+                if (e.posX > 300 && e.posY < 300){
+                    e.color = "red";
+                }
+            }else{
+                if (e.posX > 300 && e.posY > 300){
+                    e.color = "red";
+                }
+            }
+        }
+
     }
     return null;
 

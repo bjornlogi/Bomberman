@@ -32,8 +32,8 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
     entityManager._generatePlayer({
         cx : 80,
         cy : 45,
-        velX: 1,
-        velY: 1,
+        velX: 1.33,
+        velY: 1.33,
         rotation: 0,
         playerOrientation: 1,
         width: width,
@@ -60,10 +60,10 @@ var nextX;
 var nextY = 100;
 function createBrick()
 {
-    for(var i = 0; i < 5; i++)
+    for(var i = 0; i < 6; i++)
     {
         nextX = 100;
-        for (var j = 0; j < 5; j++) 
+        for (var j = 0; j < 6; j++) 
         {
         entityManager._generateBrick({
             cx : nextX,
@@ -84,7 +84,7 @@ function createBoundary()
 {
     for(var i = 0; i < 4; ++i)
     {
-        for(var j = 0; j < 12; ++j)
+        for(var j = 0; j < 14; ++j)
         {
             entityManager.generateBoundary({
                 cx : wallx,
