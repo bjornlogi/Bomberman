@@ -56,13 +56,13 @@ function createInitialPlayers(NUM_PLAYERS) {
 }
 
 
-var nextX = 105;
-var nextY = 105;
+var nextX;
+var nextY = 100;
 function createBrick()
 {
     for(var i = 0; i < 5; i++)
     {
-        nextX = 105;
+        nextX = 100;
         for (var j = 0; j < 5; j++) 
         {
         entityManager._generateBrick({
@@ -71,10 +71,10 @@ function createBrick()
     
         });
        
-        nextX += 90;
+        nextX += 80;
 
     }
-    nextY += 90;
+    nextY += 80;
     }
 }
 

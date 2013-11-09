@@ -9,8 +9,8 @@ function Brick(descr) {
 
 Brick.prototype = new Entity();
 
-Brick.prototype.halfWidth = 12;
-Brick.prototype.halfHeight = 12;
+Brick.prototype.halfWidth = 20;
+Brick.prototype.halfHeight = 20;
 
 Brick.prototype.update = function (du) {
 };
