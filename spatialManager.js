@@ -40,7 +40,7 @@ register: function(entity) {
     var ID = entity.getID();
     entity["posX"] = pos.posX;
     entity["posY"] = pos.posY;
-    entity["radius"]= entity.getRadius();
+    //entity["radius"]= entity.getRadius();
 
     this._entities.splice(ID, 0, entity);
 },
@@ -54,26 +54,29 @@ unregister: function(entity) {
 
 },
 
-findEntityInRange: function(posX, posY, radius) {
+findEntityInRange: function(posX, posY, width, height) {
 
     for (var ID in this._entities){
         var e = this._entities[ID];
-        var distanceBetween = util.wrappedDistSq(posX, posY, 
+        var distanceBetween = util.distSq(posX, posY, 
             e.posX, e.posY, g_canvas.width, g_canvas.height);
-        if (Math.sqrt(distanceBetween) < radius + e.radius)
-            return e;
+        
+        // if (Math.sqrt(distanceBetween) < radius + e.radius)
+        //     return e;
     }
     return null;
 
 },
 
 render: function(ctx) {
+
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
     
     for (var ID in this._entities) {
+        //console.log()
         var e = this._entities[ID];
-        util.strokeCircle(ctx, e.posX, e.posY, e.radius);
+        //util.strokeCircle(ctx, e.posX/2, e.posY*2, e.height/2);
     }
     ctx.strokeStyle = oldStyle;
 }

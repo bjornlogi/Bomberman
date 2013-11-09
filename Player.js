@@ -48,6 +48,7 @@ Player.prototype.maybeDropBomb = function () {
 
 Player.prototype.update = function (du) {
     spatialManager.unregister(this);
+    var hitEntity = this.findHitEntity();
     this.switchStep -= du;
    	if (keys[this.KEY_UP]) {
         this.cy -= this.velY*du;

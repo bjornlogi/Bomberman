@@ -54,8 +54,12 @@ Entity.prototype.getPos = function () {
     return {posX : this.cx, posY : this.cy};
 };
 
-Entity.prototype.getRadius = function () {
-    return 0;
+Entity.prototype.getHalfWidth = function () {
+    return this.width;
+};
+
+Entity.prototype.getHalfHeight = function () {
+    return this.height;
 };
 
 Entity.prototype.getID = function () {
@@ -69,7 +73,7 @@ Entity.prototype.kill = function () {
 Entity.prototype.findHitEntity = function () {
     var pos = this.getPos();
     return spatialManager.findEntityInRange(
-        pos.posX, pos.posY, this.getRadius()
+        pos.posX, pos.posY, this.getHalfWidth(), this.getHalfHeight()
     );
 };
 

@@ -27,7 +27,7 @@ var P1_DOWN = 'S'.charCodeAt(0);
 var P1_LEFT = 'A'.charCodeAt(0);
 var P1_RIGHT = 'D'.charCodeAt(0);
 
-function createInitialPlayers(NUM_PLAYERS) {
+function createInitialPlayers(NUM_PLAYERS, width, height) {
 
     entityManager._generatePlayer({
         cx : 80,
@@ -36,8 +36,8 @@ function createInitialPlayers(NUM_PLAYERS) {
         velY: 1,
         rotation: 0,
         playerOrientation: 1,
-        halfWidth: 10,
-        halfHeight: 10,
+        width: width,
+        height: height,
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
@@ -174,7 +174,7 @@ function processDiagnostics() {
 
     // if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
-    // if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+    if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
     // if (eatKey(KEY_HALT)) entityManager.haltShips();
 
@@ -221,7 +221,7 @@ function renderSimulation(ctx) {
 
     entityManager.render(ctx);
 
-    //if (g_renderSpatialDebug) spatialManager.render(ctx);
+    if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
 
 
@@ -278,7 +278,7 @@ function preloadDone() {
     g_sprites.splice(numCels);
     createBrick();
     createBoundary();
-    createInitialPlayers(NUM_PLAYERS);
+    createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
     //createBrick();
 
     main.init();
