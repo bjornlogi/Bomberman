@@ -52,7 +52,7 @@ _generateBoundaries : function(descr){
 
 
 deferredSetup : function () {
-    this._categories = [this._Brick, this._Boundary, this._players, this._Bombs];
+    this._categories = [this._Brick, this._Boundary, this._Bombs, this._players];
 
 },
 
