@@ -34,7 +34,7 @@ function Bomb(descr) {
 
 //}
 
-//Bomb.prototype = new Entity();
+Bomb.prototype = new Entity();
 
 // HACKED-IN AUDIO (no preloading)
 //Bomb.prototype.fireSound = new Audio(
@@ -53,13 +53,15 @@ Bomb.prototype.cy = 200;
 Bomb.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
 Bomb.prototype.update = function (du) {
-/*
+
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
   spatialManager.unregister(this);
     if(this._isDeadNow)
         {
             return entityManager.KILL_ME_NOW;
+            PLayer.isBomb = false;
         }
+
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
 
@@ -76,7 +78,7 @@ Bomb.prototype.update = function (du) {
     //
     // Handle collisions
     //
-    var hitEntity = this.findHitEntity();
+ /*   var hitEntity = this.findHitEntity();
     if (hitEntity) {
         var canTakeHit = hitEntity.takeBulletHit;
         if (canTakeHit) canTakeHit.call(hitEntity); 

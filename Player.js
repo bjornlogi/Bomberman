@@ -37,11 +37,9 @@ var isBomb = false;
 Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && isBomb === false) {
        
-        isBomb = true;
         entityManager.dropBomb(
            this.cx, this.cy);
-           
-        
+                isBomb = true;                 
    }
 };
 

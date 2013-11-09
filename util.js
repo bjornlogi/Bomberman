@@ -21,15 +21,15 @@ var util = {
 //     return value;
 // },
 
-// wrapRange: function(value, lowBound, highBound) {
-//     while (value < lowBound) {
-// 	value += (highBound - lowBound);
-//     }
-//     while (value > highBound) {
-// 	value -= (highBound - lowBound);
-//     }
-//     return value;
-// },
+ wrapRange: function(value, lowBound, highBound) {
+     while (value < lowBound) {
+ 	value += (highBound - lowBound);
+     }
+     while (value > highBound) {
+ 	value -= (highBound - lowBound);
+     }
+     return value;
+ },
 
 // isBetween: function(value, lowBound, highBound) {
 //     if (value < lowBound) { return false; }

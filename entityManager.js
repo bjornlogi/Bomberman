@@ -19,6 +19,8 @@ _Boundary : [],
 //     }
 // },
 
+KILL_ME_NOW : -1,
+
 _generatePlayer : function(descr) {
     this._players.push(new Player(descr));
 },
@@ -71,9 +73,17 @@ update: function(du) {
 
         while (i < aCategory.length) {
             var status = aCategory[i++].update(du);
-        }
-    }
 
+            if (status === this.KILL_ME_NOW) {
+                // remove the dead guy, and shuffle the others down to
+                // prevent a confusing gap from appearing in the array
+                aCategory.splice(i,1);
+        }
+        else {
+                ++i;
+            }
+    }
+}
 
 },
 
