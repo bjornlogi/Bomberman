@@ -53,9 +53,9 @@ Bomb.prototype.cy = 200;
 Bomb.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
 Bomb.prototype.update = function (du) {
-
+/*
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
-  /*  spatialManager.unregister(this);
+  spatialManager.unregister(this);
     if(this._isDeadNow)
         {
             return entityManager.KILL_ME_NOW;
@@ -86,7 +86,7 @@ Bomb.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- (Re-)Register
     spatialManager.register(this);
 */
-};
+}; 
 /*
 Bomb.prototype.getRadius = function () {
     return 4;

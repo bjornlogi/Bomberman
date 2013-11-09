@@ -32,12 +32,12 @@ Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 
 Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
-
+var isBomb = false;
 //maybeFireBullet
 Player.prototype.maybeDropBomb = function () {
-    if (keys[this.KEY_FIRE]) {
+    if (keys[this.KEY_FIRE] && isBomb === false) {
        
-
+        isBomb = true;
         entityManager.dropBomb(
            this.cx, this.cy);
            
