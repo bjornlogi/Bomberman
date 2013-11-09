@@ -29,6 +29,23 @@ Player.prototype.render = function (ctx) {
 Player.prototype.switchStepReset=250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 
+
+Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
+
+
+//maybeFireBullet
+Player.prototype.maybeDropBomb = function () {
+    if (keys[this.KEY_FIRE]) {
+       
+
+        entityManager.dropBomb(
+           this.cx, this.cy);
+           
+        
+   }
+};
+
+
 Player.prototype.update = function (du) {
     spatialManager.unregister(this);
     this.switchStep -= du;
@@ -53,6 +70,9 @@ Player.prototype.update = function (du) {
         this.playerOrientation = this.orientation.currRight;
     }
     spatialManager.register(this);
+
+    //Droppa sprengju
+    this.maybeDropBomb();
 };
 
 

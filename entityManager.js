@@ -4,7 +4,7 @@
 var entityManager = {
 
 _players   : [], 
-_bullets : [],
+_Bombs : [],
 _Brick   : [],
 _Boundary : [],
 
@@ -33,6 +33,15 @@ _generateBricks : function() {
         
 },
 
+//fireBullet
+dropBomb: function(cx, cy) {
+    this._Bombs.push(new Bomb({
+        cx   : cx,
+        cy   : cy,
+        
+    }));
+},
+
 generateBoundary : function(descr){
     this._Boundary.push(new Boundary(descr));
 },
@@ -43,7 +52,7 @@ _generateBoundaries : function(descr){
 
 
 deferredSetup : function () {
-    this._categories = [this._Brick, this._Boundary, this._players];
+    this._categories = [this._Brick, this._Boundary, this._players, this._Bombs];
 
 },
 
