@@ -68,9 +68,6 @@ Bomb.prototype.update = function (du) {
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
-    this.rotation += 1 * du;
-    this.rotation = util.wrapRange(this.rotation,
-                                   0, consts.FULL_CIRCLE);
 
     this.wrapPosition();
     
@@ -84,10 +81,10 @@ Bomb.prototype.update = function (du) {
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;
     }
-    
+ */   
     // TODO: YOUR STUFF HERE! --- (Re-)Register
     spatialManager.register(this);
-*/
+
 }; 
 /*
 Bomb.prototype.getRadius = function () {
@@ -109,17 +106,14 @@ Bomb.prototype.render = function (ctx) {
     if (this.lifeSpan < fadeThresh) {
         ctx.globalAlpha = this.lifeSpan / fadeThresh;
     }
-    ctx.fillStyle="Red";
-    ctx.strokeStyle="black";
-    ctx.fillRect(
-        this.cx, this.cy, 30,30
-    );
-    ctx.strokeRect(
-        this.cx, this.cy,30,30
-        )
-           ctx.lineWidth = 2;
-    ctx.fill();
-    ctx.stroke();
+
+        ctx.fillStyle="Red";
+        ctx.strokeStyle="black";
+    ctx.fillRect(this.cx, this.cy, 30,30);
+    ctx.strokeRect(this.cx, this.cy,30,30)
+        ctx.lineWidth = 2;
+        ctx.fill();
+        ctx.stroke();
 
 
     ctx.globalAlpha = 1;

@@ -39,7 +39,7 @@ _generateBricks : function() {
 dropBomb: function(cx, cy) {
     this._Bombs.push(new Bomb({
         cx   : cx,
-        cy   : cy,
+        cy   : cy
         
     }));
 },
