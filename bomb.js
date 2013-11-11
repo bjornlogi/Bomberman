@@ -12,16 +12,12 @@
 */
 
 
-function Bomb(descr) {
-    for (var property in descr) {
-        this[property] = descr[property];
-    }
-}
+
 // A generic contructor which accepts an arbitrary descriptor object
-//function Bomb(descr) {
+function Bomb(descr) {
 
     // Common inherited setup logic from Entity
-//    this.setup(descr);
+    this.setup(descr);
 
     // Make a noise when I am created (i.e. fired)
     //this.fireSound.play();
@@ -32,7 +28,7 @@ function Bomb(descr) {
     console.dir(this);
 */
 
-//}
+}
 
 Bomb.prototype = new Entity();
 
@@ -50,7 +46,7 @@ Bomb.prototype.cy = 200;
 //Bomb.prototype.velY = 1;
 
 // Convert times from milliseconds to "nominal" time units.
-Bomb.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Bomb.prototype.lifeSpan = 5000 / NOMINAL_UPDATE_INTERVAL;
 
 Bomb.prototype.update = function (du) {
 

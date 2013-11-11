@@ -39,7 +39,7 @@ Player.prototype.maybeDropBomb = function () {
        
         entityManager.dropBomb(
            this.cx, this.cy);
-                isBomb = true;                 
+              // isBomb = true;                 
    }
 };
 
@@ -68,10 +68,11 @@ Player.prototype.update = function (du) {
         this.updateSteps("right");
         this.playerOrientation = this.orientation.currRight;
     }
-    spatialManager.register(this);
 
     //Droppa sprengju
     this.maybeDropBomb();
+
+    spatialManager.register(this);
 };
 
 
