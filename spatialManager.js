@@ -38,9 +38,6 @@ getNewID : function() {
 register: function(entity) {
     var pos = entity.getPos();
     var ID = entity.getID();
-    entity["posX"] = pos.posX;
-    entity["posY"] = pos.posY;
-    //entity["radius"]= entity.getRadius();
 
     this._entities.splice(ID, 0, entity);
 },
@@ -54,49 +51,82 @@ unregister: function(entity) {
 
 },
 
-findEntityInRange: function(posX, posY, width, height) {
+findEntityInRange: function(cx, cy, width, height) {
 
     for (var ID in this._entities){
         var e = this._entities[ID];
-        var distanceBetween = util.distSq(posX, posY, 
-            e.posX, e.posY, g_canvas.width, g_canvas.height);
-        e.color = "blue";
-        if (posX < 300-width/2){
-            if (posY < 300 - height/2){
-                if (e.posX < 300 && e.posY < 300){
-                    e.color = "red";
-                }
-            }else{
-                if (e.posX < 300 && e.posY > 300){
-                    e.color = "red";
-                }
-            }
-        }else{
-            if (posY < 300 - height/2){
-                if (e.posX > 300 && e.posY < 300){
-                    e.color = "red";
-                }
-            }else{
-                if (e.posX > 300 && e.posY > 300){
-                    e.color = "red";
-                }
-            }
-        }
-
+        if (e instanceof Boundary)
+            e.color="gray";
+        else
+            e.color = "blue";
+        var distanceBetween = util.distSq(cx, cy, 
+            e.cx, e.cy, g_canvas.width, g_canvas.height);
+        var inRange = this.isInRange(e,cx,cy, width,height);
+        if (inRange)
+            e.color = "red";
+            
     }
     return null;
 
 },
 
+isInRange : function(e, cx, cy, width, height){
+    if (e instanceof Boundary){
+        if(e.cx == 300){
+            if (e.cy == 20 && cy < 50)
+                return true;
+            else if (e.cy == 580 && cy > 510)
+                return true;
+        }
+        else if (e.cy == 300){
+            if (e.cx == 20 && cx < 50)
+                return true;
+            else if (e.cx == 580 && cx > 510){
+                return true;
+            }
+        }
+    }
+
+    if (cx < 300-width/2){
+            if (cy < 300 - height/2){
+                if (e.cx < 300 && e.cy < 300){
+                    return true;
+                }
+            }else{
+                if (e.cx < 300 && e.cy > 300){
+                    return true;
+                }
+            }
+        }else{
+            if (cy < 300 - height/2){
+                if (e.cx > 300 && e.cy < 300){
+                    return true;
+                }
+            }else{
+                if (e.cx > 300 && e.cy > 300){
+                    return true;
+                }
+            }
+        }
+
+    return false;
+},
+
+// collisionDetection: function(){
+
+// }
+
 render: function(ctx) {
 
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
-    
+
     for (var ID in this._entities) {
         //console.log()
         var e = this._entities[ID];
-        //util.strokeCircle(ctx, e.posX/2, e.posY*2, e.height/2);
+        if (e instanceof Boundary)
+            console.log(e);
+        //util.strokeCircle(ctx, e.cx/2, e.cy*2, e.height/2);
     }
     ctx.strokeStyle = oldStyle;
 }

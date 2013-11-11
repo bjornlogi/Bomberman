@@ -16,7 +16,8 @@ Boundary.prototype.update = function (du) {
 Boundary.prototype.render = function (ctx) {
 
     // (cx, cy) is the centre; must offset it for drawing
-    ctx.fillStyle = "grey";
+    //ctx.fillStyle = "grey";
+    ctx.fillStyle = this.color;
     ctx.strokeStyle="black";
     ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
     ctx.strokeRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
