@@ -114,10 +114,13 @@ Bomb.prototype.render = function (ctx) {
     if (this.lifeSpan < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="red";
-        line = 2;
-        size = 120;
-        newY -= 40;
-        newX -= 40;
+        line = 0.1;
+        size = 30;
+        ctx.fillStyle=col;
+        
+        ctx.fillRect(this.cx-45, this.cy-5, 120,40);
+        ctx.fillRect(this.cx-5, this.cy-45, 40,120);
+        ctx.fill();
     }
 
     else if(this.lifeSpan/2 < fadeThresh) {
@@ -144,8 +147,8 @@ Bomb.prototype.render = function (ctx) {
         ctx.fillStyle=col;
         ctx.strokeStyle="black";
         ctx.lineWidth = line;
-    ctx.fillRect(newX, newY, size,size);
-    ctx.strokeRect(newX, newY,size,size);
+    ctx.fillRect(this.cx, this.cy, size,size);
+    ctx.strokeRect(this.cx, this.cy,size,size);
         ctx.fill();
         ctx.stroke();
 
