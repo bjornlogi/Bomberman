@@ -118,9 +118,9 @@ Player.prototype.isColliding = function(rangeEntities, nextX, nextY){
 var isBomb = false;
 Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && isBomb === false) {
-       
+       var nearest = this.findNearest();
         entityManager.dropBomb(
-           this.cx, this.cy);
+           72+40*nearest.t, 75+40*nearest.s);
         isBomb = true;
 
         setTimeout(function(){
@@ -128,6 +128,14 @@ Player.prototype.maybeDropBomb = function () {
         }, 5000)
    }
 };
+
+Player.prototype.findNearest = function(){
+    var x = ((this.cx - 72) / 40).toFixed(0);
+    if (x < 0) x = 0;
+    var y = ((this.cy - 75) / 40).toFixed(0);
+    if (y < 0) y = 0;
+    return {t:x, s:y};
+}
 
 Player.prototype.updateSteps = function(keyPressed){
     
