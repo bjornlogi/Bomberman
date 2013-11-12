@@ -19,9 +19,9 @@ Boundary.prototype.render = function (ctx) {
     //ctx.fillStyle = "grey";
     ctx.fillStyle = this.color;
     ctx.strokeStyle="black";
+    ctx.lineWidth = 2;
     ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
     ctx.strokeRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
-    ctx.lineWidth = 0;
     ctx.fill();
     ctx.stroke();
     ctx.fillStyle = "white";    

@@ -106,32 +106,46 @@ Bomb.prototype.render = function (ctx) {
     var fadeThresh = Bomb.prototype.lifeSpan / 5;
 
     var col = "#FFEE00";
+    var line = 2;
+    var size = 30;
+    var newX = this.cx;
+    var newY = this.cy;
 
     if (this.lifeSpan < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="red";
+        line = 2;
+        size = 120;
+        newY -= 40;
+        newX -= 40;
     }
 
     else if(this.lifeSpan/2 < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="#FF2F00";
+        line = 7;
+        size = 26.5;
     }
 
     else if(this.lifeSpan/3 < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="#FF6A00";
+        line = 5;
+        size = 27.5;
     }
 
     else if(this.lifeSpan/4 < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="#FFAE00";
+        line = 3;
+        size = 28.5;
     }
 
         ctx.fillStyle=col;
         ctx.strokeStyle="black";
-    ctx.fillRect(this.cx, this.cy, 30,30);
-    ctx.strokeRect(this.cx, this.cy,30,30);
-        ctx.lineWidth = 2;
+        ctx.lineWidth = line;
+    ctx.fillRect(newX, newY, size,size);
+    ctx.strokeRect(newX, newY,size,size);
         ctx.fill();
         ctx.stroke();
 
