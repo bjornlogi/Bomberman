@@ -8,6 +8,7 @@ _Bombs : [],
 _Brick   : [],
 _Boundary : [],
 _explosions : [],
+_Barrels : [],
 
 // "PRIVATE" METHODS
 
@@ -34,6 +35,10 @@ _generateBricks : function() {
    
         this.generateBrick();
         
+},
+
+_generateBarrels : function(descr){
+    this._Barrels.push(new Barrel(descr));
 },
 
 //fireBullet
@@ -116,7 +121,7 @@ _generateBoundaries : function(descr){
 
 
 deferredSetup : function () {
-    this._categories = [this._Bombs, this._Brick, this._Boundary, this._players, this._explosions];
+    this._categories = [this._Barrels, this._Bombs, this._Brick, this._Boundary, this._players, this._explosions];
 
 },
 

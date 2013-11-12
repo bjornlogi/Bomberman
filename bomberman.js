@@ -104,10 +104,20 @@ function createBoundary()
                 if(i===3){
                     wally -= 40;
                 }
-
         }
 
+    }
+}
 
+function createBarrels()
+{
+    for(var i = 0; i < 50; i++){
+        var locationX = (Math.random()*350) + 100;
+        var locationY = (Math.random()*350) + 100;
+        entityManager._generateBarrels({
+            cx : locationX,
+            cy : locationY
+        });
     }
 }
 // =============
@@ -280,6 +290,7 @@ function preloadDone() {
     g_sprites.splice(numCels);
     createBrick();
     createBoundary();
+    createBarrels();
     createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
 
     main.init();

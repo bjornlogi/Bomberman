@@ -1,5 +1,5 @@
 // ======
-// BULLET
+// Bomb
 // ======
 
 "use strict";
