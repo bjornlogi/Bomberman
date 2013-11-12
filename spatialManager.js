@@ -52,7 +52,7 @@ unregister: function(entity) {
 },
 
 findEntityInRange: function(cx, cy, width, height) {
-
+    var entities = [];
     for (var ID in this._entities){
         var e = this._entities[ID];
         if (e instanceof Boundary)
@@ -61,25 +61,31 @@ findEntityInRange: function(cx, cy, width, height) {
             e.color = "blue";
         var distanceBetween = util.distSq(cx, cy, 
             e.cx, e.cy, g_canvas.width, g_canvas.height);
-        var inRange = this.isInRange(e,cx,cy, width,height);
-        if (inRange)
+        var inRange = this.isInRange(e,cx,cy, width,height); 
+        if (inRange){
             e.color = "red";
+            entities.push(e);
+        }
             
     }
-    return null;
+    return entities;
+
+},
+
+isColliding : function (e,cx,cy,width,height){
 
 },
 
 isInRange : function(e, cx, cy, width, height){
     if (e instanceof Boundary){
         if(e.cx == 300){
-            if (e.cy == 20 && cy < 50)
+            if (e.cy == 20 && cy < 80)
                 return true;
-            else if (e.cy == 580 && cy > 510)
+            else if (e.cy == 580 && cy > 540)
                 return true;
         }
         else if (e.cy == 300){
-            if (e.cx == 20 && cx < 50)
+            if (e.cx == 20 && cx < 70)
                 return true;
             else if (e.cx == 580 && cx > 510){
                 return true;
@@ -87,8 +93,8 @@ isInRange : function(e, cx, cy, width, height){
         }
     }
 
-    if (cx < 300-width/2){
-            if (cy < 300 - height/2){
+    if (cx < 300-width){
+            if (cy < 300 + height/2){
                 if (e.cx < 300 && e.cy < 300){
                     return true;
                 }
@@ -111,10 +117,6 @@ isInRange : function(e, cx, cy, width, height){
 
     return false;
 },
-
-// collisionDetection: function(){
-
-// }
 
 render: function(ctx) {
 

@@ -22,8 +22,14 @@ Player.prototype.orientation = {
 
 Player.prototype.render = function (ctx) {
     var cel = g_sprites[this.playerOrientation];
-    cel.drawAt(this.cx,this.cy);
-
+    cel.drawAt(this.cx-this.width,this.cy-this.height);
+    ctx.fillStyle = "white";
+    var pbr = {x: this.cx, y: this.cy-3};
+    var ptl = {x: this.cx - this.width, y: this.cy - this.height};
+    //ctx.fillRect(this.cx - this.width, this.cy - this.height,this.width,this.height);
+    //uncomment this to draw top left and bottom right corner of the player for debugging
+    //ctx.fillRect(pbr.x, pbr.y,this.width/8,this.height/8);
+    //ctx.fillRect(ptl.x, ptl.y,this.width/8,this.height/8);
 };
 
 Player.prototype.switchStepReset=250 / NOMINAL_UPDATE_INTERVAL;
@@ -34,28 +40,70 @@ Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
 
 Player.prototype.update = function (du) {
-    spatialManager.unregister(this);
-    var hitEntity = this.findHitEntity();
     this.switchStep -= du;
+    spatialManager.unregister(this);
+    var dir = "down";
+    var nextX = this.cx;
+    var nextY = this.cy;
    	if (keys[this.KEY_UP]) {
-        this.cy -= this.velY*du;
-        this.updateSteps("up");
+        nextY = this.cy - this.velY*du;
+        dir = "up";
         this.playerOrientation = this.orientation.up;
     }
     else if (keys[this.KEY_DOWN]) {
-        this.cy += this.velY*du;
-        this.updateSteps("down");
+        nextY = this.cy + this.velY*du;
+        dir = "down";
         this.playerOrientation = this.orientation.down;
     }
     else if (keys[this.KEY_LEFT]) {
-        this.cx -= this.velX*du;
-        this.updateSteps("left");
+        nextX = this.cx - this.velX*du;
+        dir = "left";
         this.playerOrientation = this.orientation.currLeft;
     }
     else if (keys[this.KEY_RIGHT]) {
-        this.cx += this.velX*du;
-        this.updateSteps("right");
+        nextX = this.cx + this.velX*du;
+        dir = "right";
         this.playerOrientation = this.orientation.currRight;
+    }
+
+    this.updateSteps(dir);
+    var collision = false;
+
+    //some calibration due to the sprite being a bit off
+    var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
+    var pbr = {x: this.cx, y: this.cy - 3};
+
+    var ptlNext = {x: nextX - this.width, y: nextY - this.height}; //top right corner
+    var ptl = {x: this.cx - this.width, y: this.cy - this.height};
+    
+    var rangeEntities = this.findHitEntity();
+    for (e in rangeEntities){
+        var h = rangeEntities[e];
+        //bottom right and top left corner of hit entity
+        var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
+        var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
+        //check right side of box 
+        if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
+             if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
+                collision = true;
+                break;
+             }
+         }
+         //check left side of box
+         else if (pbrNext.x > htl.x && pbr.x < htl.x){
+            if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
+                collision = true;
+         }
+         else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
+            if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
+                collision = true;
+
+         }
+    }
+
+    if (!collision){
+        this.cx = nextX;
+        this.cy = nextY;
     }
 
     //Droppa sprengju

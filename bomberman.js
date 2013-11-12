@@ -30,14 +30,14 @@ var P1_RIGHT = 'D'.charCodeAt(0);
 function createInitialPlayers(NUM_PLAYERS, width, height) {
 
     entityManager._generatePlayer({
-        cx : 80,
-        cy : 45,
+        width: width,
+        height: height,
+        cx : 70,
+        cy : 80,
         velX: 1.33,
         velY: 1.33,
         rotation: 0,
         playerOrientation: 1,
-        width: width,
-        height: height,
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
@@ -88,7 +88,8 @@ function createBoundary()
         {
             entityManager.generateBoundary({
                 cx : wallx,
-                cy : wally
+                cy : wally,
+                color : "gray"
             });
                 if(i === 0){
                 wallx += 40;
