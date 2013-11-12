@@ -118,7 +118,7 @@ Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && isBomb === false) {
        
         entityManager.dropBomb(
-           this.cx-this.width, this.cy-this.height);
+           this.cx, this.cy);
         isBomb = true;
 
         setTimeout(function(){
