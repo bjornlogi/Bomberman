@@ -72,6 +72,10 @@ Player.prototype.maybeDropBomb = function () {
         entityManager.dropBomb(
            this.cx, this.cy);
         isBomb = true;
+
+        setTimeout(function(){
+        isBomb = false;
+        }, 5000)
    }
 };
 
