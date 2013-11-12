@@ -41,7 +41,8 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
-        KEY_RIGHT: P1_RIGHT
+        KEY_RIGHT: P1_RIGHT,
+        bombReach : 1
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({

@@ -4,6 +4,7 @@ function Brick(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
+    this.setup(descr);
     spatialManager.register(this);
 }
 

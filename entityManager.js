@@ -7,6 +7,7 @@ _players   : [],
 _Bombs : [],
 _Brick   : [],
 _Boundary : [],
+_explosions : [],
 
 // "PRIVATE" METHODS
 
@@ -36,12 +37,73 @@ _generateBricks : function() {
 },
 
 //fireBullet
-dropBomb: function(cx, cy) {
+dropBomb: function(cx, cy, bombReach, rangeEntites) {
     this._Bombs.push(new Bomb({
         cx   : cx,
-        cy   : cy
-        
+        cy   : cy,
+        bombReach : bombReach,
+        rangeEntites : rangeEntites
     }));
+    console.log(this._Bombs);
+},
+
+explode: function (cx, cy, bombReach, rangeEntites){
+
+    this.explodeDirection(cx,cy,rangeEntites);
+
+    this._explosions.push(new Explosion({
+        cx : cx,
+        cy : cy
+    }));
+    console.log(this._explosions);
+
+},
+
+explodeDirection : function (cx,cy,rangeEntites){
+    var explode = {up:true, down: true, left: true, right:true};
+    for (var rangeE in rangeEntites){
+        var r = rangeEntites[rangeE];
+        if (cx-52 == r.cx && cy-15== r.cy){
+            explode.left = false;     
+        }
+        else if (cx + 28 == r.cx && cy-15 == r.cy){
+            explode.right = false;
+        }
+        else if ((cx - 12 == r.cx && cy-55 == r.cy)){
+            explode.up = false;
+        }
+        else if ((cx-12 == r.cx && cy+25 == r.cy)){
+            explode.down = false;
+        }
+    }
+    var x, y;
+    for (var dir in explode){
+        if(explode[dir]){
+            switch (dir){
+                case "up":
+                    x=cx;
+                    y=cy-20;
+                    break;
+                case "down":
+                    x=cx;
+                    y=cy+20;
+                    break;
+                case "left":
+                    x=cx-20;
+                    y=cy;
+                    break;
+                case "right":
+                    x = cx+20;
+                    y = cy;
+                    break;
+            }
+            this._explosions.push(new Explosion({
+            cx : x,
+            cy : y,
+            dir : dir
+            }));
+        }
+    }
 },
 
 generateBoundary : function(descr){
@@ -54,7 +116,7 @@ _generateBoundaries : function(descr){
 
 
 deferredSetup : function () {
-    this._categories = [this._Bombs, this._Brick, this._Boundary, this._players];
+    this._categories = [this._Bombs, this._Brick, this._Boundary, this._players, this._explosions];
 
 },
 

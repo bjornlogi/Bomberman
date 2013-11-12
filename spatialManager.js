@@ -122,12 +122,11 @@ render: function(ctx) {
 
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
-
+    console.log(entityManager);
     for (var ID in this._entities) {
         //console.log()
         var e = this._entities[ID];
-        if (e instanceof Boundary)
-            console.log(e);
+            
         //util.strokeCircle(ctx, e.cx/2, e.cy*2, e.height/2);
     }
     ctx.strokeStyle = oldStyle;

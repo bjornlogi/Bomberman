@@ -4,6 +4,7 @@ function Player(descr) {
     }
 
      this.sprite = this.sprite || g_sprites.players;
+     this.setup(descr);
 };	
 
 Player.prototype = new Entity(); 
@@ -68,14 +69,14 @@ Player.prototype.update = function (du) {
     }
 
     this.updateSteps(dir);
-
-    if (!this.isColliding(this.findHitEntity(), nextX, nextY)){
+    var rangeEntities = this.findHitEntity();
+    if (!this.isColliding(rangeEntities, nextX, nextY)){
         this.cx = nextX;
         this.cy = nextY;
     }
 
     //Droppa sprengju
-    this.maybeDropBomb();
+    this.maybeDropBomb(rangeEntities);
 
     spatialManager.register(this);
 };
@@ -116,11 +117,11 @@ Player.prototype.isColliding = function(rangeEntities, nextX, nextY){
 
 
 var isBomb = false;
-Player.prototype.maybeDropBomb = function () {
+Player.prototype.maybeDropBomb = function (rangeEntites) {
     if (keys[this.KEY_FIRE] && isBomb === false) {
        var nearest = this.findNearest();
         entityManager.dropBomb(
-           72+40*nearest.t, 75+40*nearest.s);
+           72+40*nearest.t, 75+40*nearest.s, this.bombReach, rangeEntites);
         isBomb = true;
 
         setTimeout(function(){

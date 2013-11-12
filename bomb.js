@@ -21,13 +21,6 @@ function Bomb(descr) {
 
     // Make a noise when I am created (i.e. fired)
     //this.fireSound.play();
-    
-/*
-    // Diagnostics to check inheritance stuff
-    this._bulletProperty = true;
-    console.dir(this);
-*/
-
 }
 
 Bomb.prototype = new Entity();
@@ -40,13 +33,11 @@ Bomb.prototype = new Entity();
     
 // Initial, inheritable, default values
 //Bomb.prototype.rotation = 0;
-Bomb.prototype.cx = 200;
-Bomb.prototype.cy = 200;
 //Bomb.prototype.velX = 1;
 //Bomb.prototype.velY = 1;
 
 // Convert times from milliseconds to "nominal" time units.
-Bomb.prototype.lifeSpan = 5000 / NOMINAL_UPDATE_INTERVAL;
+Bomb.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
 Bomb.prototype.explode = {
         stats : false
@@ -62,8 +53,10 @@ Bomb.prototype.update = function (du) {
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0){
-        return entityManager.KILL_ME_NOW;
+        entityManager.explode(this.cx, this.cy, this.bombReach, this.rangeEntites);
         this.explode.stats = true;
+        return entityManager.KILL_ME_NOW;
+        
     }
 
    // this.cx += this.velX * du;
@@ -101,8 +94,7 @@ Bomb.prototype.takeBulletHit = function () {
 */
 
 Bomb.prototype.render = function (ctx) {
-
-    var fadeThresh = Bomb.prototype.lifeSpan / 5;
+    var fadeThresh = Bomb.prototype.lifeSpan / 3;
 
     var col = "#FFEE00";
     var line = 2;
@@ -110,33 +102,34 @@ Bomb.prototype.render = function (ctx) {
     var newX = this.cx-27.5;
     var newY = this.cy-30;
 
-    if (this.lifeSpan < fadeThresh) {
-        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
-        col ="red";
-        line = 0.1;
-        size = 30;
-        ctx.fillStyle=col;
+    // if (this.lifeSpan < fadeThresh) {
+    //     //ctx.globalAlpha = this.lifeSpan / fadeThresh;
+    //     col ="red";
+    //     line = 0.1;
+    //     size = 30;
+    //     ctx.fillStyle=col;
         
-        ctx.fillRect(newX-44.5, newY-5, 120,40);
-        ctx.fillRect(newX-4.5, newY-45, 40,120);
-        ctx.fill();
-    }
 
-    else if(this.lifeSpan/2 < fadeThresh) {
+    //     //ctx.fillRect(newX-44.5, newY-5, 120,40);
+    //     //ctx.fillRect(newX-4.5, newY-45, 40,120);
+    //     ctx.fill();
+    // }
+
+    if(this.lifeSpan < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="#FF2F00";
         line = 7;
         size = 26.5;
     }
 
-    else if(this.lifeSpan/3 < fadeThresh) {
+    else if(this.lifeSpan/2 < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="#FF6A00";
         line = 5;
         size = 27.5;
     }
 
-    else if(this.lifeSpan/4 < fadeThresh) {
+    else if(this.lifeSpan/3 < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="#FFAE00";
         line = 3;
