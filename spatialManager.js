@@ -93,7 +93,7 @@ isInRange : function(e, cx, cy, width, height){
         }
     }
 
-    if (cx < 300-width){
+    if (cx < 300+width/2){
             if (cy < 300 + height/2){
                 if (e.cx < 300 && e.cy < 300){
                     return true;
