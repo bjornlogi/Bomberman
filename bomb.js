@@ -118,8 +118,8 @@ Bomb.prototype.render = function (ctx) {
         size = 30;
         ctx.fillStyle=col;
         
-        ctx.fillRect(newX-45, newY-5, 120,40);
-        ctx.fillRect(newX-5, newY-45, 40,120);
+        ctx.fillRect(newX-44.5, newY-5, 120,40);
+        ctx.fillRect(newX-4.5, newY-45, 40,120);
         ctx.fill();
     }
 
