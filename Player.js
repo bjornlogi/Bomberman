@@ -32,17 +32,6 @@ Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 
 Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
-var isBomb = false;
-//maybeFireBullet
-Player.prototype.maybeDropBomb = function () {
-    if (keys[this.KEY_FIRE] && isBomb === false) {
-       
-        entityManager.dropBomb(
-           this.cx, this.cy);
-              // isBomb = true;                 
-   }
-};
-
 
 Player.prototype.update = function (du) {
     spatialManager.unregister(this);
@@ -75,7 +64,16 @@ Player.prototype.update = function (du) {
     spatialManager.register(this);
 };
 
-
+var isBomb = false;
+//maybeFireBullet
+Player.prototype.maybeDropBomb = function () {
+    if (keys[this.KEY_FIRE] && isBomb === false) {
+       
+        entityManager.dropBomb(
+           this.cx, this.cy);
+              // isBomb = true;                 
+   }
+};
 
 Player.prototype.updateSteps = function(keyPressed){
     

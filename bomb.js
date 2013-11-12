@@ -61,8 +61,8 @@ Bomb.prototype.update = function (du) {
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
 
-    this.cx += this.velX * du;
-    this.cy += this.velY * du;
+   // this.cx += this.velX * du;
+   // this.cy += this.velY * du;
 
 
     this.wrapPosition();
@@ -106,7 +106,7 @@ Bomb.prototype.render = function (ctx) {
         ctx.fillStyle="Red";
         ctx.strokeStyle="black";
     ctx.fillRect(this.cx, this.cy, 30,30);
-    ctx.strokeRect(this.cx, this.cy,30,30)
+    ctx.strokeRect(this.cx, this.cy,30,30);
         ctx.lineWidth = 2;
         ctx.fill();
         ctx.stroke();

@@ -279,7 +279,6 @@ function preloadDone() {
     createBrick();
     createBoundary();
     createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
-    //createBrick();
 
     main.init();
 }
