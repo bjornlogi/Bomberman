@@ -105,7 +105,8 @@ Bomb.prototype.render = function (ctx) {
 
     var fadeThresh = Bomb.prototype.lifeSpan / 5;
 
-    var col = "yellow";
+    var col = "#FFEE00";
+
     if (this.lifeSpan < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
         col ="red";
@@ -113,7 +114,17 @@ Bomb.prototype.render = function (ctx) {
 
     else if(this.lifeSpan/2 < fadeThresh) {
         //ctx.globalAlpha = this.lifeSpan / fadeThresh;
-        col ="orange";
+        col ="#FF2F00";
+    }
+
+    else if(this.lifeSpan/3 < fadeThresh) {
+        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
+        col ="#FF6A00";
+    }
+
+    else if(this.lifeSpan/4 < fadeThresh) {
+        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
+        col ="#FFAE00";
     }
 
         ctx.fillStyle=col;
