@@ -71,7 +71,7 @@ Player.prototype.maybeDropBomb = function () {
        
         entityManager.dropBomb(
            this.cx, this.cy);
-              // isBomb = true;                 
+        isBomb = true;
    }
 };
 

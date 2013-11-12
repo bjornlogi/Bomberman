@@ -72,7 +72,7 @@ update: function(du) {
         var i = 0;
 
         while (i < aCategory.length) {
-            var status = aCategory[i++].update(du);
+            var status = aCategory[i].update(du);
 
             if (status === this.KILL_ME_NOW) {
                 // remove the dead guy, and shuffle the others down to
