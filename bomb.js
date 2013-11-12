@@ -54,7 +54,6 @@ Bomb.prototype.explode = {
 
 Bomb.prototype.update = function (du) {
 
-    // TODO: YOUR STUFF HERE! --- Unregister and check for death
   spatialManager.unregister(this);
     if(this._isDeadNow)
         {
@@ -144,13 +143,13 @@ Bomb.prototype.render = function (ctx) {
         size = 28.5;
     }
 
-        ctx.fillStyle=col;
-        ctx.strokeStyle="black";
-        ctx.lineWidth = line;
+    ctx.fillStyle=col;
+    ctx.strokeStyle="black";
+    ctx.lineWidth = line;
     ctx.fillRect(newX, newY, size,size);
     ctx.strokeRect(newX, newY,size,size);
-        ctx.fill();
-        ctx.stroke();
+    ctx.fill();
+    ctx.stroke();
 
 
     ctx.globalAlpha = 1;

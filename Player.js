@@ -129,6 +129,7 @@ Player.prototype.maybeDropBomb = function () {
    }
 };
 
+//finds the nearest empty block to drop the bomb
 Player.prototype.findNearest = function(){
     var x = ((this.cx - 72) / 40).toFixed(0);
     if (x < 0) x = 0;
