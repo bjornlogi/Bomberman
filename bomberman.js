@@ -112,8 +112,8 @@ function createBoundary()
 function createBarrels()
 {
     for(var i = 0; i < 50; i++){
-        var locationX = (Math.random()*350) + 100;
-        var locationY = (Math.random()*350) + 100;
+        var locationX = (Math.random()*475);
+        var locationY = (Math.random()*475);
         entityManager._generateBarrels({
             cx : locationX,
             cy : locationY
