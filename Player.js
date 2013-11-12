@@ -25,8 +25,9 @@ Player.prototype.render = function (ctx) {
     cel.drawAt(this.cx-this.width,this.cy-this.height);
     ctx.fillStyle = "white";
     var pbr = {x: this.cx, y: this.cy-3};
-    var ptl = {x: this.cx - this.width, y: this.cy - this.height};
+    var ptl = {x: this.cx - this.width, y: this.cy - this.height+3};
     //ctx.fillRect(this.cx - this.width, this.cy - this.height,this.width,this.height);
+
     //uncomment this to draw top left and bottom right corner of the player for debugging
     //ctx.fillRect(pbr.x, pbr.y,this.width/8,this.height/8);
     //ctx.fillRect(ptl.x, ptl.y,this.width/8,this.height/8);
@@ -67,41 +68,8 @@ Player.prototype.update = function (du) {
     }
 
     this.updateSteps(dir);
-    var collision = false;
 
-    //some calibration due to the sprite being a bit off
-    var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
-    var pbr = {x: this.cx, y: this.cy - 3};
-
-    var ptlNext = {x: nextX - this.width, y: nextY - this.height}; //top right corner
-    var ptl = {x: this.cx - this.width, y: this.cy - this.height};
-    
-    var rangeEntities = this.findHitEntity();
-    for (e in rangeEntities){
-        var h = rangeEntities[e];
-        //bottom right and top left corner of hit entity
-        var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
-        var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
-        //check right side of box 
-        if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
-             if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
-                collision = true;
-                break;
-             }
-         }
-         //check left side of box
-         else if (pbrNext.x > htl.x && pbr.x < htl.x){
-            if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
-                collision = true;
-         }
-         else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
-            if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
-                collision = true;
-
-         }
-    }
-
-    if (!collision){
+    if (!this.isColliding(this.findHitEntity(), nextX, nextY)){
         this.cx = nextX;
         this.cy = nextY;
     }
@@ -112,8 +80,42 @@ Player.prototype.update = function (du) {
     spatialManager.register(this);
 };
 
+Player.prototype.isColliding = function(rangeEntities, nextX, nextY){
+    //some calibration due to the sprite being a bit off
+    var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
+    var pbr = {x: this.cx, y: this.cy - 3};
+
+    var ptlNext = {x: nextX - this.width+3, y: nextY - this.height+3}; //top right corner
+    var ptl = {x: this.cx - this.width+3, y: this.cy - this.height+3};
+    
+    
+    for (e in rangeEntities){
+        var h = rangeEntities[e];
+        //bottom right and top left corner of hit entity
+        var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
+        var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
+        //check right side of box 
+        if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
+             if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
+                return true;
+             }
+         }
+         //check left side of box
+         else if (pbrNext.x > htl.x && pbr.x < htl.x){
+            if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
+                return true;
+         }
+         else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
+            if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
+                return true;
+
+         }
+    }
+    return false;
+}
+
+
 var isBomb = false;
-//maybeFireBullet
 Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && isBomb === false) {
        
