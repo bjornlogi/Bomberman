@@ -48,6 +48,10 @@ Bomb.prototype.cy = 200;
 // Convert times from milliseconds to "nominal" time units.
 Bomb.prototype.lifeSpan = 5000 / NOMINAL_UPDATE_INTERVAL;
 
+Bomb.prototype.explode = {
+        stats : false
+}
+
 Bomb.prototype.update = function (du) {
 
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
@@ -58,7 +62,10 @@ Bomb.prototype.update = function (du) {
         }
 
     this.lifeSpan -= du;
-    if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
+    if (this.lifeSpan < 0){
+        return entityManager.KILL_ME_NOW;
+        this.explode.stats = true;
+    }
 
    // this.cx += this.velX * du;
    // this.cy += this.velY * du;
@@ -96,13 +103,20 @@ Bomb.prototype.takeBulletHit = function () {
 
 Bomb.prototype.render = function (ctx) {
 
-    var fadeThresh = Bomb.prototype.lifeSpan / 3;
+    var fadeThresh = Bomb.prototype.lifeSpan / 5;
 
+    var col = "yellow";
     if (this.lifeSpan < fadeThresh) {
-        ctx.globalAlpha = this.lifeSpan / fadeThresh;
+        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
+        col ="red";
     }
 
-        ctx.fillStyle="Red";
+    else if(this.lifeSpan/2 < fadeThresh) {
+        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
+        col ="orange";
+    }
+
+        ctx.fillStyle=col;
         ctx.strokeStyle="black";
     ctx.fillRect(this.cx, this.cy, 30,30);
     ctx.strokeRect(this.cx, this.cy,30,30);
