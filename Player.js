@@ -31,20 +31,6 @@ Player.prototype.render = function (ctx) {
         i=10;
         ctx.globalAlpha = 1;
     }
-    // if(this.immunityTimer < fadeThresh) {
-    //     ctx.globalAlpha = 0;
-    // }
-
-    // else if(this.immunityTimer/2 < fadeThresh) {
-    //     ctx.globalAlpha = 1;
-    // }
-
-    // else if(this.immunityTimer/3 < fadeThresh) {
-    //     ctx.globalAlpha = 0;
-    // }
-    // else
-    //     ctx.globalAlpha = 1;
-
 
     var cel = g_sprites[this.playerOrientation];
     
@@ -128,10 +114,14 @@ Player.prototype.immunity = false;
 
 Player.prototype.takeExplosion = function(){
 
-    if (this.lives-- == 0)
+    if (this.lives < 0 && !this.immunity){
         this.kill();
-    else 
+        this.lives--;
+    }
+    else {
         this.immunity = true;
+        spatialManager.unregister(this);
+    }
 };
 
 
