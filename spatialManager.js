@@ -71,46 +71,25 @@ findEntityInRange: function(checker) {
 },
 
 isColliding : function (entity,c){
-    //var pbrNext = {x: c.nextX + c.halfWidth, y: c.nextY + c.halfHeight}; 
-   // var pbr = {x: c.cx + c.halfWidth, y: c.cy + c.halfHeight};
-    var pbrNext = util.getBottomRightCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight);
-    var pbr = util.getBottomRightCorner(c.cx, c.cy, c.halfWidth, c.halfHeight);
 
-    //var ptlNext = {x: c.nextX - c.halfWidth, y: c.nextY - c.halfHeight};
-    //var ptl = {x: c.cx - c.halfWidth, y: c.cy - c.halfHeight};
-    var ptlNext = util.getTopLeftCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight); 
-    var ptl = util.getTopLeftCorner(c.cx, c.cy, c.halfWidth, c.halfHeight);
-    
-    //bottom right and top left corner of hit entity
-    var hbr = {x: entity.cx + entity.halfWidth, y: entity.cy + entity.halfHeight};
-    var htl = {x: entity.cx - entity.halfWidth, y: entity.cy - entity.halfHeight};
-    //var htl = util.getTopLeftCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight);
-    //var hbr = util.getBottomRightCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight);
-    //check right side of box 
-    if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
-         if ((ptl.y > htl.y && ptl.y < hbr.y) || 
-             (pbr.y > htl.y && pbr.y < hbr.y)){
-            return true;
-         }
-     }
-     //check left side of box
-    else if (pbrNext.x > htl.x && pbr.x < htl.x){
-        if ((pbr.y < hbr.y && pbr.y > htl.y) || 
-            (ptl.y > htl.y && ptl.y < hbr.y))
-            return true;
-    }
-    else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
-        if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
-            return true;
-    }
-    //if (Next.x == ptl.x && ptlNext.y == ptl.y){
-        if (htl.x > ptlNext.x && htl.x < pbrNext.x ||
-            hbr.x > ptlNext.x && hbr.x < pbrNext.x){
-            if ((htl.y> ptlNext.y && htl.y < pbrNext.y) ||
-                (hbr.y > ptlNext.y && hbr.y < pbrNext.y))
-                return true;
-        }
-   // }
+    var points = {
+        pbrNext : util.getBottomRightCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight),
+        pbr : util.getBottomRightCorner(c.cx, c.cy, c.halfWidth, c.halfHeight),
+        ptlNext : util.getTopLeftCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight),
+        ptl : util.getTopLeftCorner(c.cx, c.cy, c.halfWidth, c.halfHeight),
+        hbr : util.getBottomRightCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight),
+        htl : util.getTopLeftCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight)
+    };
+
+    if (util.checkCollisionFromSides(points))
+        return true;
+
+    if (util.checkCollisionFromTopAndBottom(points))
+        return true;
+        
+    if (util.checkCollisionFromWithin(points))
+        return true; 
+
     return false;
 },
 

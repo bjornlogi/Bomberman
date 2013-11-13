@@ -92,7 +92,7 @@ Entity.prototype.isColliding = function () {
     return this.findHitEntity();
 };
 
-Entity.prototype.wrapPosition = function () {
-    this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
-    this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
-};
+// Entity.prototype.wrapPosition = function () {
+//     this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
+//     this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
+// };

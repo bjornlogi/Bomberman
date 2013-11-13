@@ -33,7 +33,7 @@ Barrel.prototype.update = function (du) {
         {
             return entityManager.KILL_ME_NOW; 
         }
-    this.wrapPosition();
+    //this.wrapPosition();
     spatialManager.register(this);
 };
 
