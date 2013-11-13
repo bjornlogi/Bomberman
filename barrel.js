@@ -38,9 +38,9 @@ Barrel.prototype.update = function (du) {
 };
 
 Barrel.prototype.render = function (ctx) {
-	var nearest = this.findNearest();
+	//var nearest = this.findNearest();
 	ctx.fillStyle="white";
-	ctx.fillRect(85+40*nearest.t, 85+40*nearest.s, this.halfHeight*2, this.halfWidth*2);
+	ctx.fillRect(this.cx, this.cy, this.halfHeight*2, this.halfWidth*2);
 	ctx.fill();
 
 	ctx.globalAlpha = 1;
