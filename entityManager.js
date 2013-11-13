@@ -46,69 +46,64 @@ dropBomb: function(cx, cy, bombReach, rangeEntites) {
     this._Bombs.push(new Bomb({
         cx   : cx,
         cy   : cy,
-        bombReach : bombReach,
-        rangeEntites : rangeEntites
+        bombReach : bombReach
     }));
-    console.log(this._Bombs);
 },
 
-explode: function (cx, cy, bombReach, rangeEntites){
+explode: function (cx, cy, bombReach){
 
-    this.explodeDirection(cx,cy,rangeEntites);
+    this.explodeDirection(cx,cy);
 
     this._explosions.push(new Explosion({
-        cx : cx,
-        cy : cy
+        cx : cx-30,
+        cy : cy-25
     }));
-    console.log(this._explosions);
 
 },
 
-explodeDirection : function (cx,cy,rangeEntites){
+explodeDirection : function (cx,cy){
     var explode = {up:true, down: true, left: true, right:true};
-    for (var rangeE in rangeEntites){
-        var r = rangeEntites[rangeE];
-        if (cx-52 == r.cx && cy-15== r.cy){
-            explode.left = false;     
-        }
-        else if (cx + 28 == r.cx && cy-15 == r.cy){
-            explode.right = false;
-        }
-        else if ((cx - 12 == r.cx && cy-55 == r.cy)){
-            explode.up = false;
-        }
-        else if ((cx-12 == r.cx && cy+25 == r.cy)){
-            explode.down = false;
-        }
-    }
+    // for (var rangeE in rangeEntites){
+    //     var r = rangeEntites[rangeE];
+    //     if (cx-52 == r.cx && cy-15== r.cy){
+    //         explode.left = false;     
+    //     }
+    //     else if (cx + 28 == r.cx && cy-15 == r.cy){
+    //         explode.right = false;
+    //     }
+    //     else if ((cx - 12 == r.cx && cy-55 == r.cy)){
+    //         explode.up = false;
+    //     }
+    //     else if ((cx-12 == r.cx && cy+25 == r.cy)){
+    //         explode.down = false;
+    //     }
+    // }
     var x, y;
     for (var dir in explode){
-        if(explode[dir]){
             switch (dir){
                 case "up":
-                    x=cx;
-                    y=cy-20;
+                    x=cx-30;
+                    y=cy-45;
                     break;
                 case "down":
-                    x=cx;
-                    y=cy+20;
+                    x=cx-30;
+                    y=cy-5;
                     break;
                 case "left":
-                    x=cx-20;
-                    y=cy;
+                    x=cx-50;
+                    y=cy-25;
                     break;
                 case "right":
-                    x = cx+20;
-                    y = cy;
+                    x = cx-10;
+                    y = cy-25;
                     break;
-            }
+                }
             this._explosions.push(new Explosion({
             cx : x,
             cy : y,
             dir : dir
             }));
         }
-    }
 },
 
 generateBoundary : function(descr){

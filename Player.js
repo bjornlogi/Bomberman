@@ -69,8 +69,8 @@ Player.prototype.update = function (du) {
     }
 
     this.updateSteps(dir);
-    var rangeEntities = this.findHitEntity();
-    if (!this.isColliding(rangeEntities, nextX, nextY)){
+    var rangeEntities = this.findHitEntity(nextX, nextY);
+    if (rangeEntities.length == 0){
         this.cx = nextX;
         this.cy = nextY;
     }
@@ -81,39 +81,39 @@ Player.prototype.update = function (du) {
     spatialManager.register(this);
 };
 
-Player.prototype.isColliding = function(rangeEntities, nextX, nextY){
-    //some calibration due to the sprite being a bit off
-    var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
-    var pbr = {x: this.cx, y: this.cy - 3};
+// Player.prototype.isColliding = function(rangeEntities, nextX, nextY){
+//     //some calibration due to the sprite being a bit off
+//     var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
+//     var pbr = {x: this.cx, y: this.cy - 3};
 
-    var ptlNext = {x: nextX - this.width+3, y: nextY - this.height+3}; //top right corner
-    var ptl = {x: this.cx - this.width+3, y: this.cy - this.height+3};
+//     var ptlNext = {x: nextX - this.width+3, y: nextY - this.height+3}; //top right corner
+//     var ptl = {x: this.cx - this.width+3, y: this.cy - this.height+3};
     
     
-    for (e in rangeEntities){
-        var h = rangeEntities[e];
-        //bottom right and top left corner of hit entity
-        var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
-        var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
-        //check right side of box 
-        if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
-             if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
-                return true;
-             }
-         }
-         //check left side of box
-         else if (pbrNext.x > htl.x && pbr.x < htl.x){
-            if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
-                return true;
-         }
-         else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
-            if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
-                return true;
+//     for (e in rangeEntities){
+//         var h = rangeEntities[e];
+//         //bottom right and top left corner of hit entity
+//         var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
+//         var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
+//         //check right side of box 
+//         if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
+//              if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
+//                 return true;
+//              }
+//          }
+//          //check left side of box
+//          else if (pbrNext.x > htl.x && pbr.x < htl.x){
+//             if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
+//                 return true;
+//          }
+//          else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
+//             if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
+//                 return true;
 
-         }
-    }
-    return false;
-}
+//          }
+//     }
+//     return false;
+// }
 
 
 var isBomb = false;

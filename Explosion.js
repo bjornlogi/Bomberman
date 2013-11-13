@@ -28,19 +28,28 @@ Explosion.prototype = new Entity();
 Explosion.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 
-
 Explosion.prototype.update = function (du){
 	spatialManager.unregister(this);
+	//if (this.dir == "left"){
+	var rangeEntities = this.findHitEntity();
+	for (var rE in rangeEntities){
+		var r = rangeEntities[rE];
+		console.log(rangeEntities);
+		if (r instanceof Boundary || r instanceof Brick)
+			return entityManager.KILL_ME_NOW;
+	}
+//}
 	this.lifeSpan -= du;
 	if (this.lifeSpan < 0){
 		return entityManager.KILL_ME_NOW;
 	}
-	spatialManager.unregister(this);
+	//console.log(this.isColliding());
+	spatialManager.register(this);
 }
 
 Explosion.prototype.render = function (ctx){
 	ctx.fillStyle="orange";
-	ctx.fillRect(this.cx-27.5, this.cy-30, 20,20);
+	ctx.fillRect(this.cx, this.cy, 20,20);
     ctx.fill();
 }
 

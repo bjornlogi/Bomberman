@@ -54,12 +54,12 @@ Entity.prototype.getPos = function () {
     return {posX : this.cx, posY : this.cy};
 };
 
-Entity.prototype.getHalfWidth = function () {
-    return this.width;
+Entity.prototype.getWidth = function () {
+    return this.width == undefined ? 20 : this.width;
 };
 
-Entity.prototype.getHalfHeight = function () {
-    return this.height;
+Entity.prototype.getHeight = function () {
+    return this.height == undefined ? 20 : this.height;
 };
 
 Entity.prototype.getID = function () {
@@ -70,10 +70,10 @@ Entity.prototype.kill = function () {
     this._isDeadNow = true;
 };
 
-Entity.prototype.findHitEntity = function () {
+Entity.prototype.findHitEntity = function (nextX, nextY) {
     var pos = this.getPos();
     return spatialManager.findEntityInRange(
-        pos.posX, pos.posY, this.getHalfWidth(), this.getHalfHeight()
+        pos.posX, pos.posY, this.getWidth(), this.getHeight(), nextX, nextY
     );
 };
 
