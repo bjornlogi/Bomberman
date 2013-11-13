@@ -21,14 +21,12 @@ var util = {
 //     return value;
 // },
 
- wrapRange: function(value, lowBound, highBound) {
-     while (value < lowBound) {
- 	value += (highBound - lowBound);
-     }
-     while (value > highBound) {
- 	value -= (highBound - lowBound);
-     }
-     return value;
+ getBottomRightCorner: function(cx,cy,halfWidth,halfHeight) {
+     return {x: cx + halfWidth, y: cy + halfHeight}; 
+ },
+
+  getTopLeftCorner: function(cx,cy,halfWidth,halfHeight) {
+     return {x: cx - halfWidth, y: cy - halfHeight}; 
  },
 
 // isBetween: function(value, lowBound, highBound) {

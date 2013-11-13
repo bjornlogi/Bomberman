@@ -30,7 +30,7 @@ var P1_RIGHT = 'D'.charCodeAt(0);
 function createInitialPlayers(NUM_PLAYERS, width, height) {
 
     entityManager._generatePlayer({
-        //-3 to cut off unused pixels in the spritesheet
+        //-2 to cut off unused pixels in the spritesheet
         halfWidth: width/2-2,
         halfHeight: height/2,
         cx : 57,

@@ -49,38 +49,43 @@ unregister: function(entity) {
         this._entities.splice(index,1);
 },
 
-findEntityInRange: function(cx, cy, halfWidth, halfHeight,nextX, nextY) {
+findEntityInRange: function(checker) {
     var entities = [];
     for (var ID in this._entities){
-        var e = this._entities[ID];
+        var entity = this._entities[ID];
 
-        if (e instanceof Boundary)
-            e.color="gray";
+        if (entity instanceof Boundary)
+            entity.color="gray";
         else
-            e.color = "blue";
+            entity.color = "blue";
 
-        var inRange = this.isInRange(e,cx,cy, halfWidth,halfHeight); 
+        var inRange = this.isInRange(entity,checker); 
         if (inRange){
-            e.color = "red";
-            if (this.isColliding(e,cx,cy,halfWidth,halfHeight,nextX,nextY))
-                entities.push(e);
+            entity.color = "red";
+            if (this.isColliding(entity,checker))
+                entities.push(entity);
 
         }           
     }
     return entities;
 },
 
-isColliding : function (h,cx,cy,halfWidth,halfHeight,nextX, nextY){
-    var pbrNext = {x: nextX + halfWidth, y: nextY + halfHeight}; //bottomright corner of player
-    var pbr = {x: cx + halfWidth, y: cy + halfHeight};
+isColliding : function (entity,c){
+    //var pbrNext = {x: c.nextX + c.halfWidth, y: c.nextY + c.halfHeight}; 
+   // var pbr = {x: c.cx + c.halfWidth, y: c.cy + c.halfHeight};
+    var pbrNext = util.getBottomRightCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight);
+    var pbr = util.getBottomRightCorner(c.cx, c.cy, c.halfWidth, c.halfHeight);
 
-     //top right corner
-    var ptlNext = {x: nextX - halfWidth, y: nextY - halfHeight};
-    var ptl = {x: cx - halfWidth, y: cy - halfHeight};
+    //var ptlNext = {x: c.nextX - c.halfWidth, y: c.nextY - c.halfHeight};
+    //var ptl = {x: c.cx - c.halfWidth, y: c.cy - c.halfHeight};
+    var ptlNext = util.getTopLeftCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight); 
+    var ptl = util.getTopLeftCorner(c.cx, c.cy, c.halfWidth, c.halfHeight);
     
     //bottom right and top left corner of hit entity
-    var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
-    var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
+    var hbr = {x: entity.cx + entity.halfWidth, y: entity.cy + entity.halfHeight};
+    var htl = {x: entity.cx - entity.halfWidth, y: entity.cy - entity.halfHeight};
+    //var htl = util.getTopLeftCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight);
+    //var hbr = util.getBottomRightCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight);
     //check right side of box 
     if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
          if ((ptl.y > htl.y && ptl.y < hbr.y) || 
@@ -109,25 +114,25 @@ isColliding : function (h,cx,cy,halfWidth,halfHeight,nextX, nextY){
     return false;
 },
 
-isInRange : function(e, cx, cy, width, height){
+isInRange : function(e, c){
     if (e instanceof Boundary){
         if(e.cx == 300){
-            if (e.cy == 20 && cy < 80)
+            if (e.cy == 20 && c.cy < 80)
                 return true;
-            else if (e.cy == 580 && cy > 540)
+            else if (e.cy == 580 && c.cy > 540)
                 return true;
         }
         else if (e.cy == 300){
-            if (e.cx == 20 && cx < 70)
+            if (e.cx == 20 && c.cx < 70)
                 return true;
-            else if (e.cx == 580 && cx > 510){
+            else if (e.cx == 580 && c.cx > 510){
                 return true;
             }
         }
     }
 
-    if (cx < 300){
-            if (cy < 300){
+    if (c.cx < 300){
+            if (c.cy < 300){
                 if (e.cx < 300 && e.cy < 300){
                     return true;
                 }
@@ -137,7 +142,7 @@ isInRange : function(e, cx, cy, width, height){
                 }
             }
         }else{
-            if (cy < 300){
+            if (c.cy < 300){
                 if (e.cx > 300 && e.cy < 300){
                     return true;
                 }
