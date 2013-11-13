@@ -116,8 +116,8 @@ function createBarrels()
 {
   var chance = 0.3;     //líkar á að "barrel" verði til
 
-  var locationX = 125;
-  var locationY = 85;
+  var locationX = 140;
+  var locationY = 100;
   for(var i = 0; i < 6; i++)
   { 
     for(var j = 0; j < 7; j++)
@@ -134,11 +134,11 @@ function createBarrels()
          if(i===5 && j===5){j = 6;}
           locationX += 80;
       }
-        locationX = 45;
+        locationX = 60;
        locationY += 80;
     } 
-    locationX = 125;
-    locationY = 45;
+    locationX = 140;
+    locationY = 60;
     for(var k = 0; k<7;k++){
         for(var h=0; h<13;h++){
             if((Math.random()<chance) && !(k===6 && (h<2 || h>10)))
@@ -151,7 +151,7 @@ function createBarrels()
             if(k===0 && h===8){h = 12;}
               locationX += 40;
         }
-         locationX = 45;
+         locationX = 60;
             locationY +=80;
     }
 }
