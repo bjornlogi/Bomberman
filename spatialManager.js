@@ -49,7 +49,7 @@ unregister: function(entity) {
         this._entities.splice(index,1);
 },
 
-findEntityInRange: function(cx, cy, width, height,nextX, nextY) {
+findEntityInRange: function(cx, cy, halfWidth, halfHeight,nextX, nextY) {
     var entities = [];
     for (var ID in this._entities){
         var e = this._entities[ID];
@@ -59,12 +59,10 @@ findEntityInRange: function(cx, cy, width, height,nextX, nextY) {
         else
             e.color = "blue";
 
-        var inRange = this.isInRange(e,cx,cy, width,height); 
+        var inRange = this.isInRange(e,cx,cy, halfWidth,halfHeight); 
         if (inRange){
             e.color = "red";
-            if (nextX != undefined && this.isColliding(e,cx,cy,width,height,nextX,nextY))
-                entities.push(e);
-            else if (nextX == undefined && this.isExploding(e,cx,cy, width, height))
+            if (this.isColliding(e,cx,cy,halfWidth,halfHeight,nextX,nextY))
                 entities.push(e);
 
         }           
@@ -72,51 +70,42 @@ findEntityInRange: function(cx, cy, width, height,nextX, nextY) {
     return entities;
 },
 
-isExploding : function(e,cx,cy, halfWidth,halfHeight){
-    var eHalfWidth = e.halfWidth
-    var eHalfHeight = e.halfHeight
-    if(e instanceof Player){
-        eHalfHeight = e.height;
-        eHalfWidth = e.width;
-        // e.cx -= eHalfWidth;
-        // e.cy -= eHalfHeight;
-    }
-    if (cx > e.cx - eHalfWidth && cx < e.cx + eHalfWidth){
-        if (cy > e.cy - eHalfHeight && cy < e.cy + eHalfHeight)
-            return true;
-    }//else if (cx ){
+isColliding : function (h,cx,cy,halfWidth,halfHeight,nextX, nextY){
+    var pbrNext = {x: nextX + halfWidth, y: nextY + halfHeight}; //bottomright corner of player
+    var pbr = {x: cx + halfWidth, y: cy + halfHeight};
 
-    //}
-    return false;
-},
-
-isColliding : function (h,cx,cy,width,height,nextX, nextY){
-    var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
-    var pbr = {x: cx, y: cy - 3};
-
-    var ptlNext = {x: nextX - width+3, y: nextY - height+3}; //top right corner
-    var ptl = {x: cx - width+3, y: cy - height+3};
+     //top right corner
+    var ptlNext = {x: nextX - halfWidth, y: nextY - halfHeight};
+    var ptl = {x: cx - halfWidth, y: cy - halfHeight};
     
-    
-    //var h = rangeEntities[e];
     //bottom right and top left corner of hit entity
     var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
     var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
     //check right side of box 
     if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
-         if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
+         if ((ptl.y > htl.y && ptl.y < hbr.y) || 
+             (pbr.y > htl.y && pbr.y < hbr.y)){
             return true;
          }
      }
      //check left side of box
     else if (pbrNext.x > htl.x && pbr.x < htl.x){
-        if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
+        if ((pbr.y < hbr.y && pbr.y > htl.y) || 
+            (ptl.y > htl.y && ptl.y < hbr.y))
             return true;
     }
     else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
         if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
             return true;
     }
+    //if (Next.x == ptl.x && ptlNext.y == ptl.y){
+        if (htl.x > ptlNext.x && htl.x < pbrNext.x ||
+            hbr.x > ptlNext.x && hbr.x < pbrNext.x){
+            if ((htl.y> ptlNext.y && htl.y < pbrNext.y) ||
+                (hbr.y > ptlNext.y && hbr.y < pbrNext.y))
+                return true;
+        }
+   // }
     return false;
 },
 
@@ -137,8 +126,8 @@ isInRange : function(e, cx, cy, width, height){
         }
     }
 
-    if (cx < 300+width/2){
-            if (cy < 300 + height/2){
+    if (cx < 300){
+            if (cy < 300){
                 if (e.cx < 300 && e.cy < 300){
                     return true;
                 }
@@ -148,7 +137,7 @@ isInRange : function(e, cx, cy, width, height){
                 }
             }
         }else{
-            if (cy < 300 + height/2){
+            if (cy < 300){
                 if (e.cx > 300 && e.cy < 300){
                     return true;
                 }
@@ -158,11 +147,16 @@ isInRange : function(e, cx, cy, width, height){
                 }
             }
         }
+    if (e instanceof Player){
+        return true;
+    }
+        
 
     return false;
 },
 
 render: function(ctx) {
+
 
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";

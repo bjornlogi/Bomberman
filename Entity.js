@@ -54,12 +54,16 @@ Entity.prototype.getPos = function () {
     return {posX : this.cx, posY : this.cy};
 };
 
-Entity.prototype.getWidth = function () {
-    return this.width == undefined ? 20 : this.width;
+Entity.prototype.getNextPos = function (){
+    return {x : this.nextX, y: this.nextY};
 };
 
-Entity.prototype.getHeight = function () {
-    return this.height == undefined ? 20 : this.height;
+Entity.prototype.getHalfWidth = function () {
+    return this.halfWidth;
+};
+
+Entity.prototype.getHalfHeight = function () {
+    return this.halfHeight;
 };
 
 Entity.prototype.getID = function () {
@@ -70,10 +74,11 @@ Entity.prototype.kill = function () {
     this._isDeadNow = true;
 };
 
-Entity.prototype.findHitEntity = function (nextX, nextY) {
+Entity.prototype.findHitEntity = function () {
     var pos = this.getPos();
+    var nextPos = this.getNextPos();
     return spatialManager.findEntityInRange(
-        pos.posX, pos.posY, this.getWidth(), this.getHeight(), nextX, nextY
+        pos.posX, pos.posY, this.getHalfWidth(), this.getHalfHeight(), nextPos.x, nextPos.y
     );
 };
 

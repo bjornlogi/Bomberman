@@ -30,19 +30,22 @@ var P1_RIGHT = 'D'.charCodeAt(0);
 function createInitialPlayers(NUM_PLAYERS, width, height) {
 
     entityManager._generatePlayer({
-        width: width,
-        height: height,
-        cx : 70,
-        cy : 80,
+        //-3 to cut off unused pixels in the spritesheet
+        halfWidth: width/2-2,
+        halfHeight: height/2,
+        cx : 57,
+        cy : 60,
+        nextX : 57,
+        nextY : 60,
         velX: 1.33,
         velY: 1.33,
-        rotation: 0,
         playerOrientation: 1,
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
         KEY_RIGHT: P1_RIGHT,
-        bombReach : 1
+        bombReach : 7,
+        lives : 3
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({
@@ -111,14 +114,14 @@ function createBoundary()
 
 function createBarrels()
 {
-    for(var i = 0; i < 50; i++){
-        var locationX = (Math.random()*475);
-        var locationY = (Math.random()*475);
-        entityManager._generateBarrels({
-            cx : locationX,
-            cy : locationY
-        });
-    }
+    // for(var i = 0; i < 50; i++){
+    //     var locationX = (Math.random()*475);
+    //     var locationY = (Math.random()*475);
+    //     entityManager._generateBarrels({
+    //         cx : locationX,
+    //         cy : locationY
+    //     });
+    // }
 }
 // =============
 // GATHER INPUTS
@@ -261,7 +264,7 @@ var test = true;
 function preloadDone() {
 
     var celWidth  = 497/20;
-    var celHeight =  152/4;
+    var celHeight =  152/4 - 4; // calibration for c.d.
     var numCols = 20;
     var numRows = test? 1:4;
     var numCels = test? 20:80;

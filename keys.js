@@ -10,11 +10,14 @@ function handleKeydown(evt) {
 
 function handleKeyup(evt) {
     keys[evt.keyCode] = false;
-    //reset the position when the player halts
-    if (keyCode('S') == evt.keyCode) entityManager._players[0].playerOrientation = 1;
-    if (keyCode('W') == evt.keyCode) entityManager._players[0].playerOrientation = 10;
-    if (keyCode('A') == evt.keyCode) entityManager._players[0].playerOrientation = 4;
-    if (keyCode('D') == evt.keyCode) entityManager._players[0].playerOrientation = 7;
+    //reset the position when the player halts if not dead
+    var player1 = entityManager._players[0];
+    if (player1){
+        if (keyCode('S') == evt.keyCode) player1.playerOrientation = 1;
+        if (keyCode('W') == evt.keyCode) player1.playerOrientation = 10;
+        if (keyCode('A') == evt.keyCode) player1.playerOrientation = 4;
+        if (keyCode('D') == evt.keyCode) player1.playerOrientation = 7;
+    }
 }
 
 // Inspects, and then clears, a key's state

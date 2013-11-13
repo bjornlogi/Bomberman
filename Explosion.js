@@ -15,10 +15,9 @@ function Explosion(descr) {
     // Common inherited setup logic from Entity
     this.setup(descr);
 
-    // for (var property in descr) {
-    //     this[property] = descr[property];
-    // }
-
+    for (var property in descr) {
+        this[property] = descr[property];
+    }
     // Make a noise when I am created (i.e. fired)
     //this.fireSound.play();
 }
@@ -29,27 +28,41 @@ Explosion.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 
 Explosion.prototype.update = function (du){
-	spatialManager.unregister(this);
-	//if (this.dir == "left"){
+	//spatialManager.unregister(this);
+	
 	var rangeEntities = this.findHitEntity();
 	for (var rE in rangeEntities){
 		var r = rangeEntities[rE];
-		console.log(rangeEntities);
-		if (r instanceof Boundary || r instanceof Brick)
-			return entityManager.KILL_ME_NOW;
+		
+		if (r instanceof Boundary || r instanceof Brick){
+
+				return entityManager.KILL_ME_NOW;
+		}
+		else if (r instanceof Player)
+				r.takeExplosion();
 	}
-//}
 	this.lifeSpan -= du;
 	if (this.lifeSpan < 0){
 		return entityManager.KILL_ME_NOW;
 	}
 	//console.log(this.isColliding());
-	spatialManager.register(this);
+	//spatialManager.register(this);
 }
 
 Explosion.prototype.render = function (ctx){
+
+
 	ctx.fillStyle="orange";
-	ctx.fillRect(this.cx, this.cy, 20,20);
+	ctx.fillRect(this.nextX-this.halfWidth, this.nextY-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
     ctx.fill();
+
+    var pbr = {x: this.nextX + this.halfWidth, y: this.nextY + this.halfHeight};
+    var ptl = {x: this.nextX - this.halfWidth, y: this.nextY - this.halfHeight};
+    ctx.fillStyle="yellow";
+    // //console.log(pbr);
+    //ctx.fillRect(pbr.x, pbr.y,4,4);
+     //ctx.fillRect(this.nextX, this.nextY,4,4);
+    // ctx.fillStyle="white";
+     //ctx.fillRect(ptl.x, ptl.y,4,4);
 }
 

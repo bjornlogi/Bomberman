@@ -20,18 +20,46 @@ Player.prototype.orientation = {
     currRight : 7,
     switchRight: true,
 }
-
+var i = 10;
 Player.prototype.render = function (ctx) {
-    var cel = g_sprites[this.playerOrientation];
-    cel.drawAt(this.cx-this.width,this.cy-this.height);
-    ctx.fillStyle = "white";
-    var pbr = {x: this.cx, y: this.cy-3};
-    var ptl = {x: this.cx - this.width, y: this.cy - this.height+3};
-    //ctx.fillRect(this.cx - this.width, this.cy - this.height,this.width,this.height);
 
+    var fadeThresh = Player.prototype.immunityTimer/10;
+
+    if (this.immunityTimer/i-- < fadeThresh && this.immunity)
+        ctx.globalAlpha = i%2;
+    if (i==0){
+        i=10;
+        ctx.globalAlpha = 1;
+    }
+    // if(this.immunityTimer < fadeThresh) {
+    //     ctx.globalAlpha = 0;
+    // }
+
+    // else if(this.immunityTimer/2 < fadeThresh) {
+    //     ctx.globalAlpha = 1;
+    // }
+
+    // else if(this.immunityTimer/3 < fadeThresh) {
+    //     ctx.globalAlpha = 0;
+    // }
+    // else
+    //     ctx.globalAlpha = 1;
+
+
+    var cel = g_sprites[this.playerOrientation];
+    
+    cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "white";
+    var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
+    var ptl = {x: this.cx - this.halfWidth, y: this.cy - this.halfHeight};
+
+    // ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth*2,this.halfHeight*2);
+    // ctx.fillStyle="green";
     //uncomment this to draw top left and bottom right corner of the player for debugging
-    //ctx.fillRect(pbr.x, pbr.y,this.width/8,this.height/8);
-    //ctx.fillRect(ptl.x, ptl.y,this.width/8,this.height/8);
+     // ctx.fillRect(pbr.x, pbr.y,4,4);
+     // ctx.fillRect(ptl.x, ptl.y,5,5);
+    // ctx.fillRect(this.cx, this.cy, 5, 5);
 };
 
 Player.prototype.switchStepReset=250 / NOMINAL_UPDATE_INTERVAL;
@@ -42,28 +70,41 @@ Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
 
 Player.prototype.update = function (du) {
+    if (this._isDeadNow)
+        return entityManager.KILL_ME_NOW;
+
+    if(this.immunity){
+        this.immunityTimer -= du;
+    }
+    if (this.immunityTimer < 0){
+        this.immunity = false;
+        this.immunityTimer = Player.prototype.immunityTimer;
+    }
+
+
+
     this.switchStep -= du;
     spatialManager.unregister(this);
     var dir = "down";
-    var nextX = this.cx;
-    var nextY = this.cy;
+    this.nextX = this.cx;
+    this.nextY = this.cy;
    	if (keys[this.KEY_UP]) {
-        nextY = this.cy - this.velY*du;
+        this.nextY = this.cy - this.velY*du;
         dir = "up";
         this.playerOrientation = this.orientation.up;
     }
     else if (keys[this.KEY_DOWN]) {
-        nextY = this.cy + this.velY*du;
+        this.nextY = this.cy + this.velY*du;
         dir = "down";
         this.playerOrientation = this.orientation.down;
     }
     else if (keys[this.KEY_LEFT]) {
-        nextX = this.cx - this.velX*du;
+        this.nextX = this.cx - this.velX*du;
         dir = "left";
         this.playerOrientation = this.orientation.currLeft;
     }
     else if (keys[this.KEY_RIGHT]) {
-        nextX = this.cx + this.velX*du;
+        this.nextX = this.cx + this.velX*du;
         dir = "right";
         this.playerOrientation = this.orientation.currRight;
     }
@@ -71,57 +112,35 @@ Player.prototype.update = function (du) {
     this.updateSteps(dir);
     var rangeEntities = this.findHitEntity(nextX, nextY);
     if (rangeEntities.length == 0){
-        this.cx = nextX;
-        this.cy = nextY;
+         this.cx = this.nextX;
+        this.cy = this.nextY;
     }
-
+    if (!this.immunity)
+        spatialManager.register(this);
     //Droppa sprengju
-    this.maybeDropBomb(rangeEntities);
+    this.maybeDropBomb();
 
-    spatialManager.register(this);
+    
 };
 
-// Player.prototype.isColliding = function(rangeEntities, nextX, nextY){
-//     //some calibration due to the sprite being a bit off
-//     var pbrNext = {x: nextX, y: nextY - 3}; //bottomright corner of player
-//     var pbr = {x: this.cx, y: this.cy - 3};
+Player.prototype.immunityTimer = 1500/NOMINAL_UPDATE_INTERVAL;
+Player.prototype.immunity = false;
 
-//     var ptlNext = {x: nextX - this.width+3, y: nextY - this.height+3}; //top right corner
-//     var ptl = {x: this.cx - this.width+3, y: this.cy - this.height+3};
-    
-    
-//     for (e in rangeEntities){
-//         var h = rangeEntities[e];
-//         //bottom right and top left corner of hit entity
-//         var hbr = {x: h.cx + h.halfWidth, y: h.cy + h.halfHeight};
-//         var htl = {x: h.cx - h.halfWidth, y: h.cy - h.halfHeight};
-//         //check right side of box 
-//         if ((ptlNext.x < hbr.x) && (ptl.x > hbr.x)){
-//              if ((ptl.y > htl.y && ptl.y < hbr.y) || (pbr.y > htl.y && pbr.y < hbr.y)){
-//                 return true;
-//              }
-//          }
-//          //check left side of box
-//          else if (pbrNext.x > htl.x && pbr.x < htl.x){
-//             if ((pbr.y < hbr.y && pbr.y > htl.y) || (ptl.y > htl.y && ptl.y < hbr.y))
-//                 return true;
-//          }
-//          else if ((ptlNext.y < hbr.y) && (ptl.y > hbr.y) || (pbrNext.y > htl.y) && (pbr.y < htl.y)){
-//             if (ptl.x > htl.x && ptl.x < hbr.x || pbr.x > htl.x && pbr.x < hbr.x)
-//                 return true;
+Player.prototype.takeExplosion = function(){
 
-//          }
-//     }
-//     return false;
-// }
+    if (this.lives-- == 0)
+        this.kill();
+    else 
+        this.immunity = true;
+};
 
 
 var isBomb = false;
-Player.prototype.maybeDropBomb = function (rangeEntites) {
+Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && isBomb === false) {
        var nearest = this.findNearest();
         entityManager.dropBomb(
-           72+40*nearest.t, 75+40*nearest.s, this.bombReach, rangeEntites);
+           72+40*nearest.t, 75+40*nearest.s, this.bombReach, 15,15);
         isBomb = true;
 
         setTimeout(function(){

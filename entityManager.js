@@ -42,26 +42,33 @@ _generateBarrels : function(descr){
 },
 
 //fireBullet
-dropBomb: function(cx, cy, bombReach, rangeEntites) {
+dropBomb: function(cx, cy, bombReach, hw, hh) {
     this._Bombs.push(new Bomb({
-        cx   : cx,
-        cy   : cy,
+        halfWidth: hw,
+        halfHeight: hh,
+        cx   : cx-hw,
+        cy   : cy-hh,
         bombReach : bombReach
     }));
 },
 
-explode: function (cx, cy, bombReach){
+explode: function (cx, cy, bombReach, hw, hh){
+    //cx -= 25;
+    //cy -= 25;
+    this.explodeDirection(cx,cy,hh,hw, bombReach);
 
-    this.explodeDirection(cx,cy);
-
-    this._explosions.push(new Explosion({
-        cx : cx-30,
-        cy : cy-25
-    }));
+    this._generateExplosion({
+        cx : cx,
+        cy : cy,
+        nextX : cx,
+        nextY : cy,
+        halfWidth: hw,
+        halfHeight : hh
+    });
 
 },
 
-explodeDirection : function (cx,cy){
+explodeDirection : function (cx,cy,hw,hh, bombReach){
     var explode = {up:true, down: true, left: true, right:true};
     // for (var rangeE in rangeEntites){
     //     var r = rangeEntites[rangeE];
@@ -78,32 +85,57 @@ explodeDirection : function (cx,cy){
     //         explode.down = false;
     //     }
     // }
-    var x, y;
+    var x, y; 
     for (var dir in explode){
-            switch (dir){
-                case "up":
-                    x=cx-30;
-                    y=cy-45;
-                    break;
-                case "down":
-                    x=cx-30;
-                    y=cy-5;
-                    break;
-                case "left":
-                    x=cx-50;
-                    y=cy-25;
-                    break;
-                case "right":
-                    x = cx-10;
-                    y = cy-25;
-                    break;
-                }
-            this._explosions.push(new Explosion({
-            cx : x,
-            cy : y,
-            dir : dir
-            }));
+        var h=0;
+        var w=0;
+        switch (dir){
+            case "up":
+                h = -1;
+                x=cx;
+                y=cy-hh*2;
+                break;
+            case "down":
+                h=1;
+                x=cx;
+                y=cy+hh*2;
+                break;
+            case "left":
+                w = -1;
+                x=cx-hw*2;
+                y=cy;
+                break;
+            case "right":
+                w = 1;
+                x = cx+hw*2;
+                y = cy;
+                break;
+            }
+        for (var i = 0; i < bombReach; i++){
+            var descr = {
+                nextX : x + i*w*hw,
+                nextY : y + i*h*hh,
+                cx : cx ,
+                cy : cy,
+                halfWidth : hw,
+                halfHeight : hh,
+                dir : dir
+            };
+            if (this._generateExplosion(descr)==this.KILL_ME_NOW)
+                break;
+            //this._generateExplosion(descr);
+            }
         }
+},
+
+_generateExplosion : function(descr){
+    var explosion = new Explosion(descr);
+    if (explosion.update(1) == this.KILL_ME_NOW)
+        //console.log(explosion.update(1));
+        return this.KILL_ME_NOW;
+    else
+        this._explosions.push(explosion);
+    return;
 },
 
 generateBoundary : function(descr){
@@ -116,7 +148,8 @@ _generateBoundaries : function(descr){
 
 
 deferredSetup : function () {
-    this._categories = [this._Barrels, this._Bombs, this._Brick, this._Boundary, this._players, this._explosions];
+    this._categories = [this._explosions,this._Barrels, this._Bombs, 
+                        this._Brick, this._Boundary, this._players];
 
 },
 
