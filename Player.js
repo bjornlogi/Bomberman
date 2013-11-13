@@ -114,13 +114,13 @@ Player.prototype.immunity = false;
 
 Player.prototype.takeExplosion = function(){
 
-    if (this.lives < 0 && !this.immunity){
+    if (this.lives == 0 && !this.immunity){
         this.kill();
-        this.lives--;
     }
     else {
         this.immunity = true;
         spatialManager.unregister(this);
+        this.lives--;
     }
 };
 
