@@ -114,18 +114,46 @@ function createBoundary()
 
 function createBarrels()
 {
-    entityManager._generateBarrels({
-        cx : 125,
-        cy : 125
-    });
- /* for(var i = 0; i < 50; i++){
-          var locationX = (Math.random()*475)+50;
-          var locationY = (Math.random()*475)+50;
-          entityManager._generateBarrels({
-              cx : locationX,
-              cy : locationY
-          });
-      } */
+  var chance = 0.3;     //líkar á að "barrel" verði til
+
+  var locationX = 125;
+  var locationY = 85;
+  for(var i = 0; i < 6; i++)
+  { 
+    for(var j = 0; j < 7; j++)
+    {
+
+        if((Math.random()<chance) && !(i===5 && j===0))
+        {
+              entityManager._generateBarrels({
+                  cx : locationX,
+                  cy : locationY
+              });
+          }
+         if(i===0 && j===4){j = 6;}
+         if(i===5 && j===5){j = 6;}
+          locationX += 80;
+      }
+        locationX = 45;
+       locationY += 80;
+    } 
+    locationX = 125;
+    locationY = 45;
+    for(var k = 0; k<7;k++){
+        for(var h=0; h<13;h++){
+            if((Math.random()<chance) && !(k===6 && (h<2 || h>10)))
+            {
+              entityManager._generateBarrels({
+                  cx : locationX,
+                  cy : locationY
+              });
+            }
+            if(k===0 && h===8){h = 12;}
+              locationX += 40;
+        }
+         locationX = 45;
+            locationY +=80;
+    }
 }
 // =============
 // GATHER INPUTS
