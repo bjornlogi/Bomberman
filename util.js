@@ -9,18 +9,6 @@
 var util = {
 
 
-// // RANGES
-// // ======
-
-// clampRange: function(value, lowBound, highBound) {
-//     if (value < lowBound) {
-// 	value = lowBound;
-//     } else if (value > highBound) {
-// 	value = highBound;
-//     }
-//     return value;
-// },
-
  getBottomRightCorner: function(cx,cy,halfWidth,halfHeight) {
      return {x: cx + halfWidth, y: cy + halfHeight}; 
  },
@@ -112,19 +100,6 @@ square: function(x) {
 distSq: function(x1, y1, x2, y2) {
     return this.square(x2-x1) + this.square(y2-y1);
 },
-
-// wrappedDistSq: function(x1, y1, x2, y2, xWrap, yWrap) {
-//     var dx = Math.abs(x2-x1),
-// 	dy = Math.abs(y2-y1);
-//     if (dx > xWrap/2) {
-// 	dx = xWrap - dx;
-//     };
-//     if (dy > yWrap/2) {
-// 	dy = yWrap - dy;
-//     }
-//     return this.square(dx) + this.square(dy);
-// },
-
 
 // CANVAS OPS
 // ==========

@@ -43,9 +43,7 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
-        KEY_RIGHT: P1_RIGHT,
-        bombReach : 7,
-        lives : 3
+        KEY_RIGHT: P1_RIGHT
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({
@@ -305,11 +303,17 @@ function preloadDone() {
 
     for (var row = 0; row < numRows; ++row) {
         for (var col = 0; col < numCols; ++col) {
-            if (col>8) celWidth += 0.7;
+            if (col>8) celWidth += 0.6;
+            if (col==16) celWidth -= 0.1;
+            if (col==18) celWidth -= 0.1;
+
             sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
                                 celWidth, celHeight) 
             g_sprites.push(sprite);
-            if (col>8) celWidth -= 0.7;
+            
+            if (col>8) celWidth -= 0.6;
+            if (col==16) celWidth -= 0.1;
+            if (col==18) celWidth -= 0.08;
         }
     }
 

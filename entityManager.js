@@ -22,6 +22,7 @@ _Barrels : [],
 // },
 
 KILL_ME_NOW : -1,
+KILL_ME_CHILDREN : -2,
 
 _generatePlayer : function(descr) {
     this._players.push(new Player(descr));
@@ -32,9 +33,7 @@ _generateBrick : function(descr){
 },
 
 _generateBricks : function() {
-   
-        this.generateBrick();
-        
+    this.generateBrick();    
 },
 
 _generateBarrels : function(descr){
@@ -53,8 +52,6 @@ dropBomb: function(cx, cy, bombReach, hw, hh) {
 },
 
 explode: function (cx, cy, bombReach, hw, hh){
-    //cx -= 25;
-    //cy -= 25;
     this.explodeDirection(cx,cy,hh,hw, bombReach);
 
     this._generateExplosion({
@@ -70,21 +67,6 @@ explode: function (cx, cy, bombReach, hw, hh){
 
 explodeDirection : function (cx,cy,hw,hh, bombReach){
     var explode = {up:true, down: true, left: true, right:true};
-    // for (var rangeE in rangeEntites){
-    //     var r = rangeEntites[rangeE];
-    //     if (cx-52 == r.cx && cy-15== r.cy){
-    //         explode.left = false;     
-    //     }
-    //     else if (cx + 28 == r.cx && cy-15 == r.cy){
-    //         explode.right = false;
-    //     }
-    //     else if ((cx - 12 == r.cx && cy-55 == r.cy)){
-    //         explode.up = false;
-    //     }
-    //     else if ((cx-12 == r.cx && cy+25 == r.cy)){
-    //         explode.down = false;
-    //     }
-    // }
     var x, y; 
     for (var dir in explode){
         var h=0;
@@ -123,6 +105,7 @@ explodeDirection : function (cx,cy,hw,hh, bombReach){
             };
             if (this._generateExplosion(descr)==this.KILL_ME_NOW)
                 break;
+
             //this._generateExplosion(descr);
             }
         }
@@ -131,8 +114,11 @@ explodeDirection : function (cx,cy,hw,hh, bombReach){
 _generateExplosion : function(descr){
     var explosion = new Explosion(descr);
     if (explosion.update(1) == this.KILL_ME_NOW)
-        //console.log(explosion.update(1));
         return this.KILL_ME_NOW;
+    else if (explosion.update(1) == this.KILL_ME_CHILDREN){
+        this._explosions.push(explosion);
+        return this.KILL_ME_NOW;
+    }
     else
         this._explosions.push(explosion);
     return;

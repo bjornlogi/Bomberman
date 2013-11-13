@@ -18,8 +18,6 @@ function Explosion(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
-    // Make a noise when I am created (i.e. fired)
-    //this.fireSound.play();
 }
 
 Explosion.prototype = new Entity();
@@ -34,9 +32,11 @@ Explosion.prototype.update = function (du){
 	for (var rE in rangeEntities){
 		var r = rangeEntities[rE];
 		
-		if (r instanceof Boundary || r instanceof Brick){
-
+		if (r instanceof Boundary || r instanceof Brick)
 				return entityManager.KILL_ME_NOW;
+		else if (r instanceof Barrel){
+			r.takeExplosion();
+			return entityManager.KILL_ME_CHILDREN;
 		}
 		else if (r instanceof Player)
 				r.takeExplosion();

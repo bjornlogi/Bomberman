@@ -43,6 +43,7 @@ Entity.prototype.setup = function (descr) {
     
     // I am not dead yet!
     this._isDeadNow = false;
+    this._isDying = false;
 };
 
 Entity.prototype.setPos = function (cx, cy) {
@@ -74,6 +75,10 @@ Entity.prototype.kill = function () {
     this._isDeadNow = true;
 };
 
+Entity.prototype.blow = function () {
+    this._isDying = true;
+};
+
 Entity.prototype.findHitEntity = function () {
     var pos = this.getPos();
     var nextPos = this.getNextPos();
@@ -92,7 +97,7 @@ Entity.prototype.isColliding = function () {
     return this.findHitEntity();
 };
 
-// Entity.prototype.wrapPosition = function () {
-//     this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
-//     this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
-// };
+Entity.prototype.wrapPosition = function () {
+    this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
+    this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
+};

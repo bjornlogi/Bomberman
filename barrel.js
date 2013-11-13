@@ -37,6 +37,10 @@ Barrel.prototype.update = function (du) {
     spatialManager.register(this);
 };
 
+Barrel.prototype.takeExplosion = function(){
+    this.kill();
+};
+
 Barrel.prototype.render = function (ctx) {
 	//var nearest = this.findNearest();
 	ctx.fillStyle="white";

@@ -9,6 +9,9 @@ function Player(descr) {
 
 Player.prototype = new Entity(); 
 
+Player.prototype.lives = 3;
+Player.prototype.bombReach = 7;
+
 var g_cel = 0;
 Player.prototype.orientation = {
     down : 1,
@@ -21,10 +24,9 @@ Player.prototype.orientation = {
     switchRight: true,
 }
 var i = 10;
+var j = 3;
 Player.prototype.render = function (ctx) {
-
     var fadeThresh = Player.prototype.immunityTimer/10;
-
     if (this.immunityTimer/i-- < fadeThresh && this.immunity)
         ctx.globalAlpha = i%2;
     if (i==0){
@@ -32,8 +34,23 @@ Player.prototype.render = function (ctx) {
         ctx.globalAlpha = 1;
     }
 
+
+
     var cel = g_sprites[this.playerOrientation];
-    
+
+    fadeThresh = Player.prototype.deathTimer/4;
+
+    if (this._isDying && this.deathTimer/2.8 < fadeThresh){
+        cel = g_sprites[19];
+    }
+    else if (this._isDying && this.deathTimer/2.9 < fadeThresh)
+        cel = g_sprites[18];
+    else if (this._isDying && this.deathTimer/3 < fadeThresh)
+        cel = g_sprites[17]
+    else if (this._isDying && this.deathTimer/5 < fadeThresh)
+        cel = g_sprites[16]
+
+    //cel = g_sprites[17]
     cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
@@ -48,8 +65,8 @@ Player.prototype.render = function (ctx) {
     // ctx.fillRect(this.cx, this.cy, 5, 5);
 };
 
-Player.prototype.switchStepReset=250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
+Player.prototype.deathTimer = 2000/ NOMINAL_UPDATE_INTERVAL;
 
 
 Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
@@ -66,7 +83,11 @@ Player.prototype.update = function (du) {
         this.immunity = false;
         this.immunityTimer = Player.prototype.immunityTimer;
     }
-
+    if (this._isDying){
+        this.deathTimer -= du;
+    }
+    if (this.deathTimer < 0)
+        this.kill();
 
 
     this.switchStep -= du;
@@ -104,9 +125,7 @@ Player.prototype.update = function (du) {
     if (!this.immunity)
         spatialManager.register(this);
     //Droppa sprengju
-    this.maybeDropBomb();
-
-    
+    this.maybeDropBomb();    
 };
 
 Player.prototype.immunityTimer = 1500/NOMINAL_UPDATE_INTERVAL;
@@ -115,7 +134,7 @@ Player.prototype.immunity = false;
 Player.prototype.takeExplosion = function(){
 
     if (this.lives == 0 && !this.immunity){
-        this.kill();
+        this.blow();
     }
     else {
         this.immunity = true;
@@ -185,7 +204,7 @@ Player.prototype.updateSteps = function(keyPressed){
             this.orientation.currRight = rightArray[index];
         }
 
-        this.switchStep = this.switchStepReset;
+        this.switchStep = Player.prototype.switchStep;
     }
 };
 
