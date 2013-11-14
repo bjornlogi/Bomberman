@@ -14,9 +14,13 @@ Player.prototype = new Entity();
 
 Player.prototype.intro = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/131659__bertrof__game-sound-intro-to-game.wav");
-
 Player.prototype.gameOver = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/43697__notchfilter__game-over02.wav");
+Player.prototype.hit = new Audio(
+  "https://notendur.hi.is/~pap5/bomberman/sound/Hit_Hurt36.wav");
+Player.prototype.drop = new Audio(
+  "https://notendur.hi.is/~pap5/bomberman/sound/Powerup.wav");
+
 
 
 Player.prototype.lives = 3;
@@ -157,6 +161,7 @@ Player.prototype.takeExplosion = function(){
         this.immunity = true;
         spatialManager.unregister(this);
         this.lives--;
+        this.hit.play();
     }
 };
 
@@ -172,6 +177,7 @@ Player.prototype.maybeDropBomb = function () {
         setTimeout(function(){
         isBomb = false;
         }, 3000)
+        this.drop.play();
    }
 };
 
