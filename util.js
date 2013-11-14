@@ -137,32 +137,23 @@ areBothInFourthQuad : function (e,c){
         return true;
 },
 
-isExtraInQuad : function (e,c){
-    return (this.isExtraInFirstQuad(e,c) ||
-            this.isExtraInSecondQuad(e,c)
-        );
+isBoundary : function(b){
+    return (b.cx == 20 || b.cx==580 || b.cy == 20 || b.cy == 580)
 },
 
-isExtraInFirstQuad : function (e,c){
-    if (c.cy > 250 && c.cx < 300)
-        if (e.cy == 340 && e.cx < 300)
+isBrick : function (b){
+     for (var i = 0; i<36; i++){
+         if(b.cx == 100+(80*(i/6).toFixed(0)) && b.cy == 100+(80*(i%6)))
             return true;
-    if (c.cx > 250 && c.cx < 300)
-        if (e.cx == 340 && e.cy < 300)
-            return true;
-
+    }
 },
 
-isExtraInSecondQuad : function (e,c){
-    // if (c.cy > 250 && c.cx > 300){
-    //     if (e.cy == 340)
-    //         return true;
-    // }
-    // if (c.cx < 350 && c.cx < 300)
-    //     if (e.cx == 260 && e.cy < 300)
-    //         return true;
-},
+maybeShift : function (entity,player,du){
+    
 
+    
+    
+},
 
 
 // isBetween: function(value, lowBound, highBound) {

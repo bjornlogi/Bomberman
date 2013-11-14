@@ -37,18 +37,12 @@ Player.prototype.orientation = {
     currRight : 7,
     switchRight: true,
 }
-var i = 10;
-var j = 3;
+
+
 Player.prototype.render = function (ctx) {
-    var fadeThresh = Player.prototype.immunityTimer/10;
-    if (this.immunityTimer/i-- < fadeThresh && this.immunity)
-        ctx.globalAlpha = i%2;
-    if (i==0){
-        i=10;
-        ctx.globalAlpha = 1;
-    }
 
-
+    if (this.immunity)
+        this.flicker(ctx);
 
     var cel = g_sprites[this.playerOrientation];
 
@@ -78,6 +72,17 @@ Player.prototype.render = function (ctx) {
      // ctx.fillRect(ptl.x, ptl.y,5,5);
     //ctx.fillRect(this.cx+3, this.cy, 5, 5);
 };
+
+var i = 10;
+Player.prototype.flicker = function (ctx){
+    var fadeThresh = Player.prototype.immunityTimer/10;
+    if (this.immunityTimer/i-- < fadeThresh)
+        ctx.globalAlpha = i%2;
+    if (i==0){
+        i=10;
+        ctx.globalAlpha = 1;
+    }
+}
 
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.deathTimer = 2000/ NOMINAL_UPDATE_INTERVAL;
@@ -113,6 +118,8 @@ Player.prototype.update = function (du) {
     if (rangeEntities.length == 0){
         this.cx = this.nextX;
         this.cy = this.nextY;
+    }else{
+        this.maybeShift(rangeEntities, du);
     }
     if (!this.immunity)
         spatialManager.register(this);
@@ -145,6 +152,22 @@ Player.prototype.keyHandling = function (du){
         this.playerOrientation = this.orientation.currRight;
     }
     this.updateSteps(dir);
+}
+
+Player.prototype.maybeShift = function (entities, du){
+    for (var entity in entities){
+        var e = entities[entity];
+        if (util.isBrick(e) && entity.length == 1){
+            var eTopY = e.cy - e.halfHeight;
+            var eBottomY = e.cy + e.halfHeight;
+            var playerBottomY = this.cy + this.halfHeight;
+            var playerTopY = this.cy - this.halfHeight
+            if (playerTopY > e.cy && playerTopY < eBottomY)
+                 this.cy += this.velY*du; 
+            else if (playerBottomY < e.cy && playerBottomY > eTopY)
+                this.cy -= this.velY*du;
+        }
+    }
 }
 
 Player.prototype.immunityTimer = 1500/NOMINAL_UPDATE_INTERVAL;

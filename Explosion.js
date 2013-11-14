@@ -24,6 +24,9 @@ function Explosion(descr) {
 
 Explosion.prototype = new Entity();
 
+Explosion.prototype.halfWidth = 16;
+Explosion.prototype.halfHeight = 16;
+
 Explosion.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 Explosion.prototype.explodeSound = new Audio(

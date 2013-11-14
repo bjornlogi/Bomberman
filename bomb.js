@@ -28,6 +28,8 @@ function Bomb(descr) {
 
 Bomb.prototype = new Entity();
 Bomb.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Bomb.prototype.halfWidth = 15;
+Bomb.prototype.halfHeight = 15;
 
 Bomb.prototype.explode = {
         stats : false

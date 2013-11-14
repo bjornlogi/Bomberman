@@ -43,8 +43,6 @@ _generateBarrels : function(descr){
 //fireBullet
 dropBomb: function(cx, cy, bombReach, hw, hh) {
     this._Bombs.push(new Bomb({
-        halfWidth: hw,
-        halfHeight: hh,
         cx   : cx-hw,
         cy   : cy-hh,
         bombReach : bombReach
@@ -58,9 +56,7 @@ explode: function (cx, cy, bombReach, hw, hh){
         cx : cx,
         cy : cy,
         nextX : cx,
-        nextY : cy,
-        halfWidth: hw,
-        halfHeight : hh
+        nextY : cy
     });
 
 },
@@ -99,8 +95,6 @@ explodeDirection : function (cx,cy,hw,hh, bombReach){
                 nextY : y + i*h*hh,
                 cx : cx ,
                 cy : cy,
-                halfWidth : hw,
-                halfHeight : hh,
                 dir : dir
             };
             if (this._generateExplosion(descr)==this.KILL_ME_NOW)
