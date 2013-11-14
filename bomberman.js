@@ -319,17 +319,11 @@ function preloadDone() {
             if (col==18) celWidth -= 0.08;
         }
     }
-
-    // for (var row = numRows/2; row < numRows/2; ++row) {
-    //     for (var col = 0; col < numCols/2; ++col) {
-
-    //         sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
-    //                             celWidth, celHeight) 
-    //         g_sprites.push(sprite);
-    //     }
-    // }
-    //console.log(g_sprites);
+      
     g_sprites.splice(numCels);
+    g_sprites.push(new Sprite(g_sheets.brick, 0, 0,
+                                40, 40));
+    console.log(g_sprites); 
     createBrick();
     createBoundary();
     createBarrels();

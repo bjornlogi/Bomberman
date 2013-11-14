@@ -27,7 +27,7 @@ Brick.prototype.render = function (ctx) {
   //ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
   ctx.fillStyle = "white";
 
-  g_sprites.brick.drawAt(this.cx, this.cy);
+  g_sprites[20].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
 
        
 };
