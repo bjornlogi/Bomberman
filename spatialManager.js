@@ -108,7 +108,7 @@ isInRange : function(e, c){
                     return true;
                 }
             }
-        }else{
+    }else{
             if (c.cy < 300){
                 if (e.cx > 300 && e.cy < 300){
                     return true;
