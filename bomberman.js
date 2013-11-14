@@ -283,8 +283,8 @@ function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
         brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
-        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/4149012_30.jpg",
-        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/Red_Shake_King_Block.PNG"
+        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/30px%20-Barrel%20(1).png",
+        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
