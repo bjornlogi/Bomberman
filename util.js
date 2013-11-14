@@ -199,10 +199,15 @@ distSq: function(x1, y1, x2, y2) {
 // ==========
 
 clearCanvas: function (ctx) {
-    var prevfillStyle = ctx.fillStyle;
-    ctx.fillStyle = "green";
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.fillStyle = prevfillStyle;
+    //var prevfillStyle = ctx.fillStyle;
+    //ctx.fillStyle = "green";
+    //ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //ctx.fillStyle = prevfillStyle;
+    var base_image = new Image();
+    base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
+    base_image.onload = function(){
+    ctx.drawImage(base_image, 0, 0);
+  }
 },
 
 strokeCircle: function (ctx, x, y, r) {
