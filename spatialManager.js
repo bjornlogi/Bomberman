@@ -94,9 +94,9 @@ isColliding : function (entity,c){
 },
 
 isInRange : function(e, c){
-    if (e instanceof Boundary){
-        util.areMiddleBlocksInRange(e,c);
-    }
+    
+    if(util.areMiddleBlocksInRange(e,c))
+        return true;
 
     if (c.cx < 300){
             if (c.cy < 300){
