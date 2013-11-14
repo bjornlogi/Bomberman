@@ -121,7 +121,8 @@ function createBarrels()
     for(var j = 0; j < 7; j++)
     {
 
-        if((Math.random()<chance) && !(i===5 && j===0))
+        if((Math.random()<chance) && !(i===5 && j===0) &&
+            !(i>0 && j===3) && !(i===0 && j===2))
         {
               entityManager._generateBarrels({
                   cx : locationX,
@@ -139,7 +140,9 @@ function createBarrels()
     locationY = 60;
     for(var k = 0; k<7;k++){
         for(var h=0; h<13;h++){
-            if((Math.random()<chance) && !(k===6 && (h<2 || h>10)))
+            if((Math.random()<chance) && !(k===6 &&
+             (h<2 || h>10)) && !(k===3) && !(k>0 && h===6) &&
+                !(k===0 && h===4))
             {
               entityManager._generateBarrels({
                   cx : locationX,
