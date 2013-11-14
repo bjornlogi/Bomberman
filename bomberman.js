@@ -282,7 +282,7 @@ var g_sheets = {};
 function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
-        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/Block_2.png"
+        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png"
         //rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
     };
 
