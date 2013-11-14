@@ -22,12 +22,13 @@ var cel = g_sprites.brick;
 Brick.prototype.render = function (ctx) {
 
     // (cx, cy) is the centre; must offset it for drawing
-   
+  if (g_useDebug){
   ctx.fillStyle = this.color;
-  //ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
+  ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
   ctx.fillStyle = "white";
-
-  g_sprites[20].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
+}
+  else
+    g_sprites[20].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
 
        
 };
