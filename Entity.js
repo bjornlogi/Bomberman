@@ -79,7 +79,7 @@ Entity.prototype.blow = function () {
     this._isDying = true;
 };
 
-Entity.prototype.findHitEntity = function () {
+Entity.prototype.findHitEntity = function (isExplosion) {
     var pos = this.getPos();
     var nextPos = this.getNextPos();
     return spatialManager.findEntityInRange({
@@ -88,7 +88,8 @@ Entity.prototype.findHitEntity = function () {
         halfWidth: this.getHalfWidth(), 
         halfHeight: this.getHalfHeight(), 
         nextX: nextPos.x, 
-        nextY: nextPos.y
+        nextY: nextPos.y,
+        isExplosion : isExplosion
     });
 };
 

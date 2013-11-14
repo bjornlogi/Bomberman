@@ -137,22 +137,30 @@ areBothInFourthQuad : function (e,c){
         return true;
 },
 
-isBlockInUpperHalf : function (e,c){
-    // if (c.cx > 200)
-    //     if (((e.cx == 260 || e.cx == 340) && e.cy < 300))
-    //         return true;
-    if (c.cy > 250)
-        if (e.cy == 340 && e.cx > 300)
-            return true;
+isExtraInQuad : function (e,c){
+    return (this.isExtraInFirstQuad(e,c) ||
+            this.isExtraInSecondQuad(e,c)
+        );
 },
 
-isBlockInLowerHalf : function (e,c){
-    // if (c.cx < 400)
-    //     if (((e.cx == 260 || e.cx == 340) && e.cy > 300))
-    //         return true;
-    if (c.cy < 350)
-        if (e.cy == 260 && e.cx < 300)
+isExtraInFirstQuad : function (e,c){
+    if (c.cy > 250 && c.cx < 300)
+        if (e.cy == 340 && e.cx < 300)
             return true;
+    if (c.cx > 250 && c.cx < 300)
+        if (e.cx == 340 && e.cy < 300)
+            return true;
+
+},
+
+isExtraInSecondQuad : function (e,c){
+    // if (c.cy > 250 && c.cx > 300){
+    //     if (e.cy == 340)
+    //         return true;
+    // }
+    // if (c.cx < 350 && c.cx < 300)
+    //     if (e.cx == 260 && e.cy < 300)
+    //         return true;
 },
 
 

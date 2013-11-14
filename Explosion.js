@@ -28,7 +28,7 @@ Explosion.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 Explosion.prototype.update = function (du){
 	//spatialManager.unregister(this);
 	
-	var rangeEntities = this.findHitEntity();
+	var rangeEntities = this.findHitEntity(true);
 	for (var rE in rangeEntities){
 		var r = rangeEntities[rE];
 		

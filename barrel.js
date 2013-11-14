@@ -15,8 +15,8 @@ function Barrel(descr) {
 
 Barrel.prototype = new Entity();
 
-Barrel.prototype.halfWidth = 15;
-Barrel.prototype.halfHeight = 15;
+Barrel.prototype.halfWidth = 20;
+Barrel.prototype.halfHeight = 20;
 
 /* Barrel.prototype.findNearest = function(){
     var x = ((this.cx - 72) / 40).toFixed(0);

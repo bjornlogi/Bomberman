@@ -103,18 +103,15 @@ isInRange : function(e, c){
     *       |  3  |  4  |
     *       |_____|_____|
     */
-
+    if (c.isExplosion)
+         return true;
     if (util.areBothInSameQuad(e,c))
         return true;
 
     if(util.areMiddleBlocksInRange(e,c))
         return true;
 
-    if (util.isBlockInUpperHalf(e,c))
-        return true;
-
-    if (util.isBlockInLowerHalf(e,c))
-        return true;
+    
         
     return false;
 },
