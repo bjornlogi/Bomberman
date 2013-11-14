@@ -282,7 +282,10 @@ function requestPreloads() {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
         brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
         barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
-        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
+        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
+        bomb :  "https://notendur.hi.is/~pap5/bomberman/sprite/bomb2.png",
+        power1 : "https://notendur.hi.is/~pap5/bomberman/sprite/mush.png",
+        fire : "https://notendur.hi.is/~pap5/bomberman/sprite/Fire.png"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
@@ -325,6 +328,12 @@ function preloadDone() {
     g_sprites.push(new Sprite(g_sheets.barrel, 0, 0,
                                 40, 40));
     g_sprites.push(new Sprite(g_sheets.boundary, 0, 0,
+                                40, 40));
+    g_sprites.push(new Sprite(g_sheets.bomb, 0, 0,
+                                40, 40));
+    g_sprites.push(new Sprite(g_sheets.power1, 0, 0,
+                                40, 40));
+    g_sprites.push(new Sprite(g_sheets.fire, 0, 0,
                                 40, 40));
     createBrick();
     createBoundary();

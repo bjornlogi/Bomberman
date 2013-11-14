@@ -23,8 +23,12 @@ PowerUp.prototype.update = function (du) {
 }
 
 PowerUp.prototype.render = function (ctx){
-	ctx.fillStyle = this.color;
-  	ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
-  	ctx.fillStyle = "white";
+  if (g_useDebug){
+	   ctx.fillStyle = this.color;
+  	 ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
+  	 ctx.fillStyle = "white";
+  }
+  else
+     g_sprites[24].drawAt(this.cx-20, this.cy-20);
 }
 

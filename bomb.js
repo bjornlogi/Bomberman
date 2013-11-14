@@ -83,14 +83,17 @@ Bomb.prototype.render = function (ctx) {
         line = 3;
         size = 28.5;
     }
-
-    ctx.fillStyle=col;
-    ctx.strokeStyle="black";
-    ctx.lineWidth = line;
-    ctx.fillRect(this.cx-this.halfWidth, this.cy-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
-    //ctx.strokeRect(newX, newY,size,size);
-    ctx.fill();
-    //ctx.stroke();
+     if (g_useDebug){
+        ctx.fillStyle=col;
+        ctx.strokeStyle="black";
+        ctx.lineWidth = line;
+        ctx.fillRect(this.cx-this.halfWidth, this.cy-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
+        //ctx.strokeRect(newX, newY,size,size);
+        ctx.fill();
+        //ctx.stroke();
+    }
+    else
+        g_sprites[23].drawAt(this.cx-20, this.cy-20);
 
     ctx.globalAlpha = 1;
 };
