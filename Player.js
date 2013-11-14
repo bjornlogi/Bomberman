@@ -62,7 +62,7 @@ Player.prototype.render = function (ctx) {
     //uncomment this to draw top left and bottom right corner of the player for debugging
      // ctx.fillRect(pbr.x, pbr.y,4,4);
      // ctx.fillRect(ptl.x, ptl.y,5,5);
-    // ctx.fillRect(this.cx, this.cy, 5, 5);
+    //ctx.fillRect(this.cx+3, this.cy, 5, 5);
 };
 
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
@@ -117,9 +117,9 @@ Player.prototype.update = function (du) {
     }
 
     this.updateSteps(dir);
-    var rangeEntities = this.findHitEntity(nextX, nextY);
+    var rangeEntities = this.findHitEntity();
     if (rangeEntities.length == 0){
-         this.cx = this.nextX;
+        this.cx = this.nextX;
         this.cy = this.nextY;
     }
     if (!this.immunity)
@@ -147,22 +147,22 @@ Player.prototype.takeExplosion = function(){
 var isBomb = false;
 Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && isBomb === false) {
-       var nearest = this.findNearest();
+        var nearest = this.findNearest();
         entityManager.dropBomb(
-           72+40*nearest.t, 75+40*nearest.s, this.bombReach, 15,15);
+           75+40*nearest.t, 75+40*nearest.s, this.bombReach, 15,15);
         isBomb = true;
 
         setTimeout(function(){
         isBomb = false;
-        }, 5000)
+        }, 3000)
    }
 };
 
 //finds the nearest empty block to drop the bomb
 Player.prototype.findNearest = function(){
-    var x = ((this.cx - 72) / 40).toFixed(0);
+    var x = ((this.cx - 55) / 40).toFixed(0);
     if (x < 0) x = 0;
-    var y = ((this.cy - 75) / 40).toFixed(0);
+    var y = ((this.cy - 55) / 40).toFixed(0);
     if (y < 0) y = 0;
     return {t:x, s:y};
 }

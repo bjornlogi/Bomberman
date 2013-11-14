@@ -95,19 +95,7 @@ isColliding : function (entity,c){
 
 isInRange : function(e, c){
     if (e instanceof Boundary){
-        if(e.cx == 300){
-            if (e.cy == 20 && c.cy < 80)
-                return true;
-            else if (e.cy == 580 && c.cy > 540)
-                return true;
-        }
-        else if (e.cy == 300){
-            if (e.cx == 20 && c.cx < 70)
-                return true;
-            else if (e.cx == 580 && c.cx > 510){
-                return true;
-            }
-        }
+        util.areMiddleBlocksInRange(e,c);
     }
 
     if (c.cx < 300){

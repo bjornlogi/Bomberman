@@ -54,7 +54,7 @@ var util = {
  },
 
  checkTop : function (points){
-    if ((points.ptlNext.y < points.hbr.y) && (points.ptl.y > points.hbr.y)){
+    if ((points.ptlNext.y  < points.hbr.y) && (points.ptl.y > points.hbr.y)){
         if (points.ptl.x > points.htl.x && points.ptl.x < points.hbr.x || 
             points.pbr.x > points.htl.x && points.pbr.x < points.hbr.x)
                 return true;
