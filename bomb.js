@@ -45,7 +45,7 @@ Bomb.prototype.update = function (du) {
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0){
-        entityManager.explode(this.cx, this.cy, this.bombReach, 12, 12);
+        entityManager.explode(this.cx, this.cy, this.bombReach, 16, 16);
         this.explode.stats = true;
         return entityManager.KILL_ME_NOW;
         

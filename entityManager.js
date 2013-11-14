@@ -9,17 +9,10 @@ _Brick   : [],
 _Boundary : [],
 _explosions : [],
 _Barrels : [],
+_PowerUp : [],
 
 // "PRIVATE" METHODS
 
-// _generateRocks : function() {
-//     var i,
-//         NUM_ROCKS = 4;
-
-//     for (i = 0; i < NUM_ROCKS; ++i) {
-//         this.generateRock();
-//     }
-// },
 
 KILL_ME_NOW : -1,
 KILL_ME_CHILDREN : -2,
@@ -126,10 +119,18 @@ _generateBoundaries : function(descr){
     this.generateBoundary();
 },
 
+generatePowerUp : function(cx,cy,pu){
+    this._PowerUp.push(new PowerUp({
+        cx : cx,
+        cy : cy,
+        powerUp : pu
+    }));
+},
+
 
 deferredSetup : function () {
     this._categories = [this._explosions,this._Barrels, this._Bombs, 
-                        this._Brick, this._Boundary, this._players];
+                        this._Brick, this._Boundary, this._PowerUp, this._players];
 
 },
 

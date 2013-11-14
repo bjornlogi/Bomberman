@@ -39,6 +39,7 @@ Barrel.prototype.update = function (du) {
 
 Barrel.prototype.takeExplosion = function(){
     this.kill();
+    this.maybeDropAPowerUp();
 };
 
 Barrel.prototype.render = function (ctx) {
@@ -54,3 +55,22 @@ else
 
 	ctx.globalAlpha = 1;
 };
+
+Barrel.prototype.maybeDropAPowerUp = function(){
+    var powerUp = (Math.random()*10).toFixed(0);
+    if (powerUp%2 == 0)
+        entityManager.generatePowerUp(this.cx, this.cy, powerUp);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
