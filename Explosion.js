@@ -18,7 +18,7 @@ function Explosion(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
-    this.evaporateSound.play();
+    this.explodeSound.play();
 
 }
 
@@ -26,7 +26,7 @@ Explosion.prototype = new Entity();
 
 Explosion.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
-Explosion.prototype.evaporateSound = new Audio(
+Explosion.prototype.explodeSound = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/Explosion12.wav");
 
 Explosion.prototype.update = function (du){

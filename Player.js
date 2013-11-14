@@ -5,9 +5,19 @@ function Player(descr) {
 
      this.sprite = this.sprite || g_sprites.players;
      this.setup(descr);
+
+    this.intro.play();
+
 };	
 
 Player.prototype = new Entity(); 
+
+Player.prototype.intro = new Audio(
+  "https://notendur.hi.is/~pap5/bomberman/sound/131659__bertrof__game-sound-intro-to-game.wav");
+
+Player.prototype.gameOver = new Audio(
+  "https://notendur.hi.is/~pap5/bomberman/sound/43697__notchfilter__game-over02.wav");
+
 
 Player.prototype.lives = 3;
 Player.prototype.bombReach = 7;
@@ -140,6 +150,8 @@ Player.prototype.takeExplosion = function(){
 
     if (this.lives == 0 && !this.immunity){
         this.blow();
+        this.gameOver.play();
+
     }
     else {
         this.immunity = true;
