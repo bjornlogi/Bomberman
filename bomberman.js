@@ -121,8 +121,7 @@ function createBarrels()
     for(var j = 0; j < 7; j++)
     {
 
-        if((Math.random()<chance) && !(i===5 && j===0) &&
-            !(i>0 && j===3) && !(i===0 && j===2))
+        if((Math.random()<chance) && !(i===5 && j===0))
         {
               entityManager._generateBarrels({
                   cx : locationX,
@@ -141,8 +140,7 @@ function createBarrels()
     for(var k = 0; k<7;k++){
         for(var h=0; h<13;h++){
             if((Math.random()<chance) && !(k===6 &&
-             (h<2 || h>10)) && !(k===3) && !(k>0 && h===6) &&
-                !(k===0 && h===4))
+             (h<2 || h>10)))
             {
               entityManager._generateBarrels({
                   cx : locationX,
@@ -283,7 +281,7 @@ function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
         brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
-        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/30px%20-Barrel%20(1).png",
+        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
         boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
     };
 
@@ -325,7 +323,7 @@ function preloadDone() {
     g_sprites.push(new Sprite(g_sheets.brick, 0, 0,
                                 40, 40));
     g_sprites.push(new Sprite(g_sheets.barrel, 0, 0,
-                                30, 30));
+                                40, 40));
     g_sprites.push(new Sprite(g_sheets.boundary, 0, 0,
                                 40, 40));
     createBrick();
