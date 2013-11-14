@@ -43,9 +43,14 @@ Barrel.prototype.takeExplosion = function(){
 
 Barrel.prototype.render = function (ctx) {
 	//var nearest = this.findNearest();
+    
+    if (g_useDebug){
 	ctx.fillStyle="white";
 	ctx.fillRect(this.cx-this.halfWidth, this.cy-this.halfHeight, this.halfHeight*2, this.halfWidth*2);
 	ctx.fill();
+}
+else
+    g_sprites[21].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
 
 	ctx.globalAlpha = 1;
 };
