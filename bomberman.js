@@ -283,7 +283,8 @@ function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
         brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
-        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/4149012_30.jpg"
+        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/4149012_30.jpg",
+        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/Red_Shake_King_Block.PNG"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
@@ -325,6 +326,8 @@ function preloadDone() {
                                 40, 40));
     g_sprites.push(new Sprite(g_sheets.barrel, 0, 0,
                                 30, 30));
+    g_sprites.push(new Sprite(g_sheets.boundary, 0, 0,
+                                40, 40));
     createBrick();
     createBoundary();
     createBarrels();
