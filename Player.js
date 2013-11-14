@@ -158,14 +158,19 @@ Player.prototype.maybeShift = function (entities, du){
     for (var entity in entities){
         var e = entities[entity];
         if (util.isBrick(e) && entity.length == 1){
-            var eTopY = e.cy - e.halfHeight;
-            var eBottomY = e.cy + e.halfHeight;
-            var playerBottomY = this.cy + this.halfHeight;
-            var playerTopY = this.cy - this.halfHeight
-            if (playerTopY > e.cy && playerTopY < eBottomY)
+            var eTop = util.getTopLeftCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
+            var eBottom = util.getBottomRightCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
+            var playerBottom = util.getBottomRightCorner(this.cx,this.cy,this.halfWidth,this.halfHeight);
+            var playerTop = util.getTopLeftCorner(this.cx,this.cy,this.halfWidth,this.halfHeight);
+
+            if (playerTop.y > e.cy && playerTop.y < eBottom.y)
                  this.cy += this.velY*du; 
-            else if (playerBottomY < e.cy && playerBottomY > eTopY)
+            else if (playerBottom.y < e.cy && playerBottom.y > eTop.y)
                 this.cy -= this.velY*du;
+            else if (playerBottom.x > eTop.x && playerBottom.x < e.cx)
+                this.cx -= this.velX*du;
+            else if (playerTop.x < eBottom.x && playerTop.x > e.cx)
+                this.cx += this.velX*du;
         }
     }
 }

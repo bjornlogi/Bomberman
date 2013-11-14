@@ -113,21 +113,21 @@ areBothInSameQuad : function (e,c){
 },
 
 areBothInFirstQuad : function (e,c){
-    if (c.cx < 300 && c.cy < 300 &&
-        e.cx < 300 && e.cy < 300)
+    if (c.cx < 350 && c.cy < 350 &&
+        e.cx < 350 && e.cy < 350)
             return true;
 
 },
 
 areBothInSecondQuad : function (e,c){
-    if (c.cx > 300 && c.cy < 300 &&
-        e.cx > 300 && e.cy < 300)
+    if (c.cx > 300 && c.cy < 350 &&
+        e.cx > 300 && e.cy < 350)
             return true;
 },
 
 areBothInThirdQuad : function (e,c){
-    if (c.cx < 300 && c.cy > 300 &&
-        e.cx < 300 && e.cy > 300)
+    if (c.cx < 350 && c.cy > 300 &&
+        e.cx < 350 && e.cy > 300)
         return true;
 },
 
@@ -154,21 +154,6 @@ maybeShift : function (entity,player,du){
     
     
 },
-
-
-// isBetween: function(value, lowBound, highBound) {
-//     if (value < lowBound) { return false; }
-//     if (value > highBound) { return false; }
-//     return true;
-// },
-
-
-// // RANDOMNESS
-// // ==========
-
-// randRange: function(min, max) {
-//     return (min + Math.random() * (max - min));
-// },
 
 
 // // MISC
