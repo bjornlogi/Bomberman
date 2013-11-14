@@ -95,35 +95,27 @@ isColliding : function (entity,c){
 
 isInRange : function(e, c){
     
+    /*
+    *       QUADRANT SCHEME
+    *        ___________
+    *       |  1  |  2  |
+    *       |_____|_____|    
+    *       |  3  |  4  |
+    *       |_____|_____|
+    */
+
+    if (util.areBothInSameQuad(e,c))
+        return true;
+
     if(util.areMiddleBlocksInRange(e,c))
         return true;
 
-    if (c.cx < 300){
-            if (c.cy < 300){
-                if (e.cx < 300 && e.cy < 300){
-                    return true;
-                }
-            }else{
-                if (e.cx < 300 && e.cy > 300){
-                    return true;
-                }
-            }
-    }else{
-            if (c.cy < 300){
-                if (e.cx > 300 && e.cy < 300){
-                    return true;
-                }
-            }else{
-                if (e.cx > 300 && e.cy > 300){
-                    return true;
-                }
-            }
-        }
-    if (e instanceof Player){
+    if (util.isBlockInUpperHalf(e,c))
         return true;
-    }
-        
 
+    if (util.isBlockInLowerHalf(e,c))
+        return true;
+        
     return false;
 },
 

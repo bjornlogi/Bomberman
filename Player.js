@@ -92,10 +92,25 @@ Player.prototype.update = function (du) {
 
     this.switchStep -= du;
     spatialManager.unregister(this);
+    this.keyHandling(du);
+
+    
+    var rangeEntities = this.findHitEntity();
+    if (rangeEntities.length == 0){
+        this.cx = this.nextX;
+        this.cy = this.nextY;
+    }
+    if (!this.immunity)
+        spatialManager.register(this);
+    //Droppa sprengju
+    this.maybeDropBomb();    
+};
+
+Player.prototype.keyHandling = function (du){
     var dir = "down";
     this.nextX = this.cx;
     this.nextY = this.cy;
-   	if (keys[this.KEY_UP]) {
+    if (keys[this.KEY_UP]) {
         this.nextY = this.cy - this.velY*du;
         dir = "up";
         this.playerOrientation = this.orientation.up;
@@ -115,18 +130,8 @@ Player.prototype.update = function (du) {
         dir = "right";
         this.playerOrientation = this.orientation.currRight;
     }
-
     this.updateSteps(dir);
-    var rangeEntities = this.findHitEntity();
-    if (rangeEntities.length == 0){
-        this.cx = this.nextX;
-        this.cy = this.nextY;
-    }
-    if (!this.immunity)
-        spatialManager.register(this);
-    //Droppa sprengju
-    this.maybeDropBomb();    
-};
+}
 
 Player.prototype.immunityTimer = 1500/NOMINAL_UPDATE_INTERVAL;
 Player.prototype.immunity = false;

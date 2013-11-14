@@ -8,7 +8,9 @@
 
 var util = {
 
-
+/*
+    Get corners of squares sent to Collision Detection
+*/
  getBottomRightCorner: function(cx,cy,halfWidth,halfHeight) {
      return {x: cx + halfWidth, y: cy + halfHeight}; 
  },
@@ -16,6 +18,10 @@ var util = {
   getTopLeftCorner: function(cx,cy,halfWidth,halfHeight) {
      return {x: cx - halfWidth, y: cy - halfHeight}; 
  },
+
+ /*
+ *   Collision Detection
+ */
 
  checkCollisionFromSides: function(points){
     return this.checkRightSide(points) || this.checkLeftSide(points);
@@ -71,21 +77,85 @@ var util = {
     return false;
  },
 
- areMiddleBlocksInRange : function (e, c){
+/*
+ *  Range Check
+ */
+
+areMiddleBlocksInRange : function (e, c){
+    return this.topOrBottomBlockIsInRange(e,c) || this.sideBlockIsInRange(e,c);
+},
+
+topOrBottomBlockIsInRange : function (e,c){
     if(e.cx == 300){
             if (e.cy == 20 && c.cy < 80)
                 return true;
             else if (e.cy == 580 && c.cy > 540)
                 return true;
         }
-        else if (e.cy == 300){
-            if (e.cx == 20 && c.cx < 70)
-                return true;
-            else if (e.cx == 580 && c.cx > 510){
-                return true;
-            }
-        }
+
 },
+
+sideBlockIsInRange : function (e,c){
+    if (e.cy == 300){
+        if (e.cx == 20 && c.cx < 70)
+                return true;
+        else if (e.cx == 580 && c.cx > 510){
+                return true;
+        }
+    }
+},
+
+areBothInSameQuad : function (e,c){
+    return (util.areBothInFirstQuad(e,c) ||
+            util.areBothInSecondQuad(e,c)||
+            util.areBothInThirdQuad(e,c) ||
+            util.areBothInFourthQuad(e,c));
+},
+
+areBothInFirstQuad : function (e,c){
+    if (c.cx < 300 && c.cy < 300 &&
+        e.cx < 300 && e.cy < 300)
+            return true;
+
+},
+
+areBothInSecondQuad : function (e,c){
+    if (c.cx > 300 && c.cy < 300 &&
+        e.cx > 300 && e.cy < 300)
+            return true;
+},
+
+areBothInThirdQuad : function (e,c){
+    if (c.cx < 300 && c.cy > 300 &&
+        e.cx < 300 && e.cy > 300)
+        return true;
+},
+
+areBothInFourthQuad : function (e,c){
+    if (c.cx > 300 && c.cy > 300 &&
+        e.cx > 300 && e.cy > 300)
+        return true;
+},
+
+isBlockInUpperHalf : function (e,c){
+    // if (c.cx > 200)
+    //     if (((e.cx == 260 || e.cx == 340) && e.cy < 300))
+    //         return true;
+    if (c.cy > 250)
+        if (e.cy == 340 && e.cx > 300)
+            return true;
+},
+
+isBlockInLowerHalf : function (e,c){
+    // if (c.cx < 400)
+    //     if (((e.cx == 260 || e.cx == 340) && e.cy > 300))
+    //         return true;
+    if (c.cy < 350)
+        if (e.cy == 260 && e.cx < 300)
+            return true;
+},
+
+
 
 // isBetween: function(value, lowBound, highBound) {
 //     if (value < lowBound) { return false; }
