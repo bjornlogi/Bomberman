@@ -22,7 +22,11 @@ Player.prototype.drop = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/Powerup.wav");
 
 
-
+Player.prototype.nextX = 57,
+Player.prototype.nextY = 60,
+Player.prototype.velX = 1.33,
+Player.prototype.velY = 1.33,
+Player.prototype.playerOrientation = 1,
 Player.prototype.lives = 3;
 Player.prototype.bombReach = 3;
 

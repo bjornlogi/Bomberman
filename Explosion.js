@@ -42,6 +42,7 @@ Explosion.prototype.update = function (du){
 		if (r instanceof Boundary || r instanceof Brick)
 				return entityManager.KILL_ME_NOW;
 		else if (r instanceof Barrel){
+			console.log("hey")
 			r.takeExplosion();
 			return entityManager.KILL_ME_CHILDREN;
 		}

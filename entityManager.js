@@ -101,9 +101,10 @@ explodeDirection : function (cx,cy,hw,hh, bombReach){
 
 _generateExplosion : function(descr){
     var explosion = new Explosion(descr);
-    if (explosion.update(1) == this.KILL_ME_NOW)
+    var msg = explosion.update(1);
+    if (msg == this.KILL_ME_NOW)
         return this.KILL_ME_NOW;
-    else if (explosion.update(1) == this.KILL_ME_CHILDREN){
+    else if (msg == this.KILL_ME_CHILDREN){
         this._explosions.push(explosion);
         return this.KILL_ME_NOW;
     }
