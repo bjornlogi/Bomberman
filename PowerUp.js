@@ -24,13 +24,21 @@ PowerUp.prototype.update = function (du) {
 }
 
 PowerUp.prototype.render = function (ctx){
+
 	//console.log(this.powerUp);
 	//ctx.fillStyle = this.color;
-	if (this.powerUp == "Range")
-  		ctx.fillStyle = "blue";
-  	else ctx.fillStyle = "red";
-  	ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
+	// if (this.powerUp == "Range")
+ //  		ctx.fillStyle = "blue";
+ //  	else ctx.fillStyle = "red";
+ //  	ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
   	
+  if (g_useDebug){
+	   ctx.fillStyle = this.color;
+  	 ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
+  	 ctx.fillStyle = "white";
+  }
+  else
+     g_sprites[24].drawAt(this.cx-20, this.cy-20);
 }
 
 PowerUp.prototype.bePickedUp = function (){

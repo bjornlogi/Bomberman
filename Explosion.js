@@ -58,18 +58,22 @@ Explosion.prototype.update = function (du){
 
 Explosion.prototype.render = function (ctx){
 
+	if(g_useDebug){
+		ctx.fillStyle="orange";
+		ctx.fillRect(this.nextX-this.halfWidth, this.nextY-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
+	    ctx.fill();
 
-	ctx.fillStyle="orange";
-	ctx.fillRect(this.nextX-this.halfWidth, this.nextY-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
-    ctx.fill();
+	    var pbr = {x: this.nextX + this.halfWidth, y: this.nextY + this.halfHeight};
+	    var ptl = {x: this.nextX - this.halfWidth, y: this.nextY - this.halfHeight};
+	    ctx.fillStyle="yellow";
+	    // //console.log(pbr);
+	    //ctx.fillRect(pbr.x, pbr.y,4,4);
+	     //ctx.fillRect(this.nextX, this.nextY,4,4);
+	    // ctx.fillStyle="white";
+	     //ctx.fillRect(ptl.x, ptl.y,4,4);
+	 }
+	 else
+	 	 g_sprites[25].drawAt(this.nextX-this.halfWidth, this.nextY-this.halfHeight);
 
-    var pbr = {x: this.nextX + this.halfWidth, y: this.nextY + this.halfHeight};
-    var ptl = {x: this.nextX - this.halfWidth, y: this.nextY - this.halfHeight};
-    ctx.fillStyle="yellow";
-    // //console.log(pbr);
-    //ctx.fillRect(pbr.x, pbr.y,4,4);
-     //ctx.fillRect(this.nextX, this.nextY,4,4);
-    // ctx.fillStyle="white";
-     //ctx.fillRect(ptl.x, ptl.y,4,4);
 }
 
