@@ -48,6 +48,9 @@ PowerUp.prototype.render = function (ctx){
       case "Bombs":
       sprite = sprites.powerUp[1];
       break;
+      case "Speed":
+      sprite = sprites.powerUp[2];
+      break;
    }
   }
   sprite.drawAt(this.cx-20, this.cy-20);

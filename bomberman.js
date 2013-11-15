@@ -287,7 +287,8 @@ function requestPreloads() {
         bombs :  "https://notendur.hi.is/~bls4/bombaman/images/bombsheet2.png",
         power1 : "https://notendur.hi.is/~pap5/bomberman/sprite/mush.png",
         range : "https://notendur.hi.is/~bls4/bombaman/images/range.png",
-        fire : "https://notendur.hi.is/~pap5/bomberman/sprite/Fire.png"
+        fire : "https://notendur.hi.is/~pap5/bomberman/sprite/Fire.png",
+        speed : "https://notendur.hi.is/~bls4/bombaman/images/speed.png"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
@@ -356,6 +357,8 @@ function createPowerUpSprites(){
     sprites.powerUp.push(new Sprite(g_sheets.range, 0, 0,
                         40, 40));
     sprites.powerUp.push(new Sprite(g_sheets.bomb, 0, 0,
+                        40, 40));
+    sprites.powerUp.push(new Sprite(g_sheets.speed, 0, 0,
                         40, 40));
     sprites.powerUp.push(new Sprite(g_sheets.power1, 0, 0,
                         40, 40));

@@ -120,7 +120,7 @@ _generateBoundaries : function(descr){
     this.generateBoundary();
 },
 
-powerUps : ["Range", "Bombs", "Kick"], 
+powerUps : ["Range", "Bombs", "Speed"], 
 
 generatePowerUp : function(cx,cy,pu){
     this._PowerUp.push(new PowerUp({

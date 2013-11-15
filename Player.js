@@ -199,6 +199,10 @@ Player.prototype.gainPowerUp = function (powerUp){
         case "Bombs":
         this.bombs += 1;
         break;
+        case "Speed":
+        this.velX += 0.2;
+        this.velY += 0.2;
+        break;
     }
 }
 

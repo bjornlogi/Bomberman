@@ -38,6 +38,7 @@ Barrel.prototype.update = function (du) {
 };
 
 Barrel.prototype.takeExplosion = function(){
+    spatialManager.unregister(this);
     this.kill();
     this.maybeDropAPowerUp();
 };
@@ -62,6 +63,8 @@ Barrel.prototype.maybeDropAPowerUp = function(){
         entityManager.generatePowerUp(this.cx, this.cy, 0);
     else if (powerUp == 2 || powerUp == 3)
         entityManager.generatePowerUp(this.cx, this.cy, 1);
+    else if (powerUp == 4 || powerUp == 5)
+        entityManager.generatePowerUp(this.cx, this.cy, 2);
 }
 
 
