@@ -152,6 +152,8 @@ isBrick : function (b){
             return true;
         }
     }
+    if (b instanceof Brick)
+        return true;
     return false;
 },
 
