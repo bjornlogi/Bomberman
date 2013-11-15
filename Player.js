@@ -24,7 +24,7 @@ Player.prototype.drop = new Audio(
 
 
 Player.prototype.lives = 3;
-Player.prototype.bombReach = 7;
+Player.prototype.bombReach = 3;
 
 var g_cel = 0;
 Player.prototype.orientation = {
@@ -116,15 +116,20 @@ Player.prototype.update = function (du) {
     
     var rangeEntities = this.findHitEntity();
     if (rangeEntities.length == 0){
-        this.cx = this.nextX;
-        this.cy = this.nextY;
+        this.advance();
     }else{
-        this.maybeShift(rangeEntities, du);
+        this.maybeShiftOrPowerUp(rangeEntities, du);
     }
+    
     if (!this.immunity)
         spatialManager.register(this);
     //Droppa sprengju
     this.maybeDropBomb();    
+};
+
+Player.prototype.advance = function(){
+    this.cx = this.nextX;
+    this.cy = this.nextY;
 };
 
 Player.prototype.keyHandling = function (du){
@@ -154,10 +159,10 @@ Player.prototype.keyHandling = function (du){
     this.updateSteps(dir);
 }
 
-Player.prototype.maybeShift = function (entities, du){
+Player.prototype.maybeShiftOrPowerUp = function (entities, du){
     for (var entity in entities){
         var e = entities[entity];
-        if (util.isBrick(e) && entity.length == 1){
+        if (util.isBrick(e) && entities.length == 1){
             var eTop = util.getTopLeftCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
             var eBottom = util.getBottomRightCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
             var playerBottom = util.getBottomRightCorner(this.cx,this.cy,this.halfWidth,this.halfHeight);
@@ -172,6 +177,20 @@ Player.prototype.maybeShift = function (entities, du){
             else if (playerTop.x < eBottom.x && playerTop.x > e.cx)
                 this.cx += this.velX*du;
         }
+        else if (e.powerUp != undefined){
+            this.gainPowerUp(e.bePickedUp());
+            this.advance();
+        }
+    }
+}
+
+Player.prototype.gainPowerUp = function (powerUp){
+    switch (powerUp){
+        case "Range" :
+        this.bombReach += 1;
+        break;
+        case "Bomb":
+        break;
     }
 }
 

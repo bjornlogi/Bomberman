@@ -119,11 +119,13 @@ _generateBoundaries : function(descr){
     this.generateBoundary();
 },
 
+powerUps : ["Range", "Bombs", "Kick"], 
+
 generatePowerUp : function(cx,cy,pu){
     this._PowerUp.push(new PowerUp({
         cx : cx,
         cy : cy,
-        powerUp : pu
+        powerUp : this.powerUps[pu]
     }));
 },
 

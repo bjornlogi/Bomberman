@@ -137,6 +137,11 @@ areBothInFourthQuad : function (e,c){
         return true;
 },
 
+/*
+    TYPE CHECKS
+    These make use of symmetry, so if that changes, these must change as well
+*/
+
 isBoundary : function(b){
     return (b.cx == 20 || b.cx==580 || b.cy == 20 || b.cy == 580)
 },
@@ -146,13 +151,11 @@ isBrick : function (b){
          if(b.cx == 100+(80*(i/6).toFixed(0)) && b.cy == 100+(80*(i%6)))
             return true;
     }
+    return false;
 },
 
-maybeShift : function (entity,player,du){
-    
-
-    
-    
+isPowerUp : function (e){
+    return (!isBrick(e) && !isBoundary(e));
 },
 
 

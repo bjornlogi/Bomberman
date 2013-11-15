@@ -8,6 +8,7 @@ function PowerUp(descr) {
     }
     // Common inherited setup logic from Entity
     this.setup(descr);
+    spatialManager.register(this);
 
 }
 
@@ -23,8 +24,16 @@ PowerUp.prototype.update = function (du) {
 }
 
 PowerUp.prototype.render = function (ctx){
-	ctx.fillStyle = this.color;
+	//console.log(this.powerUp);
+	//ctx.fillStyle = this.color;
+	if (this.powerUp == "Range")
+  		ctx.fillStyle = "blue";
+  	else ctx.fillStyle = "red";
   	ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
-  	ctx.fillStyle = "white";
+  	
 }
 
+PowerUp.prototype.bePickedUp = function (){
+	this.kill();
+	return this.powerUp;
+}
