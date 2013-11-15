@@ -148,12 +148,10 @@ isBoundary : function(b){
 
 isBrick : function (b){
      for (var i = 0; i<36; i++){
-         if(b.cx == 100+(80*Math.floor(i/6)) && b.cy == 100+(80*(i%6))){
+         if(b.cx == 100+(80*parseInt(i/6)) && b.cy == 100+(80*(i%6))){
             return true;
         }
     }
-    if (b instanceof Brick)
-        return true;
     return false;
 },
 
