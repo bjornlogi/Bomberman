@@ -286,6 +286,7 @@ function requestPreloads() {
         bomb :  "https://notendur.hi.is/~pap5/bomberman/sprite/bomb2.png",
         bombs :  "https://notendur.hi.is/~bls4/bombaman/images/bombsheet2.png",
         power1 : "https://notendur.hi.is/~pap5/bomberman/sprite/mush.png",
+        range : "https://notendur.hi.is/~bls4/bombaman/images/range.png",
         fire : "https://notendur.hi.is/~pap5/bomberman/sprite/Fire.png"
     };
 
@@ -351,12 +352,21 @@ function createBombSprites(){
                             celWidth, celHeight));
 }
 
+function createPowerUpSprites(){
+    sprites.powerUp.push(new Sprite(g_sheets.range, 0, 0,
+                        40, 40));
+    sprites.powerUp.push(new Sprite(g_sheets.power1, 0, 0,
+                        40, 40));
+}
+
 var test = true;
 function preloadDone() {
 
     createPlayerSprites();
       
     createBombSprites();
+
+    createPowerUpSprites();
 
     sprites.brick.push(new Sprite(g_sheets.brick, 0, 0,
                                 40, 40));
