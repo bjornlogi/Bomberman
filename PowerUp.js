@@ -34,14 +34,23 @@ PowerUp.prototype.render = function (ctx){
 
   
   ctx.globalAlpha = this.fade/PowerUp.prototype.fade;
-
+  var sprite;
   if (g_useDebug){
 	   ctx.fillStyle = this.color;
   	 ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth * 2,this.halfHeight * 2);
   	 ctx.fillStyle = "white";
   }
-  else
-     sprites.powerUp[0].drawAt(this.cx-20, this.cy-20);
+  else{
+    switch (this.powerUp){
+      case "Range":
+      sprite = sprites.powerUp[0];
+      break;
+      case "Bombs":
+      sprite = sprites.powerUp[1];
+      break;
+   }
+  }
+  sprite.drawAt(this.cx-20, this.cy-20);
    ctx.globalAlpha = 1;
 }
 
@@ -53,5 +62,6 @@ PowerUp.prototype.fadeEffect = function (du){
 
 PowerUp.prototype.bePickedUp = function (){
 	this.kill();
+  spatialManager.unregister(this);
 	return this.powerUp;
 }

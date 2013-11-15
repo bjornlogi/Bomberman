@@ -34,11 +34,12 @@ _generateBarrels : function(descr){
 },
 
 //fireBullet
-dropBomb: function(cx, cy, bombReach, hw, hh) {
+dropBomb: function(cx, cy, hw, hh, player) {
     this._Bombs.push(new Bomb({
         cx   : cx-hw,
         cy   : cy-hh,
-        bombReach : bombReach
+        bombReach : player.bombReach,
+        player : player
     }));
 },
 

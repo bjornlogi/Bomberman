@@ -355,6 +355,8 @@ function createBombSprites(){
 function createPowerUpSprites(){
     sprites.powerUp.push(new Sprite(g_sheets.range, 0, 0,
                         40, 40));
+    sprites.powerUp.push(new Sprite(g_sheets.bomb, 0, 0,
+                        40, 40));
     sprites.powerUp.push(new Sprite(g_sheets.power1, 0, 0,
                         40, 40));
 }

@@ -58,8 +58,8 @@ Barrel.prototype.render = function (ctx) {
 
 Barrel.prototype.maybeDropAPowerUp = function(){
     var powerUp = (Math.random()*10).toFixed(0);
-    if (powerUp%4 == 0)
-        entityManager.generatePowerUp(this.cx, this.cy, powerUp%3);
+    if (powerUp%5 == 0 || powerUp%7 == 0)
+        entityManager.generatePowerUp(this.cx, this.cy, powerUp % 2);
 }
 
 
