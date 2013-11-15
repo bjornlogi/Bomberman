@@ -221,19 +221,12 @@ Player.prototype.takeExplosion = function(){
 };
 
 
-var isBomb = false;
 Player.prototype.maybeDropBomb = function () {
     if (keys[this.KEY_FIRE] && this.bombs > 0) {
-        console.log("t");
         var nearest = this.findNearest();
         --this.bombs;
         entityManager.dropBomb(
            75+40*nearest.t, 75+40*nearest.s, 15,15,this);
-        
-
-        // setTimeout(function(){
-        // isBomb = false;
-        // }, 3000)
         this.drop.play();
    }
 };

@@ -27,7 +27,7 @@ PowerUp.prototype.update = function (du) {
 		return entityManager.KILL_ME_NOW;
 }
 
-PowerUp.prototype.fade = 1500/NOMINAL_UPDATE_INTERVAL;
+PowerUp.prototype.fade = 5000/NOMINAL_UPDATE_INTERVAL;
 PowerUp.prototype.switchDir = false;
 
 PowerUp.prototype.render = function (ctx){
@@ -55,8 +55,8 @@ PowerUp.prototype.render = function (ctx){
 }
 
 PowerUp.prototype.fadeEffect = function (du){
-  
-  if (this.fade < du*2 || this.fade >= PowerUp.prototype.fade)
+  var fading = this.fade/PowerUp.prototype.fade;
+  if (fading < 0.35 || this.fade >= PowerUp.prototype.fade)
      this.switchDir = !this.switchDir;
 }
 
