@@ -3,7 +3,7 @@ function Player(descr) {
         this[property] = descr[property];
     }
 
-     this.sprite = this.sprite || player_sprites.players;
+     this.sprite = this.sprite || sprites.players;
      this.setup(descr);
 
     this.intro.play();
@@ -44,19 +44,12 @@ Player.prototype.render = function (ctx) {
     if (this.immunity)
         this.flicker(ctx);
 
-    var cel = player_sprites[this.playerOrientation];
+    var cel = sprites.players[this.playerOrientation];
 
     fadeThresh = Player.prototype.deathTimer/4;
 
-    if (this._isDying && this.deathTimer/2.8 < fadeThresh){
-        cel = player_sprites[19];
-    }
-    else if (this._isDying && this.deathTimer/2.9 < fadeThresh)
-        cel = player_sprites[18];
-    else if (this._isDying && this.deathTimer/3 < fadeThresh)
-        cel = player_sprites[17]
-    else if (this._isDying && this.deathTimer/5 < fadeThresh)
-        cel = player_sprites[16]
+    if (this._isDying)
+        cel = this.death(ctx);    
 
     //cel = player_sprites[17]
     cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
@@ -82,6 +75,19 @@ Player.prototype.flicker = function (ctx){
         i=10;
         ctx.globalAlpha = 1;
     }
+}
+
+Player.prototype.death = function (ctx){
+    var cel = sprites.players[16];
+    if (this.deathTimer/2.8 < fadeThresh)
+        cel = sprites.players[19];
+    else if (this.deathTimer/2.9 < fadeThresh)
+        cel = sprites.players[18];
+    else if (this.deathTimer/3 < fadeThresh)
+        cel = sprites.players[17]
+    else if (this.deathTimer/5 < fadeThresh)
+        cel = sprites.players[16]
+    return cel;
 }
 
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;

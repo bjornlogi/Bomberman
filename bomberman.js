@@ -294,9 +294,19 @@ function requestPreloads() {
     imagesPreload(requiredSheets, g_sheets, preloadDone);
 }
 
-var g_sprites = [];
-var player_sprites = [];
-var bomb_sprites = [];
+
+//var player_sprites = [];
+//var bomb_sprites = [];
+
+var sprites = {
+    players : [],
+    bomb : [],
+    powerUp : [],
+    explosion : [],
+    barrel : [], 
+    boundary : [],
+    brick : []
+};
 
 function createPlayerSprites(){
     var celWidth  = 497/20;
@@ -304,6 +314,8 @@ function createPlayerSprites(){
     var numCols = 20;
     var numRows = test? 1:4;
     var numCels = test? 20:80;
+
+    var player_sprites = sprites.players;
 
     var sprite;
 
@@ -327,6 +339,7 @@ function createPlayerSprites(){
 }
 
 function createBombSprites(){
+    var bomb_sprites = sprites.bomb;
     var celWidth = 40;
     var celHeight = 40;
     var numCols = 4;
@@ -345,17 +358,15 @@ function preloadDone() {
       
     createBombSprites();
 
-    g_sprites.push(new Sprite(g_sheets.brick, 0, 0,
+    sprites.brick.push(new Sprite(g_sheets.brick, 0, 0,
                                 40, 40));
-    g_sprites.push(new Sprite(g_sheets.barrel, 0, 0,
+    sprites.barrel.push(new Sprite(g_sheets.barrel, 0, 0,
                                 40, 40));
-    g_sprites.push(new Sprite(g_sheets.boundary, 0, 0,
+    sprites.boundary.push(new Sprite(g_sheets.boundary, 0, 0,
                                 40, 40));
-    g_sprites.push(new Sprite(g_sheets.bomb, 0, 0,
+    sprites.powerUp.push(new Sprite(g_sheets.power1, 0, 0,
                                 40, 40));
-    g_sprites.push(new Sprite(g_sheets.power1, 0, 0,
-                                40, 40));
-    g_sprites.push(new Sprite(g_sheets.fire, 0, 0,
+    sprites.explosion.push(new Sprite(g_sheets.fire, 0, 0,
                                 40, 40));
     createBrick();
     createBoundary();

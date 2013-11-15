@@ -58,9 +58,10 @@ Bomb.prototype.update = function (du) {
 
 Bomb.prototype.render = function (ctx) {
     var fadeThresh = Bomb.prototype.lifeSpan / 25;
-    console.log(i);
 
     var col = "#FFEE00";
+
+    var bomb_sprites = sprites.bomb;
     
     if (Bomb.prototype.lifeSpan-this.lifeSpan > fadeThresh*this.switchSprite){
         this.switchSprite++;

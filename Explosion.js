@@ -52,8 +52,6 @@ Explosion.prototype.update = function (du){
 	if (this.lifeSpan < 0){
 		return entityManager.KILL_ME_NOW;
 	}
-	//console.log(this.isColliding());
-	//spatialManager.register(this);
 }
 
 Explosion.prototype.render = function (ctx){
@@ -66,14 +64,9 @@ Explosion.prototype.render = function (ctx){
 	    var pbr = {x: this.nextX + this.halfWidth, y: this.nextY + this.halfHeight};
 	    var ptl = {x: this.nextX - this.halfWidth, y: this.nextY - this.halfHeight};
 	    ctx.fillStyle="yellow";
-	    // //console.log(pbr);
-	    //ctx.fillRect(pbr.x, pbr.y,4,4);
-	     //ctx.fillRect(this.nextX, this.nextY,4,4);
-	    // ctx.fillStyle="white";
-	     //ctx.fillRect(ptl.x, ptl.y,4,4);
 	 }
 	 else
-	 	 g_sprites[5].drawAt(this.nextX-this.halfWidth, this.nextY-this.halfHeight);
+	 	 sprites.explosion[0].drawAt(this.nextX-this.halfWidth, this.nextY-this.halfHeight);
 
 }
 
