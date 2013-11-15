@@ -284,6 +284,7 @@ function requestPreloads() {
         barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
         boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
         bomb :  "https://notendur.hi.is/~pap5/bomberman/sprite/bomb2.png",
+        bombs :  "https://notendur.hi.is/~bls4/bombaman/images/bombsheet2.png",
         power1 : "https://notendur.hi.is/~pap5/bomberman/sprite/mush.png",
         fire : "https://notendur.hi.is/~pap5/bomberman/sprite/Fire.png"
     };
@@ -294,10 +295,10 @@ function requestPreloads() {
 }
 
 var g_sprites = [];
+var player_sprites = [];
+var bomb_sprites = [];
 
-var test = true;
-function preloadDone() {
-
+function createPlayerSprites(){
     var celWidth  = 497/20;
     var celHeight =  152/4 - 4; // calibration for c.d.
     var numCols = 20;
@@ -314,15 +315,36 @@ function preloadDone() {
 
             sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
                                 celWidth, celHeight) 
-            g_sprites.push(sprite);
+            player_sprites.push(sprite);
             
             if (col>8) celWidth -= 0.6;
             if (col==16) celWidth -= 0.1;
             if (col==18) celWidth -= 0.08;
         }
     }
+    player_sprites.splice(numCels);
+    createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
+}
+
+function createBombSprites(){
+    var celWidth = 40;
+    var celHeight = 40;
+    var numCols = 4;
+    var numRows = 1;
+    var numCels = numCols*numCels;
+
+    for (var col = 0; col < numCols; col++)
+        bomb_sprites.push(new Sprite(g_sheets.bombs, col*celWidth, 0,
+                            celWidth, celHeight));
+}
+
+var test = true;
+function preloadDone() {
+
+    createPlayerSprites();
       
-    g_sprites.splice(numCels);
+    createBombSprites();
+
     g_sprites.push(new Sprite(g_sheets.brick, 0, 0,
                                 40, 40));
     g_sprites.push(new Sprite(g_sheets.barrel, 0, 0,
@@ -338,7 +360,7 @@ function preloadDone() {
     createBrick();
     createBoundary();
     createBarrels();
-    createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
+    
 
     main.init();
 }

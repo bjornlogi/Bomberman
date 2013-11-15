@@ -28,6 +28,8 @@ function Bomb(descr) {
 
 Bomb.prototype = new Entity();
 Bomb.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Bomb.prototype.switchSprite = 1;
+Bomb.prototype.currentSprite = 0;
 Bomb.prototype.halfWidth = 15;
 Bomb.prototype.halfHeight = 15;
 
@@ -55,45 +57,38 @@ Bomb.prototype.update = function (du) {
 }; 
 
 Bomb.prototype.render = function (ctx) {
-    var fadeThresh = Bomb.prototype.lifeSpan / 3;
+    var fadeThresh = Bomb.prototype.lifeSpan / 25;
+    console.log(i);
 
     var col = "#FFEE00";
-    var line = 2;
-    var size = 30;
-    var newX = this.cx-27.5;
-    var newY = this.cy-30;
-
-    if(this.lifeSpan < fadeThresh) {
-        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
-        col ="#FF2F00";
-        line = 7;
-        size = 26.5;
+    
+    if (Bomb.prototype.lifeSpan-this.lifeSpan > fadeThresh*this.switchSprite){
+        this.switchSprite++;
+        ++this.currentSprite;
     }
+    var sprite = bomb_sprites[this.currentSprite % 4];
 
-    else if(this.lifeSpan/2 < fadeThresh) {
-        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
-        col ="#FF6A00";
-        line = 5;
-        size = 27.5;
-    }
 
-    else if(this.lifeSpan/3 < fadeThresh) {
-        //ctx.globalAlpha = this.lifeSpan / fadeThresh;
-        col ="#FFAE00";
-        line = 3;
-        size = 28.5;
-    }
+    // if(this.lifeSpan < fadeThresh)
+    //     sprite = bomb_sprites[2];
+
+    // else if(this.lifeSpan/2 < fadeThresh) 
+    //     sprite = bomb_sprites[1];
+
+    // else if(this.lifeSpan/3 < fadeThresh) 
+    //     sprite = bomb_sprites[0];
+
      if (g_useDebug){
         ctx.fillStyle=col;
         ctx.strokeStyle="black";
-        ctx.lineWidth = line;
         ctx.fillRect(this.cx-this.halfWidth, this.cy-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
         //ctx.strokeRect(newX, newY,size,size);
         ctx.fill();
         //ctx.stroke();
     }
-    else
-        g_sprites[23].drawAt(this.cx-20, this.cy-20);
+    else{
+        sprite.drawAt(this.cx-20, this.cy-20);
+    }
 
     ctx.globalAlpha = 1;
 };

@@ -51,7 +51,7 @@ Barrel.prototype.render = function (ctx) {
     	ctx.fill();
     }
     else
-    g_sprites[21].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
+    g_sprites[1].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
 
 	ctx.globalAlpha = 1;
 };

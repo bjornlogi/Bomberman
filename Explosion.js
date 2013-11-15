@@ -73,7 +73,7 @@ Explosion.prototype.render = function (ctx){
 	     //ctx.fillRect(ptl.x, ptl.y,4,4);
 	 }
 	 else
-	 	 g_sprites[25].drawAt(this.nextX-this.halfWidth, this.nextY-this.halfHeight);
+	 	 g_sprites[5].drawAt(this.nextX-this.halfWidth, this.nextY-this.halfHeight);
 
 }
 

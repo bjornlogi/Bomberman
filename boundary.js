@@ -27,6 +27,6 @@ Boundary.prototype.render = function (ctx) {
     ctx.fillStyle = "white";    
 }
 else
-    g_sprites[22].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
+    g_sprites[2].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
 
 };

@@ -38,7 +38,7 @@ PowerUp.prototype.render = function (ctx){
   	 ctx.fillStyle = "white";
   }
   else
-     g_sprites[24].drawAt(this.cx-20, this.cy-20);
+     g_sprites[4].drawAt(this.cx-20, this.cy-20);
 }
 
 PowerUp.prototype.bePickedUp = function (){

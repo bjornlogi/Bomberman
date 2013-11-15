@@ -3,7 +3,7 @@ function Player(descr) {
         this[property] = descr[property];
     }
 
-     this.sprite = this.sprite || g_sprites.players;
+     this.sprite = this.sprite || player_sprites.players;
      this.setup(descr);
 
     this.intro.play();
@@ -44,21 +44,21 @@ Player.prototype.render = function (ctx) {
     if (this.immunity)
         this.flicker(ctx);
 
-    var cel = g_sprites[this.playerOrientation];
+    var cel = player_sprites[this.playerOrientation];
 
     fadeThresh = Player.prototype.deathTimer/4;
 
     if (this._isDying && this.deathTimer/2.8 < fadeThresh){
-        cel = g_sprites[19];
+        cel = player_sprites[19];
     }
     else if (this._isDying && this.deathTimer/2.9 < fadeThresh)
-        cel = g_sprites[18];
+        cel = player_sprites[18];
     else if (this._isDying && this.deathTimer/3 < fadeThresh)
-        cel = g_sprites[17]
+        cel = player_sprites[17]
     else if (this._isDying && this.deathTimer/5 < fadeThresh)
-        cel = g_sprites[16]
+        cel = player_sprites[16]
 
-    //cel = g_sprites[17]
+    //cel = player_sprites[17]
     cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";

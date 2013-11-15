@@ -28,7 +28,7 @@ Brick.prototype.render = function (ctx) {
   ctx.fillStyle = "white";
 }
   else
-    g_sprites[20].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
+    g_sprites[0].drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
 
        
 };
