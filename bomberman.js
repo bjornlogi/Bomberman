@@ -26,6 +26,13 @@ var P1_UP = 'W'.charCodeAt(0);
 var P1_DOWN = 'S'.charCodeAt(0);
 var P1_LEFT = 'A'.charCodeAt(0);
 var P1_RIGHT = 'D'.charCodeAt(0);
+var P1_KEY_FIRE = 'E'.charCodeAt(0);
+
+var P2_UP = 'I'.charCodeAt(0);
+var P2_DOWN = 'K'.charCodeAt(0);
+var P2_LEFT = 'J'.charCodeAt(0);
+var P2_RIGHT = 'L'.charCodeAt(0);
+var P2_KEY_FIRE = '0'.charCodeAt(0);
 
 function createInitialPlayers(NUM_PLAYERS, width, height) {
 
@@ -38,15 +45,22 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         KEY_UP: P1_UP,
         KEY_DOWN: P1_DOWN,
         KEY_LEFT: P1_LEFT,
-        KEY_RIGHT: P1_RIGHT
+        KEY_RIGHT: P1_RIGHT,
+        KEY_FIRE : P1_KEY_FIRE,
+        NUM_PLAYER : 0
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({
-        cx : 555,
-        cy : 555,
-        rotation : 0,
-        halfWidth: 15,
-        halfHeight: 15
+        halfWidth: width/2-2,
+        halfHeight: height/2,
+        cx : 600-57,
+        cy : 555-60,
+        KEY_UP: P2_UP,
+        KEY_DOWN: P2_DOWN,
+        KEY_LEFT: P2_LEFT,
+        KEY_RIGHT: P2_RIGHT,
+        KEY_FIRE : P2_KEY_FIRE,
+        NUM_PLAYER : 1
     });
     }
     
@@ -274,7 +288,8 @@ var g_sheets = {};
 
 function requestPreloads() {
     var requiredSheets = {
-        players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
+        players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanplayerstrans.png",
+        players2   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
         brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
         barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
         boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
@@ -296,7 +311,8 @@ function requestPreloads() {
 //var bomb_sprites = [];
 
 var sprites = {
-    players : [],
+    player1 : [],
+    player2 : [],
     bomb : [],
     powerUp : [],
     explosion : [],
@@ -307,32 +323,37 @@ var sprites = {
 
 function createPlayerSprites(){
     var celWidth  = 497/20;
-    var celHeight =  152/4 - 4; // calibration for c.d.
+    var celHeight =  152/4 ; // calibration for c.d.
     var numCols = 20;
     var numRows = test? 1:4;
     var numCels = test? 20:80;
 
-    var player_sprites = sprites.players;
+    var player_sprite1 = sprites.player1;
+    var player_sprite2 = sprites.player2;
 
-    var sprite;
+    var sprite1, sprite2;
 
-    for (var row = 0; row < numRows; ++row) {
         for (var col = 0; col < numCols; ++col) {
             if (col>8) celWidth += 0.6;
             if (col==16) celWidth -= 0.1;
             if (col==18) celWidth -= 0.1;
 
-            sprite = new Sprite(g_sheets.players, col * celWidth, row * celHeight,
+            sprite1 = new Sprite(g_sheets.players, col * celWidth, 0 * celHeight,
                                 celWidth, celHeight) 
-            player_sprites.push(sprite);
+            player_sprite1.push(sprite1);
+            sprite2 = new Sprite(g_sheets.players, col * celWidth, 1 * celHeight,
+                                celWidth, celHeight) 
+            player_sprite2.push(sprite2);
             
             if (col>8) celWidth -= 0.6;
             if (col==16) celWidth -= 0.1;
             if (col==18) celWidth -= 0.08;
         }
-    }
-    player_sprites.splice(numCels);
-    createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
+        console.log(sprites.player1)
+    player_sprite1.splice(numCels);
+    player_sprite2.splice(numCels);
+
+    createInitialPlayers(2, celWidth, celHeight);
 }
 
 function createBombSprites(){
@@ -359,7 +380,7 @@ function createPowerUpSprites(){
                         40, 40));
 }
 
-var test = true;
+var test = false;
 function preloadDone() {
 
     createPlayerSprites();

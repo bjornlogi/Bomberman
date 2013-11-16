@@ -42,7 +42,8 @@ Bomb.prototype.update = function (du) {
   //spatialManager.unregister(this);
     this.lifeSpan -= du;
     if (this.lifeSpan < 0){
-        ++this.player.bombs;
+        entityManager._players[this.player].incrementBombs();
+        //++entityManager._players[this.player].bombs;
         entityManager.explode(this.cx, this.cy, this.bombReach, 16, 16);
         this.explode.stats = true;
         return entityManager.KILL_ME_NOW;
@@ -65,15 +66,6 @@ Bomb.prototype.render = function (ctx) {
     }
     var sprite = bomb_sprites[this.currentSprite % 4];
 
-
-    // if(this.lifeSpan < fadeThresh)
-    //     sprite = bomb_sprites[2];
-
-    // else if(this.lifeSpan/2 < fadeThresh) 
-    //     sprite = bomb_sprites[1];
-
-    // else if(this.lifeSpan/3 < fadeThresh) 
-    //     sprite = bomb_sprites[0];
 
      if (g_useDebug){
         ctx.fillStyle=col;

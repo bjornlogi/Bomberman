@@ -3,7 +3,7 @@ function Player(descr) {
         this[property] = descr[property];
     }
 
-     this.sprite = this.sprite || sprites.players;
+     // this.sprite = this.sprite || sprites.players;
      this.setup(descr);
 
     this.intro.play();
@@ -48,7 +48,10 @@ Player.prototype.render = function (ctx) {
     if (this.immunity)
         this.flicker(ctx);
 
-    var cel = sprites.players[this.playerOrientation];
+    if (this.NUM_PLAYER == 0)
+        var cel = sprites.player1[this.playerOrientation];
+    else if (this.NUM_PLAYER == 1)
+        var cel = sprites.player2[this.playerOrientation];
 
     fadeThresh = Player.prototype.deathTimer/4;
 
@@ -56,6 +59,9 @@ Player.prototype.render = function (ctx) {
         cel = this.death(ctx);    
 
     //cel = player_sprites[17]
+    if (cel == undefined){
+        cel = sprites.player2[0];
+    }
     cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
@@ -99,10 +105,8 @@ Player.prototype.deathTimer = 2000/ NOMINAL_UPDATE_INTERVAL;
 Player.prototype.bombs = 1;
 
 
-Player.prototype.KEY_FIRE   = ' '.charCodeAt(0);
-
-
 Player.prototype.update = function (du) {
+    spatialManager.unregister(this);
     if (this._isDeadNow)
         return entityManager.KILL_ME_NOW;
 
@@ -121,7 +125,7 @@ Player.prototype.update = function (du) {
 
 
     this.switchStep -= du;
-    spatialManager.unregister(this);
+    
     this.keyHandling(du);
 
     
@@ -144,7 +148,7 @@ Player.prototype.advance = function(){
 };
 
 Player.prototype.keyHandling = function (du){
-    var dir = "down";
+    var dir;
     this.nextX = this.cx;
     this.nextY = this.cy;
     if (keys[this.KEY_UP]) {
@@ -167,28 +171,20 @@ Player.prototype.keyHandling = function (du){
         dir = "right";
         this.playerOrientation = this.orientation.currRight;
     }
-    this.updateSteps(dir);
+
+    if(this.switchStep < 0 && dir != undefined)
+        this.updateSteps(dir);
 }
 
 Player.prototype.maybeShiftOrPowerUp = function (entities, du){
     for (var entity in entities){
         var e = entities[entity];
         if (util.isBrick(e) && entities.length == 1){
-            var eTop = util.getTopLeftCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
-            var eBottom = util.getBottomRightCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
-            var playerBottom = util.getBottomRightCorner(this.cx,this.cy,this.halfWidth,this.halfHeight);
-            var playerTop = util.getTopLeftCorner(this.cx,this.cy,this.halfWidth,this.halfHeight);
-
-            if (playerTop.y > e.cy && playerTop.y < eBottom.y)
-                 this.cy += this.velY*du; 
-            else if (playerBottom.y < e.cy && playerBottom.y > eTop.y)
-                this.cy -= this.velY*du;
-            else if (playerBottom.x > eTop.x && playerBottom.x < e.cx)
-                this.cx -= this.velX*du;
-            else if (playerTop.x < eBottom.x && playerTop.x > e.cx)
-                this.cx += this.velX*du;
+            var velMagnitude = util.shiftIfAlmostThrough(e,this);
+            this.cx += velMagnitude.x*Player.prototype.velX*du;
+            this.cy += velMagnitude.y*Player.prototype.velY*du;
         }
-        else if (e.powerUp != undefined){
+        else if (util.isPowerUp(e)){
             this.gainPowerUp(e.bePickedUp());
             this.advance();
         }
@@ -196,6 +192,7 @@ Player.prototype.maybeShiftOrPowerUp = function (entities, du){
 }
 
 Player.prototype.gainPowerUp = function (powerUp){
+    console.log(powerUp)
     switch (powerUp){
         case "Range" :
         this.bombReach += 1;
@@ -204,8 +201,8 @@ Player.prototype.gainPowerUp = function (powerUp){
         this.bombs += 1;
         break;
         case "Speed":
-        this.velX += 0.2;
-        this.velY += 0.2;
+        this.velX += 0.5;
+        this.velY += 0.5;
         break;
     }
 }
@@ -230,11 +227,11 @@ Player.prototype.takeExplosion = function(){
 
 
 Player.prototype.maybeDropBomb = function () {
-    if (keys[this.KEY_FIRE] && this.bombs > 0) {
+    if (eatKey(this.KEY_FIRE) && this.bombs > 0) {
         var nearest = this.findNearest();
         --this.bombs;
         entityManager.dropBomb(
-           75+40*nearest.t, 75+40*nearest.s, 15,15,this);
+           75+40*nearest.t, 75+40*nearest.s, 15,15,this.bombReach,this.NUM_PLAYER);
         this.drop.play();
    }
 };
@@ -249,9 +246,7 @@ Player.prototype.findNearest = function(){
 }
 
 Player.prototype.updateSteps = function(keyPressed){
-    
-    if(this.switchStep < 0){
-        if (keyPressed == "down"){
+        if (keyPressed === "down"){
             if (this.orientation.down == 2)
                 this.orientation.down = 0; 
             else if (this.orientation.down == 0 || this.orientation.down == 1)
@@ -275,7 +270,7 @@ Player.prototype.updateSteps = function(keyPressed){
             this.orientation.currLeft = leftArray[index];
         }
 
-        else{
+        else if (keyPressed == "right"){
             var rightArray = this.orientation.right;
             var index = rightArray.indexOf(this.orientation.currRight);
 
@@ -284,12 +279,12 @@ Player.prototype.updateSteps = function(keyPressed){
             this.switchRight ? ++index : --index;
             this.orientation.currRight = rightArray[index];
         }
-
         this.switchStep = Player.prototype.switchStep;
-    }
 };
 
 
-
+Player.prototype.incrementBombs = function(){
+    this.bombs++;
+}
 
 

@@ -76,6 +76,25 @@ var util = {
     }
     return false;
  },
+ //Because it is frustrating when the player needs to adjust position to fit
+ // through gaps
+ shiftIfAlmostThrough : function(e, player) {
+    var eTop = this.getTopLeftCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
+    var eBottom = this.getBottomRightCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
+    var playerBottom = this.getBottomRightCorner(player.cx,player.cy,player.halfWidth,player.halfHeight);
+    var playerTop = this.getTopLeftCorner(player.cx,player.cy,player.halfWidth,player.halfHeight);
+
+    if (playerTop.y > e.cy && playerTop.y < eBottom.y)
+         return ({x:0,y:1});
+    else if (playerBottom.y < e.cy && playerBottom.y > eTop.y)
+        return ({x:0,y:-1});
+    else if (playerBottom.x > eTop.x && playerBottom.x < e.cx)
+        return ({x:-1,y:0});
+    else if (playerTop.x < eBottom.x && playerTop.x > e.cx)
+        return ({x:1,y:0});
+    else
+        return ({x:0, y:0});
+ },
 
 /*
  *  Range Check
@@ -139,7 +158,6 @@ areBothInFourthQuad : function (e,c){
 
 /*
     TYPE CHECKS
-    These make use of symmetry, so if that changes, these must change as well
 */
 
 isBoundary : function(b){
@@ -147,16 +165,33 @@ isBoundary : function(b){
 },
 
 isBrick : function (b){
-     for (var i = 0; i<36; i++){
-         if(b.cx == 100+(80*parseInt(i/6)) && b.cy == 100+(80*(i%6))){
-            return true;
-        }
-    }
-    return false;
+     return b instanceof Brick;
 },
 
 isPowerUp : function (e){
-    return (!isBrick(e) && !isBoundary(e));
+    return e instanceof PowerUp;
+},
+
+isBarrel : function (e){
+    return e instanceof Barrel;
+},
+
+/*
+    KEY HANDLING
+*/
+setPositionToDefault : function (keycode){
+    var player1 = entityManager._players[0];
+    var player2 = entityManager._players[1];
+
+    if (keycode == keyCode('W')) player1.playerOrientation = 10;
+    if (keycode == keyCode('S')) player1.playerOrientation = 1;
+    if (keycode == keyCode('A')) player1.playerOrientation = 4;
+    if (keycode == keyCode('D')) player1.playerOrientation = 7;
+
+    if (keycode == keyCode('I')) player2.playerOrientation = 10;
+    if (keycode == keyCode('K')) player2.playerOrientation = 1;
+    if (keycode == keyCode('J')) player2.playerOrientation = 4;
+    if (keycode == keyCode('L')) player2.playerOrientation = 7;
 },
 
 

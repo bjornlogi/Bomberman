@@ -34,11 +34,11 @@ _generateBarrels : function(descr){
 },
 
 //fireBullet
-dropBomb: function(cx, cy, hw, hh, player) {
+dropBomb: function(cx, cy, hw, hh, bombReach, player) {
     this._Bombs.push(new Bomb({
         cx   : cx-hw,
         cy   : cy-hh,
-        bombReach : player.bombReach,
+        bombReach : bombReach,
         player : player
     }));
 },
@@ -93,8 +93,6 @@ explodeDirection : function (cx,cy,hw,hh, bombReach){
             };
             if (this._generateExplosion(descr)==this.KILL_ME_NOW)
                 break;
-
-            //this._generateExplosion(descr);
             }
         }
 },

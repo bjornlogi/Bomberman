@@ -59,7 +59,7 @@ PowerUp.prototype.render = function (ctx){
 
 PowerUp.prototype.fadeEffect = function (du){
   var fading = this.fade/PowerUp.prototype.fade;
-  if (fading < 0.35 || this.fade >= PowerUp.prototype.fade)
+  if (fading < 0.7 || this.fade >= PowerUp.prototype.fade)
      this.switchDir = !this.switchDir;
 }
 
