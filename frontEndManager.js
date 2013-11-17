@@ -5,10 +5,10 @@ var frontEndManager = {
 
  startScreen : true,
  playGame : false,
- P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
- P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
- buttons : [{cx : 300, cy: 400, halfWidth: 70, halfHeight : 25}, 
- 			{cx : 300, cy: 480, halfWidth: 70, halfHeight : 25}],
+ P1_Button : {cx : 180, cy: 460, halfWidth: 70, halfHeight : 50},
+ P2_Button : {cx : 420, cy: 460, halfWidth: 70, halfHeight : 50},
+ buttons : [{cx : 180, cy: 460, halfWidth: 70, halfHeight : 50}, 
+ 			{cx : 420, cy: 460, halfWidth: 70, halfHeight : 50}],
 
  render : function(ctx){
  	if (this.startScreen)
@@ -27,7 +27,7 @@ var frontEndManager = {
   }
 
    	//util.fillBox(ctx, 0,0,600,600,"black");
-
+/*
  	//buttons
  	var textCalibration = 30;
  	var num_buttons = this.buttons.length;
@@ -40,7 +40,7 @@ var frontEndManager = {
 	    ctx.font = "bold 20px Arial";
 	 	ctx.fillText(i+1+" Player", b_TLeft.x + textCalibration, b_TLeft.y + textCalibration);
 	 }
-
+*/
  	//button for 
  },
 
