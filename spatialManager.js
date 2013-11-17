@@ -121,7 +121,6 @@ render: function(ctx) {
 
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
-    console.log(entityManager);
     for (var ID in this._entities) {
         //console.log()
         var e = this._entities[ID];

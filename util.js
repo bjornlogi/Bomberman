@@ -19,6 +19,11 @@ var util = {
      return {x: cx - halfWidth, y: cy - halfHeight}; 
  },
 
+ cornerBundle : function (cx,cy,halfWidth,halfHeight){
+    return {topLeft :  getBottomRightCorner(cx,cy,halfWidth,halfHeight),
+            bottomRight: getTopLeftCorner(cx,cy,halfWidth,halfHeight)};
+ },
+
  /*
  *   Collision Detection
  */

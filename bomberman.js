@@ -182,10 +182,9 @@ function updateSimulation(du) {
     processDiagnostics();
     
     //player.update(du);
-    entityManager.update(du);
+    if (frontEndManager.playGame) entityManager.update(du);
+    else frontEndManager.update(du);
 
-    // // Prevent perpetual firing!
-    eatKey(Player.prototype.KEY_FIRE);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -261,9 +260,10 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    entityManager.render(ctx);
+    if (frontEndManager.playGame) entityManager.render(ctx);
+    else frontEndManager.render(ctx);
 
-    if (g_renderSpatialDebug) spatialManager.render(ctx);
+    // if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
 
 
@@ -308,17 +308,17 @@ var sprites = {
     brick : []
 };
 
-function createPlayerSprites(){
+function createPlayerSprites(NUM_PLAYERS){
     var celWidth  = 497/20 - 1;
     var celHeight =  152/4 ; // calibration for c.d.
     var numCols = 20;
-    var numRows = test? 1:4;
-    var numCels = test? 20:80;
+    var numRows = 4;
+    var numCels = 80;
 
     var player_sprite1 = sprites.player1;
     var player_sprite2 = sprites.player2;
 
-    var sprite1, sprite2;
+    var sprite;
 
         for (var col = 0; col < numCols; ++col) {
             if (col == 3) celWidth += 1;
@@ -326,12 +326,14 @@ function createPlayerSprites(){
             if (col==16) celWidth -= 0.3;
             if (col==18) celWidth -= 0.3;
 
-            sprite1 = new Sprite(g_sheets.players, col * celWidth, 0 * celHeight,
+            sprite = new Sprite(g_sheets.players, col * celWidth, 0 * celHeight,
                                 celWidth, celHeight) 
-            player_sprite1.push(sprite1);
-            sprite2 = new Sprite(g_sheets.players, col * celWidth, 1 * celHeight,
-                                celWidth, celHeight) 
-            player_sprite2.push(sprite2);
+            player_sprite1.push(sprite);
+            if (NUM_PLAYERS > 1){
+                sprite = new Sprite(g_sheets.players, col * celWidth, 1 * celHeight,
+                                    celWidth, celHeight) 
+                player_sprite2.push(sprite);
+            }
             
             if (col>8) celWidth -= 0.6;
             //if (col==16) celWidth -= 0.1;
@@ -340,7 +342,7 @@ function createPlayerSprites(){
     player_sprite1.splice(numCels);
     player_sprite2.splice(numCels);
 
-    createInitialPlayers(2, celWidth, celHeight);
+    createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
 }
 
 function createBombSprites(){
@@ -367,10 +369,7 @@ function createPowerUpSprites(){
                         40, 40));
 }
 
-var test = false;
 function preloadDone() {
-
-    createPlayerSprites();
       
     createBombSprites();
 

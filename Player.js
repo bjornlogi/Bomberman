@@ -30,7 +30,7 @@ Player.prototype.nextY = 60,
 Player.prototype.velX = 1.33,
 Player.prototype.velY = 1.33,
 Player.prototype.playerOrientation = 1,
-Player.prototype.lives = 0;
+Player.prototype.lives = 2;
 Player.prototype.bombReach = 3;
 
 var g_cel = 0;
