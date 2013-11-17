@@ -32,7 +32,7 @@ var P2_UP = 'I'.charCodeAt(0);
 var P2_DOWN = 'K'.charCodeAt(0);
 var P2_LEFT = 'J'.charCodeAt(0);
 var P2_RIGHT = 'L'.charCodeAt(0);
-var P2_KEY_FIRE = '0'.charCodeAt(0);
+var P2_KEY_FIRE = 'U'.charCodeAt(0);
 
 function createInitialPlayers(NUM_PLAYERS, width, height) {
 
@@ -54,7 +54,7 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         halfWidth: width/2-2,
         halfHeight: height/2,
         cx : 600-57,
-        cy : 555-60,
+        cy : 600-60,
         KEY_UP: P2_UP,
         KEY_DOWN: P2_DOWN,
         KEY_LEFT: P2_LEFT,
@@ -121,7 +121,7 @@ function createBoundary()
 
 function createBarrels()
 {
-  var chance = 0.3;     //líkar á að "barrel" verði til
+  var chance = 0.3;     //líkur á að "barrel" verði til
 
   var locationX = 140;
   var locationY = 100;
@@ -177,16 +177,6 @@ function gatherInputs() {
 // UPDATE SIMULATION
 // =================
 
-// We take a very layered approach here...
-//
-// The primary `update` routine handles generic stuff such as
-// pausing, single-step, and time-handling.
-//
-// It then delegates the game-specific logic to `updateSimulation`
-
-
-// GAME-SPECIFIC UPDATE LOGIC
-
 function updateSimulation(du) {
     
     processDiagnostics();
@@ -195,7 +185,7 @@ function updateSimulation(du) {
     entityManager.update(du);
 
     // // Prevent perpetual firing!
-     eatKey(Player.prototype.KEY_FIRE);
+    eatKey(Player.prototype.KEY_FIRE);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -271,9 +261,6 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-
-    //player.render(ctx);
-
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
@@ -289,7 +276,7 @@ var g_sheets = {};
 function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanplayerstrans.png",
-        players2   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
+        //players2   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
         brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
         barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
         boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
@@ -322,7 +309,7 @@ var sprites = {
 };
 
 function createPlayerSprites(){
-    var celWidth  = 497/20;
+    var celWidth  = 497/20 - 1;
     var celHeight =  152/4 ; // calibration for c.d.
     var numCols = 20;
     var numRows = test? 1:4;
@@ -334,9 +321,10 @@ function createPlayerSprites(){
     var sprite1, sprite2;
 
         for (var col = 0; col < numCols; ++col) {
+            if (col == 3) celWidth += 1;
             if (col>8) celWidth += 0.6;
-            if (col==16) celWidth -= 0.1;
-            if (col==18) celWidth -= 0.1;
+            if (col==16) celWidth -= 0.3;
+            if (col==18) celWidth -= 0.3;
 
             sprite1 = new Sprite(g_sheets.players, col * celWidth, 0 * celHeight,
                                 celWidth, celHeight) 
@@ -346,10 +334,9 @@ function createPlayerSprites(){
             player_sprite2.push(sprite2);
             
             if (col>8) celWidth -= 0.6;
-            if (col==16) celWidth -= 0.1;
-            if (col==18) celWidth -= 0.08;
+            //if (col==16) celWidth -= 0.1;
+            //if (col==18) celWidth -= 0.08;
         }
-        console.log(sprites.player1)
     player_sprite1.splice(numCels);
     player_sprite2.splice(numCels);
 

@@ -160,12 +160,12 @@ areBothInFourthQuad : function (e,c){
     TYPE CHECKS
 */
 
-isBoundary : function(b){
-    return (b.cx == 20 || b.cx==580 || b.cy == 20 || b.cy == 580)
+isBoundary : function(e){
+    return (e.cx == 20 || e.cx==580 || e.cy == 20 || e.cy == 580)
 },
 
-isBrick : function (b){
-     return b instanceof Brick;
+isBrick : function (e){
+     return e instanceof Brick;
 },
 
 isPowerUp : function (e){
@@ -176,22 +176,8 @@ isBarrel : function (e){
     return e instanceof Barrel;
 },
 
-/*
-    KEY HANDLING
-*/
-setPositionToDefault : function (keycode){
-    var player1 = entityManager._players[0];
-    var player2 = entityManager._players[1];
-
-    if (keycode == keyCode('W')) player1.playerOrientation = 10;
-    if (keycode == keyCode('S')) player1.playerOrientation = 1;
-    if (keycode == keyCode('A')) player1.playerOrientation = 4;
-    if (keycode == keyCode('D')) player1.playerOrientation = 7;
-
-    if (keycode == keyCode('I')) player2.playerOrientation = 10;
-    if (keycode == keyCode('K')) player2.playerOrientation = 1;
-    if (keycode == keyCode('J')) player2.playerOrientation = 4;
-    if (keycode == keyCode('L')) player2.playerOrientation = 7;
+isPlayer : function (e){
+    return e instanceof Player;
 },
 
 
@@ -206,18 +192,18 @@ square: function(x) {
 // // DISTANCES
 // // =========
 
-distSq: function(x1, y1, x2, y2) {
-    return this.square(x2-x1) + this.square(y2-y1);
+findNearestSpotForBomb : function(cx,cy){
+    var x = ((cx - 55) / 40).toFixed(0);
+    if (x < 0) x = 0;
+    var y = ((cy - 55) / 40).toFixed(0);
+    if (y < 0) y = 0;
+    return {t:x, s:y};
 },
 
 // CANVAS OPS
 // ==========
 
 clearCanvas: function (ctx) {
-    //var prevfillStyle = ctx.fillStyle;
-    //ctx.fillStyle = "green";
-    //ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    //ctx.fillStyle = prevfillStyle;
     var base_image = new Image();
     base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
     base_image.onload = function(){

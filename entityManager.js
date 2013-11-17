@@ -129,6 +129,16 @@ generatePowerUp : function(cx,cy,pu){
     }));
 },
 
+updatePlayerPositions : function(playerWhoDied){
+    console.log(this._players);
+    var lastPlayer = this._players.length-1;
+    if (playerWhoDied == lastPlayer) return;
+    for (var i = playerWhoDied; i <= lastPlayer; ++i){
+        --this._players[i].NUM_PLAYER;
+    }
+    console.log(this._players);
+},
+
 
 deferredSetup : function () {
     this._categories = [this._explosions,this._Barrels, this._Bombs, 

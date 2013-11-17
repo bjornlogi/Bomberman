@@ -8,6 +8,10 @@ function Player(descr) {
 
     this.intro.play();
 
+    if (this.NUM_PLAYER == 0)
+        this.sprites = sprites.player1;
+    else this.sprites = sprites.player2;
+
 };	
 
 Player.prototype = new Entity(); 
@@ -21,13 +25,12 @@ Player.prototype.hit = new Audio(
 Player.prototype.drop = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/Powerup.wav");
 
-
 Player.prototype.nextX = 57,
 Player.prototype.nextY = 60,
 Player.prototype.velX = 1.33,
 Player.prototype.velY = 1.33,
 Player.prototype.playerOrientation = 1,
-Player.prototype.lives = 3;
+Player.prototype.lives = 0;
 Player.prototype.bombReach = 3;
 
 var g_cel = 0;
@@ -44,36 +47,23 @@ Player.prototype.orientation = {
 
 
 Player.prototype.render = function (ctx) {
-
     if (this.immunity)
         this.flicker(ctx);
 
-    if (this.NUM_PLAYER == 0)
-        var cel = sprites.player1[this.playerOrientation];
-    else if (this.NUM_PLAYER == 1)
-        var cel = sprites.player2[this.playerOrientation];
+    var sprite;
+    var cel;
 
     fadeThresh = Player.prototype.deathTimer/4;
 
     if (this._isDying)
-        cel = this.death(ctx);    
+        cel = this.deathAnimation(ctx,cel);
+    else cel = this.sprites[this.playerOrientation];
 
-    //cel = player_sprites[17]
-    if (cel == undefined){
-        cel = sprites.player2[0];
-    }
     cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
     var ptl = {x: this.cx - this.halfWidth, y: this.cy - this.halfHeight};
-
-    // ctx.fillRect(this.cx - this.halfWidth, this.cy - this.halfHeight,this.halfWidth*2,this.halfHeight*2);
-    // ctx.fillStyle="green";
-    //uncomment this to draw top left and bottom right corner of the player for debugging
-     // ctx.fillRect(pbr.x, pbr.y,4,4);
-     // ctx.fillRect(ptl.x, ptl.y,5,5);
-    //ctx.fillRect(this.cx+3, this.cy, 5, 5);
 };
 
 var i = 10;
@@ -87,16 +77,15 @@ Player.prototype.flicker = function (ctx){
     }
 }
 
-Player.prototype.death = function (ctx){
-    var cel = sprites.players[16];
+Player.prototype.deathAnimation = function (ctx,cel){
     if (this.deathTimer/2.8 < fadeThresh)
-        cel = sprites.players[19];
+        cel = this.sprites[19];
     else if (this.deathTimer/2.9 < fadeThresh)
-        cel = sprites.players[18];
+        cel = this.sprites[18];
     else if (this.deathTimer/3 < fadeThresh)
-        cel = sprites.players[17]
+        cel = this.sprites[17];
     else if (this.deathTimer/5 < fadeThresh)
-        cel = sprites.players[16]
+        cel = this.sprites[16];
     return cel;
 }
 
@@ -106,40 +95,39 @@ Player.prototype.bombs = 1;
 
 
 Player.prototype.update = function (du) {
-    spatialManager.unregister(this);
-    if (this._isDeadNow)
-        return entityManager.KILL_ME_NOW;
 
-    if(this.immunity){
-        this.immunityTimer -= du;
+    spatialManager.unregister(this);
+
+    if (this._isDeadNow){
+        entityManager.updatePlayerPositions(this.NUM_PLAYER);
+        return entityManager.KILL_ME_NOW;
     }
+
+    if(this.immunity) this.immunityTimer -= du;
+    else if (this._isDying) this.deathTimer -= du;
+
     if (this.immunityTimer < 0){
         this.immunity = false;
         this.immunityTimer = Player.prototype.immunityTimer;
     }
-    if (this._isDying){
-        this.deathTimer -= du;
-    }
-    if (this.deathTimer < 0)
-        this.kill();
+
+    if (this.deathTimer < 0) this.kill();
 
 
     this.switchStep -= du;
-    
     this.keyHandling(du);
-
     
     var rangeEntities = this.findHitEntity();
-    if (rangeEntities.length == 0){
+    if (rangeEntities.length == 0 && !this._isDying){
         this.advance();
-    }else{
-        this.maybeShiftOrPowerUp(rangeEntities, du);
-    }
+    }else this.maybeShiftOrPowerUp(rangeEntities, du);
     
+    
+
+    if (eatKey(this.KEY_FIRE) && this.bombs > 0) this.dropBomb();    
+
     if (!this.immunity)
         spatialManager.register(this);
-    //Droppa sprengju
-    this.maybeDropBomb();    
 };
 
 Player.prototype.advance = function(){
@@ -171,9 +159,17 @@ Player.prototype.keyHandling = function (du){
         dir = "right";
         this.playerOrientation = this.orientation.currRight;
     }
-
-    if(this.switchStep < 0 && dir != undefined)
+    if(this.switchStep < 0 && dir != undefined){
         this.updateSteps(dir);
+    }
+        
+};
+
+Player.prototype.setPositionToDefault = function(keyCode){
+     if (keyCode == this.KEY_UP) this.playerOrientation = 10;
+     if (keyCode == this.KEY_DOWN) this.playerOrientation = 1;
+     if (keyCode == this.KEY_LEFT) this.playerOrientation = 4;
+     if (keyCode == this.KEY_RIGHT) this.playerOrientation = 7;
 }
 
 Player.prototype.maybeShiftOrPowerUp = function (entities, du){
@@ -192,7 +188,6 @@ Player.prototype.maybeShiftOrPowerUp = function (entities, du){
 }
 
 Player.prototype.gainPowerUp = function (powerUp){
-    console.log(powerUp)
     switch (powerUp){
         case "Range" :
         this.bombReach += 1;
@@ -226,24 +221,13 @@ Player.prototype.takeExplosion = function(){
 };
 
 
-Player.prototype.maybeDropBomb = function () {
-    if (eatKey(this.KEY_FIRE) && this.bombs > 0) {
-        var nearest = this.findNearest();
+Player.prototype.dropBomb = function () {
+        var nearest = util.findNearestSpotForBomb(this.cx,this.cy);
         --this.bombs;
         entityManager.dropBomb(
            75+40*nearest.t, 75+40*nearest.s, 15,15,this.bombReach,this.NUM_PLAYER);
         this.drop.play();
-   }
 };
-
-//finds the nearest empty block to drop the bomb
-Player.prototype.findNearest = function(){
-    var x = ((this.cx - 55) / 40).toFixed(0);
-    if (x < 0) x = 0;
-    var y = ((this.cy - 55) / 40).toFixed(0);
-    if (y < 0) y = 0;
-    return {t:x, s:y};
-}
 
 Player.prototype.updateSteps = function(keyPressed){
         if (keyPressed === "down"){
@@ -261,13 +245,16 @@ Player.prototype.updateSteps = function(keyPressed){
         }
 
         else if (keyPressed == "left"){
+            
             var leftArray = this.orientation.left;
             var index = leftArray.indexOf(this.orientation.currLeft);
 
-            if (index == 0 || index == 2)
-                this.switchLeft = !this.switchLeft;
-            this.switchLeft ? ++index : --index;
+            if (index == 0 || index == 2){
+                this.orientation.switchLeft = !this.orientation.switchLeft;
+            }
+            this.orientation.switchLeft ? --index : ++index;
             this.orientation.currLeft = leftArray[index];
+            
         }
 
         else if (keyPressed == "right"){
@@ -275,8 +262,8 @@ Player.prototype.updateSteps = function(keyPressed){
             var index = rightArray.indexOf(this.orientation.currRight);
 
             if (index == 0 || index == 2)
-                this.switchRight = !this.switchRight;
-            this.switchRight ? ++index : --index;
+                this.orientation.switchRight = !this.orientation.switchRight;
+            this.orientation.switchRight ? ++index : --index;
             this.orientation.currRight = rightArray[index];
         }
         this.switchStep = Player.prototype.switchStep;

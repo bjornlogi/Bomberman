@@ -39,13 +39,13 @@ Explosion.prototype.update = function (du){
 	for (var rE in rangeEntities){
 		var r = rangeEntities[rE];
 		
-		if (r instanceof Boundary || r instanceof Brick)
+		if (util.isBoundary(r) || util.isBrick(r))
 				return entityManager.KILL_ME_NOW;
-		else if (r instanceof Barrel){
+		else if (util.isBarrel(r)){
 			r.takeExplosion();
 			return entityManager.KILL_ME_CHILDREN;
 		}
-		else if (r instanceof Player)
+		else if (util.isPlayer(r))
 				r.takeExplosion();
 	}
 	this.lifeSpan -= du;
