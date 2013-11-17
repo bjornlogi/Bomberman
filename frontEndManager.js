@@ -7,10 +7,15 @@ var frontEndManager = {
  playGame : false,
  gameOver : false,
  winner : -1,
- P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
- P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
- buttons : [{cx : 300, cy: 400, halfWidth: 70, halfHeight : 25}, 
- 			{cx : 300, cy: 480, halfWidth: 70, halfHeight : 25}],
+ // P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
+ // P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
+ // buttons : [{cx : 300, cy: 400, halfWidth: 70, halfHeight : 25}, 
+ // 			{cx : 300, cy: 480, halfWidth: 70, halfHeight : 25}],
+
+ P1_Button : {cx : 180, cy: 460, halfWidth: 70, halfHeight : 50},
+ P2_Button : {cx : 420, cy: 460, halfWidth: 70, halfHeight : 50},
+ buttons : [{cx : 180, cy: 460, halfWidth: 70, halfHeight : 50}, 
+ 			{cx : 420, cy: 460, halfWidth: 70, halfHeight : 50}],
 
  updateWinner : function (winner){
   	this.gameOver = true;
@@ -29,8 +34,14 @@ var frontEndManager = {
  	var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
 
  	//background
- 	util.fillBox(ctx, 0,0,600,600,"red");
+    var start_image = new Image();
+    	start_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/newbomber.png';
+    	start_image.onload = function(){
+    		ctx.drawImage(start_image, 0, 0);
+  }
 
+   	//util.fillBox(ctx, 0,0,600,600,"black");
+/*
  	//buttons
  	var textCalibration = 30;
  	var num_buttons = this.buttons.length;
@@ -62,6 +73,9 @@ var frontEndManager = {
  	var textY = box.cy;
  	ctx.fillText(msg, box.cx - 100, textY);
  	ctx.fillText("Press N to start a New Game",box.cx - 130,textY+25)
+
+*/
+ 	//button for 
  },
 
  update : function(du){
