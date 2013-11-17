@@ -88,7 +88,7 @@ var util = {
     var eBottom = this.getBottomRightCorner(e.cx,e.cy,e.halfWidth,e.halfHeight);
     var playerBottom = this.getBottomRightCorner(player.cx,player.cy,player.halfWidth,player.halfHeight);
     var playerTop = this.getTopLeftCorner(player.cx,player.cy,player.halfWidth,player.halfHeight);
-
+    
     if (playerTop.y > e.cy && playerTop.y < eBottom.y)
          return ({x:0,y:1});
     else if (playerBottom.y < e.cy && playerBottom.y > eTop.y)

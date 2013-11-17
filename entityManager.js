@@ -10,6 +10,7 @@ _Boundary : [],
 _explosions : [],
 _Barrels : [],
 _PowerUp : [],
+resetEM : false,
 
 // "PRIVATE" METHODS
 
@@ -130,13 +131,18 @@ generatePowerUp : function(cx,cy,pu){
 },
 
 updatePlayerPositions : function(playerWhoDied){
-    console.log(this._players);
     var lastPlayer = this._players.length-1;
+    if (lastPlayer == 1){ 
+        frontEndManager.updateWinner(
+        playerWhoDied == 0 ? 1 : 0
+        );
+    }
+    else if (lastPlayer == 0) frontEndManager.updateWinner(-1); //one player mode and player dies
+    if (lastPlayer < 2) {this._reset();return;};
     if (playerWhoDied == lastPlayer) return;
     for (var i = playerWhoDied; i <= lastPlayer; ++i){
         --this._players[i].NUM_PLAYER;
     }
-    console.log(this._players);
 },
 
 
@@ -152,12 +158,20 @@ _forEachOf: function(aCategory, fn) {
     }
 },
 
+_reset: function(du){
+    for (var c = 0; c < this._categories.length; ++c) {
+        this._categories[c].length = 0;
+    }
+},
+
 update: function(du) {
 
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
         var i = 0;
+
+        if (this.resetEM) aCategory.length = 0;
 
         while (i < aCategory.length) {
             var status = aCategory[i].update(du);
@@ -171,6 +185,7 @@ update: function(du) {
                 ++i;
             }
     }
+    if (this.resetEM) {createObjects(); this.resetEM = false;}
 }
 
 },

@@ -12,8 +12,10 @@ function handleKeyup(evt) {
     keys[evt.keyCode] = false;
     //reset the position when the player halts if not dead
     var players = entityManager._players;
-    for (var p = 0; p < players.length; p++)
-         players[p].setPositionToDefault(evt.keyCode);
+    if (!frontEndManager.gameOver){
+        for (var p = 0; p < players.length; p++)
+             players[p].setPositionToDefault(evt.keyCode);
+    }
 }
 
 // Inspects, and then clears, a key's state

@@ -30,7 +30,7 @@ Player.prototype.nextY = 60,
 Player.prototype.velX = 1.33,
 Player.prototype.velY = 1.33,
 Player.prototype.playerOrientation = 1,
-Player.prototype.lives = 2;
+Player.prototype.lives = 0;
 Player.prototype.bombReach = 3;
 
 var g_cel = 0;
@@ -92,7 +92,6 @@ Player.prototype.deathAnimation = function (ctx,cel){
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.deathTimer = 2000/ NOMINAL_UPDATE_INTERVAL;
 Player.prototype.bombs = 1;
-
 
 Player.prototype.update = function (du) {
 
@@ -175,6 +174,7 @@ Player.prototype.setPositionToDefault = function(keyCode){
 Player.prototype.maybeShiftOrPowerUp = function (entities, du){
     for (var entity in entities){
         var e = entities[entity];
+        console.log(e)
         if (util.isBrick(e) && entities.length == 1){
             var velMagnitude = util.shiftIfAlmostThrough(e,this);
             this.cx += velMagnitude.x*Player.prototype.velX*du;

@@ -67,10 +67,11 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
 }
 
 
-var nextX;
-var nextY = 100;
+
 function createBrick()
 {
+    var nextX;
+    var nextY = 100;
     for(var i = 0; i < 6; i++)
     {
         nextX = 100;
@@ -89,10 +90,11 @@ function createBrick()
     }
 }
 
-var wallx = 20;
-var wally = 20;
+
 function createBoundary()
 {
+    var wallx = 20;
+    var wally = 20;
     for(var i = 0; i < 4; ++i)
     {
         for(var j = 0; j < 14; ++j)
@@ -200,7 +202,7 @@ var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 
 var KEY_HALT  = keyCode('H');
-var KEY_RESET = keyCode('R');
+var KEY_RESET = keyCode('N');
 
 var KEY_0 = keyCode('0');
 
@@ -222,7 +224,11 @@ function processDiagnostics() {
 
     // if (eatKey(KEY_HALT)) entityManager.haltShips();
 
-    // if (eatKey(KEY_RESET)) entityManager.resetShips();
+    if (eatKey(KEY_RESET) && frontEndManager.gameOver) {
+        frontEndManager.gameOver = false;
+        frontEndManager.startScreen = true;
+        createObjects();
+    }
 
     // if (eatKey(KEY_0)) entityManager.toggleRocks();
 
@@ -369,8 +375,7 @@ function createPowerUpSprites(){
                         40, 40));
 }
 
-function preloadDone() {
-      
+function createObjects(){
     createBombSprites();
 
     createPowerUpSprites();
@@ -388,6 +393,11 @@ function preloadDone() {
     createBrick();
     createBoundary();
     createBarrels();
+}
+
+function preloadDone() {
+      
+    createObjects();
     
 
     main.init();

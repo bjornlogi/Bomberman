@@ -107,7 +107,6 @@ isInRange : function(e, c){
          return true;
     if (util.areBothInSameQuad(e,c))
         return true;
-
     if(util.areMiddleBlocksInRange(e,c))
         return true;
 
@@ -121,8 +120,8 @@ render: function(ctx) {
 
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
+    console.log(this);
     for (var ID in this._entities) {
-        //console.log()
         var e = this._entities[ID];
             
         //util.strokeCircle(ctx, e.cx/2, e.cy*2, e.height/2);
