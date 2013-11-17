@@ -20,7 +20,13 @@ var frontEndManager = {
  	var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
 
  	//background
- 	util.fillBox(ctx, 0,0,600,600,"red");
+    var start_image = new Image();
+    	start_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/newbomber.png';
+    	start_image.onload = function(){
+    		ctx.drawImage(start_image, 0, 0);
+  }
+
+   	//util.fillBox(ctx, 0,0,600,600,"black");
 
  	//buttons
  	var textCalibration = 30;
