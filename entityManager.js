@@ -159,9 +159,7 @@ _forEachOf: function(aCategory, fn) {
 },
 
 _reset: function(du){
-    for (var c = 0; c < this._categories.length; ++c) {
-        this._categories[c].length = 0;
-    }
+    this.resetEM = true;
 },
 
 update: function(du) {
@@ -171,21 +169,17 @@ update: function(du) {
         var aCategory = this._categories[c];
         var i = 0;
 
-        if (this.resetEM) aCategory.length = 0;
+        
 
         while (i < aCategory.length) {
             var status = aCategory[i].update(du);
-
             if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
                 aCategory.splice(i,1);
         }
         else {
                 ++i;
             }
     }
-    if (this.resetEM) {createObjects(); this.resetEM = false;}
 }
 
 },

@@ -182,10 +182,8 @@ function gatherInputs() {
 function updateSimulation(du) {
     
     processDiagnostics();
-    
-    //player.update(du);
-    if (frontEndManager.playGame) entityManager.update(du);
-    else frontEndManager.update(du);
+    entityManager.update(du);
+    if (!frontEndManager.playGame) frontEndManager.update(du);
 
 }
 
@@ -227,6 +225,7 @@ function processDiagnostics() {
     if (eatKey(KEY_RESET) && frontEndManager.gameOver) {
         frontEndManager.gameOver = false;
         frontEndManager.startScreen = true;
+        entityManager.resetEM = false;
         createObjects();
     }
 

@@ -38,7 +38,8 @@ var frontEndManager = {
     	start_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/newbomber.png';
     	start_image.onload = function(){
     		ctx.drawImage(start_image, 0, 0);
-  }
+  	}	
+  },
 
    	//util.fillBox(ctx, 0,0,600,600,"black");
 /*
@@ -55,7 +56,7 @@ var frontEndManager = {
 	 	ctx.fillText(i+1+" Player", b_TLeft.x + textCalibration, b_TLeft.y + textCalibration);
 	 }
  },
-
+*/
  renderGameOverScreen : function (ctx){
  	var box = {cx:300, cy:300, halfWidth: 200, halfHeight:200};
  	var msg;
@@ -74,9 +75,9 @@ var frontEndManager = {
  	ctx.fillText(msg, box.cx - 100, textY);
  	ctx.fillText("Press N to start a New Game",box.cx - 130,textY+25)
 
-*/
+},
  	//button for 
- },
+ 
 
  update : function(du){
  },

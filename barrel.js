@@ -29,6 +29,7 @@ Barrel.prototype.halfHeight = 20;
 Barrel.prototype.update = function (du) {
 
   spatialManager.unregister(this);
+  if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     if(this._isDeadNow)
         {
             return entityManager.KILL_ME_NOW; 

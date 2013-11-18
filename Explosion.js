@@ -34,7 +34,11 @@ Explosion.prototype.explodeSound = new Audio(
 
 Explosion.prototype.update = function (du){
 	//spatialManager.unregister(this);
-	
+	if (entityManager.resetEM){
+        spatialManager.unregister(this);
+        return entityManager.KILL_ME_NOW;
+    }
+
 	var rangeEntities = this.findHitEntity(true);
 	for (var rE in rangeEntities){
 		var r = rangeEntities[rE];

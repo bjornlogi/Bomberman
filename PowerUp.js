@@ -18,6 +18,11 @@ PowerUp.prototype.halfHeight = 20;
 PowerUp.prototype.halfWidth = 20;
 
 PowerUp.prototype.update = function (du) {
+  if (entityManager.resetEM){
+        spatialManager.unregister(this);
+        return entityManager.KILL_ME_NOW;
+  }
+  
   this.fadeEffect(du);
   if (!this.switchDir)
     this.fade -= du;

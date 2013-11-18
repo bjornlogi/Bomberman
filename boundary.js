@@ -11,6 +11,10 @@ Boundary.prototype.halfWidth = 20;
 Boundary.prototype.halfHeight = 20;
 
 Boundary.prototype.update = function (du) {
+    if (entityManager.resetEM){
+        spatialManager.unregister(this);
+        return entityManager.KILL_ME_NOW;
+    }
 };
 
 Boundary.prototype.render = function (ctx) {

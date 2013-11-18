@@ -16,6 +16,10 @@ Brick.prototype.halfHeight = 20;
 Brick.prototype.color = "blue";
 
 Brick.prototype.update = function (du) {
+    if (entityManager.resetEM){
+        spatialManager.unregister(this);
+        return entityManager.KILL_ME_NOW;
+    }
 };
 
 Brick.prototype.render = function (ctx) {

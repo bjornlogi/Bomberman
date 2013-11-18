@@ -96,7 +96,7 @@ Player.prototype.bombs = 1;
 Player.prototype.update = function (du) {
 
     spatialManager.unregister(this);
-
+    if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     if (this._isDeadNow){
         entityManager.updatePlayerPositions(this.NUM_PLAYER);
         return entityManager.KILL_ME_NOW;

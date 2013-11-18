@@ -39,7 +39,8 @@ Bomb.prototype.explode = {
 
 Bomb.prototype.update = function (du) {
 
-  spatialManager.unregister(this);
+    spatialManager.unregister(this);
+    if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     this.lifeSpan -= du;
     if (this.lifeSpan < 0){
         entityManager._players[this.player].incrementBombs();
