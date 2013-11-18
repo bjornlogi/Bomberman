@@ -58,10 +58,15 @@ var frontEndManager = {
  },
 */
  renderGameOverScreen : function (ctx){
+ 	var over_image = new Image();
+    	over_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/over.jpg';
+    	over_image.onload = function(){
+    		ctx.drawImage(over_image, 0, 0);
+  	}	
  	var box = {cx:300, cy:300, halfWidth: 200, halfHeight:200};
  	var msg;
- 	util.fillBox(ctx,box.cx - box.halfWidth,box.cy - box.halfHeight,box.halfWidth*2,box.halfHeight*2,"blue");
- 	ctx.fillStyle="#FFFFFF";
+ 	//util.fillBox(ctx,box.cx - box.halfWidth,box.cy - box.halfHeight,box.halfWidth*2,box.halfHeight*2,"blue");
+ 	//ctx.fillStyle="#FFFFFF";
  	ctx.font = "bold 20px Arial";
  	if (this.winner == -1){
  	 		msg = "You died!\n";
@@ -69,11 +74,16 @@ var frontEndManager = {
  	else{
  			var winner = this.winner + 1;
  	 		msg = "The Winner is Player " + winner + "!";
- 	 		
+
+ 	 		var winner_image = new Image();
+    		winner_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/p'+winner+'_win.png';
+    		winner_image.onload = function(){
+    			ctx.drawImage(winner_image, 250, 130);
+  			}	
  	 	}
- 	var textY = box.cy;
- 	ctx.fillText(msg, box.cx - 100, textY);
- 	ctx.fillText("Press N to start a New Game",box.cx - 130,textY+25)
+ 	//var textY = box.cy;
+ 	//ctx.fillText(msg, box.cx - 100, textY);
+ 	//ctx.fillText("Press N to start a New Game",box.cx - 130,textY+25)
 
 },
  	//button for 
