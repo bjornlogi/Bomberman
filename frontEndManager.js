@@ -91,7 +91,7 @@ var frontEndManager = {
  	 		var winner_image = new Image();
     		winner_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/p'+winner+'_win.png';
     		winner_image.onload = function(){
-    			ctx.drawImage(winner_image, 250, 130);
+    			ctx.drawImage(winner_image, 220, 230);
   			}	
   			ctx.fillText(points_p1 +" - "+points_p2, 300, 500);
  	 	}
