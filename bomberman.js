@@ -315,6 +315,12 @@ function requestPreloads() {
         speed : "https://notendur.hi.is/~bls4/bombaman/images/speed.png"
     };
 
+    var requiredSheets2 = {
+        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
+        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
+        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
+    };
+
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
 
     imagesPreload(requiredSheets, g_sheets, preloadDone);
