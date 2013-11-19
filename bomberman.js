@@ -47,7 +47,8 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         KEY_LEFT: P1_LEFT,
         KEY_RIGHT: P1_RIGHT,
         KEY_FIRE : P1_KEY_FIRE,
-        NUM_PLAYER : 0
+        NUM_PLAYER : 0,
+        sprites : sprites.player0
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({
@@ -60,10 +61,19 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         KEY_LEFT: P2_LEFT,
         KEY_RIGHT: P2_RIGHT,
         KEY_FIRE : P2_KEY_FIRE,
-        NUM_PLAYER : 1
+        NUM_PLAYER : 1,
+        sprites : sprites.player1
     });
     }
-    
+    entityManager.generateOpponent({
+        //-2 to cut off unused pixels in the spritesheet
+        halfWidth: width/2-2,
+        halfHeight: height/2 - 5,
+        cx : 65,
+        cy : 600-65,
+        NUM_PLAYER : 2,
+        sprites : sprites.player2
+    });
 }
 
 
@@ -268,7 +278,7 @@ function renderSimulation(ctx) {
     if (frontEndManager.playGame) entityManager.render(ctx);
     else frontEndManager.render(ctx);
 
-    // if (g_renderSpatialDebug) spatialManager.render(ctx);
+    if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
 
 
@@ -303,6 +313,7 @@ function requestPreloads() {
 //var bomb_sprites = [];
 
 var sprites = {
+    player0 : [],
     player1 : [],
     player2 : [],
     bomb : [],
@@ -320,6 +331,7 @@ function createPlayerSprites(NUM_PLAYERS){
     var numRows = 4;
     var numCels = 80;
 
+    var player_sprite0 = sprites.player0;
     var player_sprite1 = sprites.player1;
     var player_sprite2 = sprites.player2;
 
@@ -333,12 +345,16 @@ function createPlayerSprites(NUM_PLAYERS){
 
             sprite = new Sprite(g_sheets.players, col * celWidth, 0 * celHeight,
                                 celWidth, celHeight) 
-            player_sprite1.push(sprite);
+            player_sprite0.push(sprite);
             if (NUM_PLAYERS > 1){
                 sprite = new Sprite(g_sheets.players, col * celWidth, 1 * celHeight,
                                     celWidth, celHeight) 
-                player_sprite2.push(sprite);
+                player_sprite1.push(sprite);
             }
+
+            sprite = new Sprite(g_sheets.players, col * celWidth, 2 * celHeight,
+                                    celWidth, celHeight) 
+            player_sprite2.push(sprite);
             
             if (col>8) celWidth -= 0.6;
             //if (col==16) celWidth -= 0.1;

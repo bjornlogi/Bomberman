@@ -92,6 +92,10 @@ var frontEndManager = {
  update : function(du){
  },
 
+ intro : new Audio(
+  "https://notendur.hi.is/~pap5/bomberman/sound/131659__bertrof__game-sound-intro-to-game.wav"
+  ),
+
  buttonClicked : function(mouseX,mouseY){
  	var b1 = this.P1_Button;
  	var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
@@ -106,6 +110,7 @@ var frontEndManager = {
  		mouseY >= b_TLeft.y && mouseY <= b_BRight.y){
  			this.playGame = true;
 			this.startScreen = false;
+      this.intro.play();
 			createPlayerSprites(i+1);
  		}
 	}

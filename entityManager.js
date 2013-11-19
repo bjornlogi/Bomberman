@@ -10,6 +10,7 @@ _Boundary : [],
 _explosions : [],
 _Barrels : [],
 _PowerUp : [],
+_opponents : [],
 resetEM : false,
 
 // "PRIVATE" METHODS
@@ -20,6 +21,10 @@ KILL_ME_CHILDREN : -2,
 
 _generatePlayer : function(descr) {
     this._players.push(new Player(descr));
+},
+
+generateOpponent : function(descr){
+    this._opponents.push(new Opponent(descr));
 },
 
 _generateBrick : function(descr){
@@ -35,11 +40,11 @@ _generateBarrels : function(descr){
 },
 
 //fireBullet
-dropBomb: function(cx, cy, hw, hh, bombReach, player) {
+dropBomb: function(cx, cy, hw, hh, player) {
     this._Bombs.push(new Bomb({
         cx   : cx-hw,
         cy   : cy-hh,
-        bombReach : bombReach,
+        bombReach : player.bombReach,
         player : player
     }));
 },
@@ -132,14 +137,19 @@ generatePowerUp : function(cx,cy,pu){
 
 updatePlayerPositions : function(playerWhoDied){
     var lastPlayer = this._players.length-1;
-    if (lastPlayer == 1){ 
+    if (lastPlayer == 1 && this._opponents.length == 0){ 
         frontEndManager.updateWinner(
         playerWhoDied == 0 ? 1 : 0
         );
     }
     else if (lastPlayer == 0) frontEndManager.updateWinner(-1); //one player mode and player dies
-    if (lastPlayer < 2) {this._reset();return;};
-    if (playerWhoDied == lastPlayer) return;
+    if (lastPlayer < 1) {
+        this._reset();
+        return;
+    }
+    
+
+
     for (var i = playerWhoDied; i <= lastPlayer; ++i){
         --this._players[i].NUM_PLAYER;
     }
@@ -148,7 +158,7 @@ updatePlayerPositions : function(playerWhoDied){
 
 deferredSetup : function () {
     this._categories = [this._explosions,this._Barrels, this._Bombs, 
-                        this._Brick, this._Boundary, this._PowerUp, this._players];
+                        this._Brick, this._Boundary, this._PowerUp, this._players, this._opponents];
 
 },
 

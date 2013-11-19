@@ -6,18 +6,10 @@ function Player(descr) {
      // this.sprite = this.sprite || sprites.players;
      this.setup(descr);
 
-    this.intro.play();
-
-    if (this.NUM_PLAYER == 0)
-        this.sprites = sprites.player1;
-    else this.sprites = sprites.player2;
-
 };	
 
 Player.prototype = new Entity(); 
 
-Player.prototype.intro = new Audio(
-  "https://notendur.hi.is/~pap5/bomberman/sound/131659__bertrof__game-sound-intro-to-game.wav");
 Player.prototype.gameOver = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/43697__notchfilter__game-over02.wav");
 Player.prototype.hit = new Audio(
@@ -33,7 +25,9 @@ Player.prototype.playerOrientation = 1,
 Player.prototype.lives = 0;
 Player.prototype.bombReach = 3;
 
-var g_cel = 0;
+/*
+    Render related stuff
+*/
 Player.prototype.orientation = {
     down : 1,
     left : [3,4,5],
@@ -92,6 +86,10 @@ Player.prototype.deathAnimation = function (ctx,cel){
 Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.deathTimer = 2000/ NOMINAL_UPDATE_INTERVAL;
 Player.prototype.bombs = 1;
+
+/*
+    Update related stuff
+*/
 
 Player.prototype.update = function (du) {
 
@@ -174,7 +172,6 @@ Player.prototype.setPositionToDefault = function(keyCode){
 Player.prototype.maybeShiftOrPowerUp = function (entities, du){
     for (var entity in entities){
         var e = entities[entity];
-        console.log(e)
         if (util.isBrick(e) && entities.length == 1){
             var velMagnitude = util.shiftIfAlmostThrough(e,this);
             this.cx += velMagnitude.x*Player.prototype.velX*du;
@@ -225,7 +222,7 @@ Player.prototype.dropBomb = function () {
         var nearest = util.findNearestSpotForBomb(this.cx,this.cy);
         --this.bombs;
         entityManager.dropBomb(
-           75+40*nearest.t, 75+40*nearest.s, 15,15,this.bombReach,this.NUM_PLAYER);
+           75+40*nearest.t, 75+40*nearest.s, 15,15,this);
         this.drop.play();
 };
 

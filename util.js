@@ -24,6 +24,17 @@ var util = {
             bottomRight: getTopLeftCorner(cx,cy,halfWidth,halfHeight)};
  },
 
+ pointsBundle : function (c, entity){
+    return {
+        pbrNext : this.getBottomRightCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight),
+        pbr : this.getBottomRightCorner(c.cx, c.cy, c.halfWidth, c.halfHeight),
+        ptlNext : this.getTopLeftCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight),
+        ptl : this.getTopLeftCorner(c.cx, c.cy, c.halfWidth, c.halfHeight),
+        hbr : this.getBottomRightCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight),
+        htl : this.getTopLeftCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight)
+    };
+ },
+
  /*
  *   Collision Detection
  */
@@ -67,8 +78,9 @@ var util = {
  checkTop : function (points){
     if ((points.ptlNext.y  < points.hbr.y) && (points.ptl.y > points.hbr.y)){
         if (points.ptl.x > points.htl.x && points.ptl.x < points.hbr.x || 
-            points.pbr.x > points.htl.x && points.pbr.x < points.hbr.x)
+            points.pbr.x > points.htl.x && points.pbr.x < points.hbr.x){
                 return true;
+        }
     }
     return false;
  },
@@ -185,6 +197,87 @@ isPlayer : function (e){
     return e instanceof Player;
 },
 
+containsPowerUp : function (re) {
+    for (var e in re){
+        if (this.isPowerUp(re[e]))
+            return true;
+    }
+    return false;
+},
+
+/*
+    Collision checks for Robot to determine optimal direction
+*/
+
+canMoveToTheRight : function (rob){
+    rob.nextX = rob.cx + rob.velX*2;
+    rob.nextY = rob.cy;
+    var x = rob.cx
+    var hitEntities = rob.findHitEntity();
+    if (hitEntities.length != 0){
+        for (var h in hitEntities){
+            var points = this.pointsBundle(rob,hitEntities[h]);
+            if (this.checkLeftSide(points)){
+                rob.cx = x;
+                return false;
+            }
+        }
+    }
+    rob.cx = x;
+    return true;
+},
+
+canMoveToTheLeft : function (rob){
+    rob.nextX = rob.cx - rob.velX*2;
+    rob.nextY = rob.cy;
+    var x = rob.cx
+    var hitEntities = rob.findHitEntity();
+    if (hitEntities.length != 0){
+        for (var h in hitEntities){
+            var points = this.pointsBundle(rob,hitEntities[h]);
+            if ( this.checkRightSide(points) ){
+                rob.cx = x;
+                return false;
+            }
+        }
+    }
+    rob.cx = x;
+    return true;
+},
+
+canMoveForwards : function (rob){
+    var y = rob.cy;
+    rob.nextY = rob.cy - rob.velY*10;
+    var hitEntities = rob.findHitEntity();
+    if (hitEntities.length != 0){
+        for (var h in hitEntities){
+            var points = this.pointsBundle(rob,hitEntities[h]);
+            if (this.checkTop(points) ){
+                rob.cy = y;
+                return false;
+            }
+        }
+    }
+    rob.cy = y;
+    return true;
+},
+
+canMoveBackwards : function (rob){
+    var y = rob.cy;
+    rob.nextY = rob.cy + rob.velY*10;
+    var hitEntities = rob.findHitEntity();
+    if (hitEntities.length != 0){
+        for (var h in hitEntities){
+            var points = this.pointsBundle(rob,hitEntities[h]);
+            if (this.checkBottom(points) ){
+                rob.nextY = y;
+                return false;
+            }
+        }
+    }
+    rob.nextY = y;
+    return true;
+},
 
 // // MISC
 // // ====
@@ -209,10 +302,10 @@ findNearestSpotForBomb : function(cx,cy){
 // ==========
 
 clearCanvas: function (ctx) {
-    var base_image = new Image();
-    base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
-    base_image.onload = function(){
-    ctx.drawImage(base_image, 0, 0);
+        var base_image = new Image();
+        base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
+        base_image.onload = function(){
+        ctx.drawImage(base_image, 0, 0);
   }
 },
 

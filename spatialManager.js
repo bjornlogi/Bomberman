@@ -81,6 +81,7 @@ isColliding : function (entity,c){
         htl : util.getTopLeftCorner(entity.cx, entity.cy, entity.halfWidth, entity.halfHeight)
     };
 
+
     if (util.checkCollisionFromSides(points))
         return true;
 
