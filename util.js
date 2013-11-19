@@ -210,38 +210,38 @@ containsPowerUp : function (re) {
 */
 
 canMoveToTheRight : function (rob){
-    rob.nextX = rob.cx + rob.velX*4;
+    rob.nextX = rob.cx + rob.velX*2;
     rob.nextY = rob.cy;
     var x = rob.cx
     var hitEntities = rob.findHitEntity();
     if (hitEntities.length != 0){
         for (var h in hitEntities){
-            var points = this.pointsBundle(rob,hitEntities[h]);
-            if (this.checkLeftSide(points)){
-                rob.cx = x;
+            var points = this.pointsBundle(rob,hitEntities[h] );
+            if (this.checkLeftSide(points) && !this.isPowerUp(hitEntities[h])){
+                rob.nextX = rob.cx;
                 return false;
             }
         }
     }
-    rob.cx = x;
+    rob.nextX = rob.cx;
     return true;
 },
 
 canMoveToTheLeft : function (rob){
-    rob.nextX = rob.cx - rob.velX*4;
+    rob.nextX = rob.cx - rob.velX*2;
     rob.nextY = rob.cy;
-    var x = rob.cx
+    
     var hitEntities = rob.findHitEntity();
     if (hitEntities.length != 0){
         for (var h in hitEntities){
             var points = this.pointsBundle(rob,hitEntities[h]);
-            if ( this.checkRightSide(points) ){
-                rob.cx = x;
+            if ( this.checkRightSide(points) && !this.isPowerUp(hitEntities[h])){
+                rob.nextX = this.cx;
                 return false;
             }
         }
     }
-    rob.cx = x;
+    rob.nextX = this.cx;
     return true;
 },
 
@@ -251,8 +251,8 @@ canMoveForwards : function (rob){
     var hitEntities = rob.findHitEntity();
     if (hitEntities.length != 0){
         for (var h in hitEntities){
-            var points = this.pointsBundle(rob,hitEntities[h]);
-            if (this.checkTop(points) ){
+            var points = this.pointsBundle(rob,hitEntities[h] );
+            if (this.checkTop(points) && !this.isPowerUp(hitEntities[h])){
                 rob.cy = y;
                 return false;
             }
@@ -269,7 +269,7 @@ canMoveBackwards : function (rob){
     if (hitEntities.length != 0){
         for (var h in hitEntities){
             var points = this.pointsBundle(rob,hitEntities[h]);
-            if (this.checkBottom(points) ){
+            if (this.checkBottom(points) && !this.isPowerUp(hitEntities[h])){
                 rob.nextY = y;
                 return false;
             }

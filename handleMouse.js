@@ -23,7 +23,7 @@ function handleMouse(evt) {
     var button = evt.buttons === undefined ? evt.which : evt.buttons;
     if (!button) return;
     
-    if (frontEndManager.startScreen)
+    if (!frontEndManager.playGame)
     	frontEndManager.buttonClicked(g_mouseX, g_mouseY);
 }
 

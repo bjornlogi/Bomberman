@@ -5,10 +5,13 @@ var pointToggle = true;
 
 var frontEndManager = {
 
- startScreen : true,
+ numPlayerScreen : true,
+ numOpponentScreen : false,
  playGame : false,
  gameOver : false,
  winner : -1,
+ num_players : 0,
+ num_opponents : 0,
  // P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
  // P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
  // buttons : [{cx : 300, cy: 400, halfWidth: 70, halfHeight : 25}, 
@@ -26,8 +29,10 @@ var frontEndManager = {
  },
 
  render : function(ctx){
- 	if (this.startScreen)
+ 	if (this.numPlayerScreen)
  		this.renderStartScreen(ctx);
+  else if(this.numOpponentScreen)
+    this.renderOpponentScreen(ctx);
  	if (this.gameOver) this.renderGameOverScreen(ctx);
  },
 
@@ -42,23 +47,20 @@ var frontEndManager = {
     		ctx.drawImage(start_image, 0, 0);
   	}	
   },
+ 
+ renderOpponentScreen : function (ctx){
+    util.fillBox(ctx, 0,0,600,600,"black");
+    var b1 = this.P1_Button;
+    var b2 = this.P2_Button;
+    var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
+    var b2_TLeft = util.getTopLeftCorner(b2.cx, b2.cy, b2.halfWidth, b2.halfHeight);
+    //console.log(b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2)
+    util.fillBox (ctx, b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2, "white" );
+    util.fillBox (ctx, b2_TLeft.x, b2_TLeft.y, b2.halfWidth*2, b2.halfHeight*2, "white" );
 
-   	//util.fillBox(ctx, 0,0,600,600,"black");
-/*
- 	//buttons
- 	var textCalibration = 30;
- 	var num_buttons = this.buttons.length;
- 	for (i = 0; i<num_buttons; i++){
- 		var b = this.buttons[i];
- 		var b_TLeft = util.getTopLeftCorner(b.cx, b.cy, b.halfWidth, b.halfHeight);
-
-	 	util.fillBox(ctx, b_TLeft.x, b_TLeft.y, b.halfWidth*2, b.halfHeight*2, "blue");
-	 	ctx.fillStyle="#FFFFFF";
-	    ctx.font = "bold 20px Arial";
-	 	ctx.fillText(i+1+" Player", b_TLeft.x + textCalibration, b_TLeft.y + textCalibration);
-	 }
  },
-*/
+
+
  renderGameOverScreen : function (ctx){
  	var over_image = new Image();
     	over_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/over.jpg';
@@ -85,9 +87,6 @@ var frontEndManager = {
 	 				pointToggle = false;
 	 			}
  			}
-
- 	 		msg = "The Winner is Player " + winner + "!";
-
  	 		var winner_image = new Image();
     		winner_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/p'+winner+'_win.png';
     		winner_image.onload = function(){
@@ -106,8 +105,8 @@ var frontEndManager = {
  update : function(du){
   if (this.gameOver || mute)
     this.intro.pause();
-  else if (!mute)
-    this.intro.play();
+  else if (!mute && this.playGame)
+    this.intro.play()
  },
 
  intro : new Audio(
@@ -125,10 +124,19 @@ var frontEndManager = {
 
  		if (mouseX >= b_TLeft.x && mouseX <= b_BRight.x &&
  		mouseY >= b_TLeft.y && mouseY <= b_BRight.y){
- 			this.playGame = true;
-			this.startScreen = false;
-      this.intro.play();
-			createPlayerSprites(i+1);
+      if (this.numPlayerScreen){
+     			//this.playGame = true;
+    			this.numPlayerScreen = false;
+          this.numOpponentScreen = true;
+          this.num_players = i+1;
+          break;
+      }
+      else if (this.numOpponentScreen){
+        this.num_opponents = i+1;
+        this.playGame = true;
+        createPlayerSprites(this.num_players, this.num_opponents);
+        this.intro.play();
+      }
  		}
 	}
  }

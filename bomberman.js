@@ -34,7 +34,7 @@ var P2_LEFT = 'J'.charCodeAt(0);
 var P2_RIGHT = 'L'.charCodeAt(0);
 var P2_KEY_FIRE = 'U'.charCodeAt(0);
 
-function createInitialPlayers(NUM_PLAYERS, width, height) {
+function createInitialPlayers(NUM_PLAYERS, NUM_OPPONENTS, width, height) {
 
     entityManager._generatePlayer({
         //-2 to cut off unused pixels in the spritesheet
@@ -74,15 +74,17 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
         NUM_PLAYER : 2,
         sprites : sprites.player2
     });
-    entityManager.generateOpponent({
-        //-2 to cut off unused pixels in the spritesheet
-        halfWidth: width/2-2,
-        halfHeight: height/2 - 5,
-        cx : 600-65,
-        cy : 60,
-        NUM_PLAYER : 3,
-        sprites : sprites.player3
-    });
+    if (NUM_OPPONENTS == 2){
+        entityManager.generateOpponent({
+            //-2 to cut off unused pixels in the spritesheet
+            halfWidth: width/2-2,
+            halfHeight: height/2 - 5,
+            cx : 600-65,
+            cy : 60,
+            NUM_PLAYER : 3,
+            sprites : sprites.player3
+        });
+    }
 }
 
 
@@ -244,7 +246,7 @@ function processDiagnostics() {
 
     if (eatKey(KEY_RESET) && frontEndManager.gameOver) {
         frontEndManager.gameOver = false;
-        frontEndManager.startScreen = true;
+        frontEndManager.numPlayerScreen = true;
         entityManager.resetEM = false;
         createObjects();
     }
@@ -335,7 +337,7 @@ var sprites = {
     brick : []
 };
 
-function createPlayerSprites(NUM_PLAYERS){
+function createPlayerSprites(NUM_PLAYERS, NUM_OPPONENTS){
     var celWidth  = 497/20 - 1;
     var celHeight =  152/4 ; // calibration for c.d.
     var numCols = 20;
@@ -367,17 +369,17 @@ function createPlayerSprites(NUM_PLAYERS){
             sprite = new Sprite(g_sheets.players, col * celWidth, 2 * celHeight,
                                     celWidth, celHeight) 
             player_sprite2.push(sprite);
-
+            if (NUM_OPPONENTS == 2){
             sprite = new Sprite(g_sheets.players, col * celWidth, 3 * celHeight,
                                     celWidth, celHeight) 
             player_sprite3.push(sprite);
-            
+        }   
             if (col>8) celWidth -= 0.6;
         }
     player_sprite1.splice(numCels);
     player_sprite2.splice(numCels);
 
-    createInitialPlayers(NUM_PLAYERS, celWidth, celHeight);
+    createInitialPlayers(NUM_PLAYERS, NUM_OPPONENTS, celWidth, celHeight);
 }
 
 function createBombSprites(){

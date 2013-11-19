@@ -5,7 +5,7 @@ function Opponent(descr) {
 
      this.setup(descr);
 
-};	
+};  
 
 Opponent.prototype = new Entity(); 
 Opponent.prototype = new Player();
@@ -16,7 +16,7 @@ Opponent.prototype.collision = false;
 //Opponent.prototype.velX = 4;
 
 // Opponent.prototype.render = function (ctx){
-// 	var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
+//  var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
 //     var ptl = {x: this.cx - this.halfWidth, y: this.cy - this.halfHeight};
 //  //   var rangeEntities = this.findHitEntity();
 //     // var r = rangeEntities[0]
@@ -28,7 +28,7 @@ Opponent.prototype.collision = false;
 
 
 Opponent.prototype.update = function (du) {
-	spatialManager.unregister(this);
+    spatialManager.unregister(this);
 
     if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     if (this._isDeadNow){
@@ -57,17 +57,17 @@ Opponent.prototype.update = function (du) {
     }
     else {
         this.collision =true;
-    	if (this.bombs > 0) {
-    		for (var re in rangeEntities){
-    			var e = rangeEntities[re];
-    			if (util.isBarrel(e) || util.isPlayer(e)){
-    				this.dropBomb();
-    				this.droppedBomb = true;
-    			}
-    		}
-    	}
-    	this.maybeShiftOrPowerUp(rangeEntities, du);
-    	this.takeNextAction();
+        if (this.bombs > 0) {
+            for (var re in rangeEntities){
+                var e = rangeEntities[re];
+                if (util.isBarrel(e) || util.isPlayer(e)){
+                    this.dropBomb();
+                    this.droppedBomb = true;
+                }
+            }
+        }
+        this.maybeShiftOrPowerUp(rangeEntities, du);
+        this.takeNextAction();
     }
     //}else this.maybeShiftOrPowerUp(rangeEntities, du);
     
@@ -80,11 +80,11 @@ Opponent.prototype.update = function (du) {
 }
 
 // Opponent.prototype.advance = function (){
-// 	this.cx = this.nextX;
+//  this.cx = this.nextX;
 // }
 
 Opponent.prototype.walkHandling = function(du){
-	this.nextX = this.cx;
+    this.nextX = this.cx;
     this.nextY = this.cy;
     if (this.direction == "up") {
         this.nextY = this.cy - this.velY*du;
@@ -95,12 +95,12 @@ Opponent.prototype.walkHandling = function(du){
         this.playerOrientation = this.orientation.down;
     }
     else if (this.direction == "left") {
-    	this.nextY = this.cy
+        this.nextY = this.cy
         this.nextX = this.cx - this.velX*du;
         this.playerOrientation = this.orientation.currLeft;
     }
     else if (this.direction == "right") {
-    	this.nextY = this.cy
+        this.nextY = this.cy
         this.nextX = this.cx + this.velX*du;
         this.playerOrientation = this.orientation.currRight;
     }
@@ -110,66 +110,65 @@ Opponent.prototype.walkHandling = function(du){
 }
 
 /*
-	This is called when the opponent halts. The basic logic is
-	that when that happens, the robot drops a bomb and tries 
-	first to reverse and then go up or down if it was moving 
-	sideways and vice versa.
+    This is called when the opponent halts. The basic logic is
+    that when that happens, the robot drops a bomb and tries 
+    first to reverse and then go up or down if it was moving 
+    sideways and vice versa.
 */
 
 Opponent.prototype.takeNextAction = function(){
-	var x = this.cx;
-	var y = this.cy;
-	if (this.droppedBomb){
-		this.determinePreferedDirection();
-		this.droppedBomb = false;
-	}
-	//if (!this.reverseDir())
-	this.attemptToMoveInPreferedDirection();
+    var x = this.cx;
+    var y = this.cy;
+    if (this.droppedBomb){
+        this.determinePreferedDirection();
+        this.droppedBomb = false;
+    }
+    //if (!this.reverseDir())
+    this.attemptToMoveInPreferedDirection();
 }
 
 Opponent.prototype.determinePreferedDirection = function (){
-	if (this.direction == "left" || this.direction == "right")
-			this.preferedDirection = "upOrDown";
-		else this.preferedDirection = "sideways";
+    if (this.direction == "left" || this.direction == "right")
+            this.preferedDirection = "upOrDown";
+        else this.preferedDirection = "sideways";
 }
 
 Opponent.prototype.attemptToMoveInPreferedDirection = function(){
 
-	if (this.preferedDirection == "sideways"){
-		if (util.canMoveToTheRight(this)){
-					this.direction = "right";
-					this.preferedDirection = "upOrDown";
-				}
-		else if (util.canMoveToTheLeft(this)){
-					this.direction = "left";
-					this.preferedDirection = "upOrDown";
-				}
-		else {
-			this.reverseDir();
-		}
-	}
-	else if (this.preferedDirection == "upOrDown"){
-		if (util.canMoveForwards(this)){
-				this.direction = "up";
-				this.preferedDirection = "sideways";
-			}
-		else if (util.canMoveBackwards(this)){
-			this.direction = "down";
-			this.preferedDirection = "sideways";
-		}
-		else {
-			this.reverseDir();
-		}
-	}
+    if (this.preferedDirection == "sideways"){
+        if (util.canMoveToTheRight(this)){
+                    this.direction = "right";
+                    this.preferedDirection = "upOrDown";
+                }
+        else if (util.canMoveToTheLeft(this)){
+                    this.direction = "left";
+                    this.preferedDirection = "upOrDown";
+                }
+        else {
+            this.reverseDir();
+        }
+    }
+    else if (this.preferedDirection == "upOrDown"){
+        if (util.canMoveForwards(this)){
+                this.direction = "up";
+                this.preferedDirection = "sideways";
+            }
+        else if (util.canMoveBackwards(this)){
+            this.direction = "down";
+            this.preferedDirection = "sideways";
+        }
+        else {
+            this.reverseDir();
+        }
+    }
 }
 
 Opponent.prototype.reverseDir = function(){
-	if (this.direction == "up") this.direction = "down";
-	else if (this.direction == "down") this.direction = "up";
-	else if (this.direction == "right") this.direction = "left";
-	else this.direction = "right"
+    if (this.direction == "up") this.direction = "down";
+    else if (this.direction == "down") this.direction = "up";
+    else if (this.direction == "right") this.direction = "left";
+    else this.direction = "right"
 }
-
 
 
 
