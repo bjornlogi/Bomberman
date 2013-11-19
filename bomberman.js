@@ -52,7 +52,7 @@ function createInitialPlayers(NUM_PLAYERS, NUM_OPPONENTS, width, height) {
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({
-        halfWidth: 20,//width/2-2,
+        halfWidth: width/2-2,
         halfHeight: height/2,
         cx : 600-57,
         cy : 600-60,
