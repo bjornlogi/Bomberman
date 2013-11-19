@@ -9,9 +9,10 @@ function Opponent(descr) {
 
 Opponent.prototype = new Entity(); 
 Opponent.prototype = new Player();
-Opponent.prototype.direction = "right";
-Opponent.prototype.preferedDirection = "sideways";
+Opponent.prototype.direction = "up";
+Opponent.prototype.preferedDirection = "upOrDown";
 Opponent.prototype.droppedBomb = false;
+Opponent.prototype.collision = false;
 
 // Opponent.prototype.render = function (ctx){
 // 	var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
@@ -51,10 +52,13 @@ Opponent.prototype.update = function (du) {
     //this.nextY = this.cy
     var rangeEntities = this.findHitEntity();
     if (rangeEntities.length == 0 && !this._isDying){
+       // if (this.preferedDirection == "sideways" && this.collision)
+         //  this.moveSideWays();
     	//this.attemptToMoveInPreferedDirection();
         this.advance();
     }
     else {
+        this.collision =true;
     	if (this.bombs > 0) {
     		for (var re in rangeEntities){
     			var e = rangeEntities[re];
@@ -165,9 +169,20 @@ Opponent.prototype.reverseDir = function(){
 	if (this.direction == "up") this.direction = "down";
 	else if (this.direction == "down") this.direction = "up";
 	else if (this.direction == "right") this.direction = "left";
-	else this.direction = "right";
+	else this.direction = "right"
 }
 
+Opponent.prototype.moveSideWays = function(){
+        if (util.canMoveToTheRight(this)){
+                    this.direction = "right";
+                    this.preferedDirection = "upOrDown";
+                }
+        else if (util.canMoveToTheLeft(this)){
+                    this.direction = "left";
+                    this.preferedDirection = "upOrDown";
+                }
+    
+}
 
 
 

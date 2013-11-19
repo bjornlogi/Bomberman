@@ -52,7 +52,7 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
     });
     if (NUM_PLAYERS == 2){
         entityManager._generatePlayer({
-        halfWidth: width/2-2,
+        halfWidth: 20,//width/2-2,
         halfHeight: height/2,
         cx : 600-57,
         cy : 600-60,
@@ -67,12 +67,21 @@ function createInitialPlayers(NUM_PLAYERS, width, height) {
     }
     entityManager.generateOpponent({
         //-2 to cut off unused pixels in the spritesheet
-        halfWidth: width/2-2,
-        halfHeight: height/2 - 5,
+        halfWidth: width/2 - 2,
+        halfHeight: height/2 -2,
         cx : 65,
         cy : 600-65,
         NUM_PLAYER : 2,
         sprites : sprites.player2
+    });
+    entityManager.generateOpponent({
+        //-2 to cut off unused pixels in the spritesheet
+        halfWidth: width/2-2,
+        halfHeight: height/2 - 5,
+        cx : 600-65,
+        cy : 60,
+        NUM_PLAYER : 3,
+        sprites : sprites.player3
     });
 }
 
@@ -317,6 +326,7 @@ var sprites = {
     player0 : [],
     player1 : [],
     player2 : [],
+    player3 : [],
     bomb : [],
     powerUp : [],
     explosion : [],
@@ -335,6 +345,7 @@ function createPlayerSprites(NUM_PLAYERS){
     var player_sprite0 = sprites.player0;
     var player_sprite1 = sprites.player1;
     var player_sprite2 = sprites.player2;
+    var player_sprite3 = sprites.player3;
 
     var sprite;
 
@@ -347,7 +358,7 @@ function createPlayerSprites(NUM_PLAYERS){
             sprite = new Sprite(g_sheets.players, col * celWidth, 0 * celHeight,
                                 celWidth, celHeight) 
             player_sprite0.push(sprite);
-            if (NUM_PLAYERS > 1){
+            if (NUM_PLAYERS == 2){
                 sprite = new Sprite(g_sheets.players, col * celWidth, 1 * celHeight,
                                     celWidth, celHeight) 
                 player_sprite1.push(sprite);
@@ -356,10 +367,12 @@ function createPlayerSprites(NUM_PLAYERS){
             sprite = new Sprite(g_sheets.players, col * celWidth, 2 * celHeight,
                                     celWidth, celHeight) 
             player_sprite2.push(sprite);
+
+            sprite = new Sprite(g_sheets.players, col * celWidth, 3 * celHeight,
+                                    celWidth, celHeight) 
+            player_sprite3.push(sprite);
             
             if (col>8) celWidth -= 0.6;
-            //if (col==16) celWidth -= 0.1;
-            //if (col==18) celWidth -= 0.08;
         }
     player_sprite1.splice(numCels);
     player_sprite2.splice(numCels);

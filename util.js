@@ -210,7 +210,7 @@ containsPowerUp : function (re) {
 */
 
 canMoveToTheRight : function (rob){
-    rob.nextX = rob.cx + rob.velX*2;
+    rob.nextX = rob.cx + rob.velX*3;
     rob.nextY = rob.cy;
     var x = rob.cx
     var hitEntities = rob.findHitEntity();
@@ -228,7 +228,7 @@ canMoveToTheRight : function (rob){
 },
 
 canMoveToTheLeft : function (rob){
-    rob.nextX = rob.cx - rob.velX*2;
+    rob.nextX = rob.cx - rob.velX*3;
     rob.nextY = rob.cy;
     var x = rob.cx
     var hitEntities = rob.findHitEntity();
@@ -247,7 +247,7 @@ canMoveToTheLeft : function (rob){
 
 canMoveForwards : function (rob){
     var y = rob.cy;
-    rob.nextY = rob.cy - rob.velY*10;
+    rob.nextY = rob.cy - rob.velY;
     var hitEntities = rob.findHitEntity();
     if (hitEntities.length != 0){
         for (var h in hitEntities){
