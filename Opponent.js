@@ -13,6 +13,7 @@ Opponent.prototype.direction = "up";
 Opponent.prototype.preferedDirection = "upOrDown";
 Opponent.prototype.droppedBomb = false;
 Opponent.prototype.collision = false;
+//Opponent.prototype.velX = 4;
 
 // Opponent.prototype.render = function (ctx){
 // 	var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
@@ -52,9 +53,6 @@ Opponent.prototype.update = function (du) {
     //this.nextY = this.cy
     var rangeEntities = this.findHitEntity();
     if (rangeEntities.length == 0 && !this._isDying){
-       // if (this.preferedDirection == "sideways" && this.collision)
-         //  this.moveSideWays();
-    	//this.attemptToMoveInPreferedDirection();
         this.advance();
     }
     else {
@@ -170,18 +168,6 @@ Opponent.prototype.reverseDir = function(){
 	else if (this.direction == "down") this.direction = "up";
 	else if (this.direction == "right") this.direction = "left";
 	else this.direction = "right"
-}
-
-Opponent.prototype.moveSideWays = function(){
-        if (util.canMoveToTheRight(this)){
-                    this.direction = "right";
-                    this.preferedDirection = "upOrDown";
-                }
-        else if (util.canMoveToTheLeft(this)){
-                    this.direction = "left";
-                    this.preferedDirection = "upOrDown";
-                }
-    
 }
 
 

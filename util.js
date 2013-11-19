@@ -210,7 +210,7 @@ containsPowerUp : function (re) {
 */
 
 canMoveToTheRight : function (rob){
-    rob.nextX = rob.cx + rob.velX*3;
+    rob.nextX = rob.cx + rob.velX*4;
     rob.nextY = rob.cy;
     var x = rob.cx
     var hitEntities = rob.findHitEntity();
@@ -228,7 +228,7 @@ canMoveToTheRight : function (rob){
 },
 
 canMoveToTheLeft : function (rob){
-    rob.nextX = rob.cx - rob.velX*3;
+    rob.nextX = rob.cx - rob.velX*4;
     rob.nextY = rob.cy;
     var x = rob.cx
     var hitEntities = rob.findHitEntity();

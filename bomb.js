@@ -39,7 +39,6 @@ Bomb.prototype.explode = {
 
 Bomb.prototype.update = function (du) {
 
-    spatialManager.unregister(this);
     if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     this.lifeSpan -= du;
     if (this.lifeSpan < 0){
@@ -52,7 +51,6 @@ Bomb.prototype.update = function (du) {
         return entityManager.KILL_ME_NOW;
         
     }
-    if (this.lifeSpan < 1000/NOMINAL_UPDATE_INTERVAL) spatialManager.register(this);
 
 }; 
 
