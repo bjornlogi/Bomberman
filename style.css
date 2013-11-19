@@ -1,0 +1,16 @@
+body{
+	display:block;
+	margin: auto;
+	max-width: 1024px;
+	min-width: 420px;
+	font-size:12px;
+	color: white;
+	width: 100%;
+	background-color: black;
+}
+
+#myCanvas{
+	display: block;
+	margin: auto;
+	width: 60%;
+}

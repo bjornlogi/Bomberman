@@ -10,6 +10,8 @@ function Player(descr) {
 
 Player.prototype = new Entity(); 
 
+Player.prototype.intro = new Audio(
+  "http://www.vgmuseum.com/mrp/cv-rob/tdxc/music/07-BLOODYTEARS.mp3");
 Player.prototype.gameOver = new Audio(
   "https://notendur.hi.is/~pap5/bomberman/sound/43697__notchfilter__game-over02.wav");
 Player.prototype.hit = new Audio(

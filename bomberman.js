@@ -292,9 +292,9 @@ function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanplayerstrans.png",
         //players2   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
-        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
-        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
-        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
+        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/Block_2.png",
+        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/oie_transparent%20(2).png",
+        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/blocks.jpg",
         bomb :  "https://notendur.hi.is/~pap5/bomberman/sprite/bomb2.png",
         bombs :  "https://notendur.hi.is/~bls4/bombaman/images/bombsheet2.png",
         power1 : "https://notendur.hi.is/~pap5/bomberman/sprite/mush.png",

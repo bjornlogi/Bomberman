@@ -1,5 +1,7 @@
 "use strict";
-
+var points_p1 = 0;
+var points_p2 = 0;
+var pointToggle = true;
 
 var frontEndManager = {
 
@@ -73,13 +75,25 @@ var frontEndManager = {
  	 	}
  	else{
  			var winner = this.winner + 1;
+ 			
+ 			if(pointToggle === true){
+	 			if(this.winner === 1){
+	 				  points_p2 += 1;
+	 				  pointToggle = false;}
+	 			else{
+	 				points_p1 += 1;
+	 				pointToggle = false;
+	 			}
+ 			}
+
  	 		msg = "The Winner is Player " + winner + "!";
 
  	 		var winner_image = new Image();
     		winner_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/p'+winner+'_win.png';
     		winner_image.onload = function(){
-    			ctx.drawImage(winner_image, 250, 130);
+    			ctx.drawImage(winner_image, 220, 230);
   			}	
+  			ctx.fillText(points_p1 +" - "+points_p2, 300, 500);
  	 	}
  	//var textY = box.cy;
  	//ctx.fillText(msg, box.cx - 100, textY);
