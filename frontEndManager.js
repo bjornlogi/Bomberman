@@ -134,6 +134,7 @@ var frontEndManager = {
       else if (this.numOpponentScreen){
         this.num_opponents = i+1;
         this.playGame = true;
+        this.numOpponentScreen = false;
         createPlayerSprites(this.num_players, this.num_opponents);
         this.intro.play();
       }
