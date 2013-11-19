@@ -193,18 +193,18 @@ function updateSimulation(du) {
     
     processDiagnostics();
     entityManager.update(du);
-    if (!frontEndManager.playGame) frontEndManager.update(du);
+    frontEndManager.update(du);
 
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
 
-var g_allowMixedActions = true;
+var mute = false;
 var g_useDebug = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MIXED   = keyCode('M');;
+var KEY_MUTE   = keyCode('M');;
 var KEY_DEBUG = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
@@ -221,8 +221,9 @@ var KEY_K = keyCode('K');
 
 function processDiagnostics() {
 
-    // if (eatKey(KEY_MIXED))
-    //     g_allowMixedActions = !g_allowMixedActions;
+    if (eatKey(KEY_MUTE)){
+        mute = !mute;
+    }
 
     if (eatKey(KEY_DEBUG)) g_useDebug = !g_useDebug;
 

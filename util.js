@@ -306,6 +306,7 @@ clearCanvas: function (ctx) {
         base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
         base_image.onload = function(){
         ctx.drawImage(base_image, 0, 0);
+    }
     var base_image = new Image();
     base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/starscape.png';
     base_image.onload = function(){

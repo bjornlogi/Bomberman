@@ -104,11 +104,14 @@ var frontEndManager = {
  
 
  update : function(du){
+  if (this.gameOver || mute)
+    this.intro.pause();
+  else if (!mute)
+    this.intro.play();
  },
 
  intro : new Audio(
-  "https://notendur.hi.is/~pap5/bomberman/sound/131659__bertrof__game-sound-intro-to-game.wav"
-  ),
+  "http://www.vgmuseum.com/mrp/cv-rob/tdxc/music/07-BLOODYTEARS.mp3"),
 
  buttonClicked : function(mouseX,mouseY){
  	var b1 = this.P1_Button;
