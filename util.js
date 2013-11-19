@@ -302,16 +302,18 @@ findNearestSpotForBomb : function(cx,cy){
 // ==========
 
 clearCanvas: function (ctx) {
+       /* var base_image2 = new Image();
+        base_image2.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
+        base_image2.onload = function(){
+        ctx.drawImage(base_image2, 0, 0);
+    }
+    */
+
         var base_image = new Image();
-        base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/a_grass_background_1.jpg';
+        base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/starscape.png';
         base_image.onload = function(){
         ctx.drawImage(base_image, 0, 0);
-    }
-    var base_image = new Image();
-    base_image.src = 'https://notendur.hi.is/~pap5/bomberman/sprite/starscape.png';
-    base_image.onload = function(){
-    ctx.drawImage(base_image, 0, 0);
-  }
+      }
 },
 
 strokeCircle: function (ctx, x, y, r) {
