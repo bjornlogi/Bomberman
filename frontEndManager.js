@@ -13,6 +13,7 @@ var frontEndManager = {
  winner : -1,
  num_players : 0,
  num_opponents : 0,
+ scoreboardSprite : "",
  theme : "",
  // P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
  // P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
@@ -30,7 +31,7 @@ var frontEndManager = {
   	this.winner = winner;
  },
 
- render : function(ctx){
+ render : function(ctx,lctx){
  	if (this.numPlayerScreen)
  		this.renderStartScreen(ctx);
   else if(this.numOpponentScreen)
@@ -48,6 +49,13 @@ var frontEndManager = {
     ctx.fillText("Click buttons or press 1 or 2", 150, 570);
   }
 
+  //if (this.playGame)
+    this.renderScoreBoard(lctx)
+ },
+  
+ renderScoreBoard : function (ctx){
+  //console.log(this.scoreboardSprite)
+    this.scoreboardSprite.drawAt(0,0, ctx)
  },
 
  renderStartScreen : function (ctx){
@@ -139,10 +147,6 @@ var frontEndManager = {
   			}	
   			ctx.fillText(points_p1 +" - "+points_p2, 300, 500);
  	 	}
- 	//var textY = box.cy;
- 	//ctx.fillText(msg, box.cx - 100, textY);
- 	//ctx.fillText("Press N to start a New Game",box.cx - 130,textY+25)
-
 },
  	//button for 
  

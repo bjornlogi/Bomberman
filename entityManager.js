@@ -143,7 +143,6 @@ handleDeath : function(playerWhoDied){
         this._deadPlayers.push(this._players[playerWhoDied]);
     var deathNumber = this._deadPlayers.length;
     var numOppon = this._opponents.length;
-    console.log(deathNumber)
     if (deathNumber == 2){
         frontEndManager.updateWinner(-1);
         this._reset();

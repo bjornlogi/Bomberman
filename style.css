@@ -10,7 +10,12 @@ body{
 }
 
 #myCanvas{
-	display: block;
+	display: inline;
+	margin-left: 0px;
 	margin: auto;
 	width: 60%;
+}
+
+#livesCanvas{
+	margin-bottom: 20%;
 }

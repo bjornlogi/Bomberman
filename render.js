@@ -14,7 +14,7 @@ var TOGGLE_UNDO_BOX = 'U'.charCodeAt(0);
 var TOGGLE_FLIPFLOP = 'F'.charCodeAt(0);
 var TOGGLE_RENDER = 'R'.charCodeAt(0);
 
-function render(ctx) {
+function render(ctx, sctx) {
     
     // Process various option toggles
     //
@@ -40,7 +40,7 @@ function render(ctx) {
     
     // The core rendering of the actual game / simulation
     //
-    if (g_doRender) renderSimulation(ctx);
+    if (g_doRender) renderSimulation(ctx,sctx);
     
     
     // This flip-flip mechanism illustrates the pattern of alternation

@@ -25,8 +25,13 @@ function Sprite(image, sx, sy, width, height) {
     this.scale = 1;
 }
 
-Sprite.prototype.drawAt = function (x, y) {
-    ctx.drawImage(this.image, 
-                  this.sx, this.sy, this.width, this.height,
-                  x, y, this.width, this.height);
+Sprite.prototype.drawAt = function (x, y, lctx) {
+    if (lctx == undefined)
+        ctx.drawImage(this.image, 
+                      this.sx, this.sy, this.width, this.height,
+                      x, y, this.width, this.height);
+    else
+        lctx.drawImage(this.image, 
+                      this.sx, this.sy, this.width, this.height,
+                      x, y, this.width, this.height);
 }

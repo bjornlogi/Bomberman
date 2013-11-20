@@ -12,6 +12,9 @@
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
 
+var lives_canvas = document.getElementById("livesCanvas");
+var lives_ctx = lives_canvas.getContext("2d");
+
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -283,10 +286,11 @@ function processDiagnostics() {
 
 // GAME-SPECIFIC RENDERING
 
-function renderSimulation(ctx) {
+function renderSimulation(ctx,lctx) {
 
     if (frontEndManager.playGame) entityManager.render(ctx);
-    else frontEndManager.render(ctx);
+
+    frontEndManager.render(ctx,lctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
@@ -311,7 +315,8 @@ function requestPreloads() {
         speed : "https://notendur.hi.is/~bls4/bombaman/images/speed.png",
         grassbrick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
         grassbarrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
-        grassboundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
+        grassboundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
+        scoreboard : "https://notendur.hi.is/~bls4/bombaman/images/scoreboard.png"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
@@ -333,7 +338,8 @@ var sprites = {
     explosion : [],
     barrel : [], 
     boundary : [],
-    brick : []
+    brick : [],
+    scoreboard : []
 };
 
 function createPlayerSprites(NUM_PLAYERS, NUM_OPPONENTS){
@@ -415,16 +421,19 @@ function createThemeSprites(theme){
     util.theme = theme;
 }
 
+function createScoreBoard(){
+    console.log(g_sheets.scoreboard)
+    sprites.scoreboard.push(new Sprite(g_sheets.scoreboard, 0, 0,
+                        40, 40));
+    frontEndManager.scoreboardSprite = sprites.scoreboard[0];
+}
+
 function createObjects(){
     createBombSprites();
 
     createPowerUpSprites();
 
-    
-    sprites.powerUp.push(new Sprite(g_sheets.power1, 0, 0,
-                                40, 40));
-    sprites.explosion.push(new Sprite(g_sheets.fire, 0, 0,
-                                40, 40));
+    createScoreBoard();
     createBrick();
     createBoundary();
     createBarrels();
