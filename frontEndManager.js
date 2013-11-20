@@ -13,7 +13,14 @@ var frontEndManager = {
  winner : -1,
  num_players : 0,
  num_opponents : 0,
- scoreboardSprite : "",
+ livesboardSprite : "",
+ livesDigitSprite : "",
+ playerLives : {
+  player0 : 3,
+  player1 : 3,
+  player2 : 3,
+  player3 : 3,
+ },
  theme : "",
  // P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
  // P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
@@ -52,10 +59,23 @@ var frontEndManager = {
   //if (this.playGame)
     this.renderScoreBoard(lctx)
  },
+
+ scoreBoardLocation : {
+  player0 : {x:50, y:10},
+  player1 : {x:146, y:10},
+  player2 : {x:146, y:60},
+  player3 : {x: 50, y: 60},
+ },
   
  renderScoreBoard : function (ctx){
-  //console.log(this.scoreboardSprite)
-    this.scoreboardSprite.drawAt(0,0, ctx)
+    this.livesboardSprite.drawAt(0,0, ctx);
+    for (var pl in this.playerLives){
+      var lives = this.playerLives[pl];
+      //console.log(this.scoreBoardLocation["player"+pl].x)
+      var x = this.scoreBoardLocation[pl].x;
+      var y = this.scoreBoardLocation[pl].y;
+      this.livesDigitSprite[lives].drawAt(x,y,ctx);
+    }
  },
 
  renderStartScreen : function (ctx){

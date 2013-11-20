@@ -423,11 +423,22 @@ function createThemeSprites(theme){
     util.theme = theme;
 }
 
-function createScoreBoard(){
-    console.log(g_sheets.livesboard)
+function createLivesBoard(){
     sprites.livesboard.push(new Sprite(g_sheets.livesboard, 0, 0,
                         184, 100));
-    frontEndManager.scoreboardSprite = sprites.livesboard[0];
+    frontEndManager.livesboardSprite = sprites.livesboard[0];
+}
+
+function createLivesDigits(){
+    var sprite;
+    var celWidth = 16;
+    var celHeight = 32;
+    for (var i = 0; i<4; i++){
+        sprite = new Sprite(g_sheets.lives, i * celWidth, 0,
+                                celWidth, celHeight) 
+        sprites.lives.push(sprite);
+    }
+    frontEndManager.livesDigitSprite = sprites.lives;
 }
 
 function createObjects(){
@@ -437,8 +448,8 @@ function createObjects(){
 
     sprites.explosion.push(new Sprite(g_sheets.fire, 0, 0,
                                 40, 40));
-
-    createScoreBoard();
+    createLivesDigits();
+    createLivesBoard();
     createBrick();
     createBoundary();
     createBarrels();
