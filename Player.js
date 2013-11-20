@@ -206,7 +206,7 @@ Player.prototype.immunityTimer = 1500/NOMINAL_UPDATE_INTERVAL;
 Player.prototype.immunity = false;
 
 Player.prototype.takeExplosion = function(){
-
+    --this.lives;
     if (this.lives == 0 && !this.immunity){
         this.blow();
         this.gameOver.play();
@@ -215,7 +215,6 @@ Player.prototype.takeExplosion = function(){
     else {
         this.immunity = true;
         spatialManager.unregister(this);
-        this.lives--;
         this.hit.play();
     }
     frontEndManager.playerLives["player"+this.NUM_PLAYER] = this.lives;
