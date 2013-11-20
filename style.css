@@ -19,12 +19,12 @@ body{
 canvas{
 	float:left ;
 	display: block;
-	margin: 20px;
+	margin: 10px;
 	background-color:orange;
 	padding: 10px;
 	border: solid;
 	border-color: grey;
-	width: 50%;
+	width: 55%;
 
 }
 
