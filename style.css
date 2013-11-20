@@ -9,8 +9,45 @@ body{
 	background-color: black;
 }
 
-#myCanvas{
+canvas{
+	float:left ;
+	display: block;
+	margin: 20px;
+	background-color:white;
+	padding: 10px;
+	border: solid;
+	border-color: grey;
+
+}
+
+#text{
 	display: block;
 	margin: auto;
-	width: 60%;
+	font-size: 1.2em;
+	float: left;
+	color: white;
+	font-family: sans-serif;
+	width: 30%;
+}
+#moreText, #drop{
+
+	display: block;
+	background-color: black;
+	border:solid;
+	border-color: white;
+	margin: auto;
+	padding: 10px;
+	font-size: 1.2em;
+	float: left;
+	color: white;
+	font-family: sans-serif;
+	width: 30%;
+}
+
+a:link{
+	color:white;
+}
+
+a:visited{
+	color: white;
 }
