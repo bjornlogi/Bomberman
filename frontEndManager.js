@@ -74,7 +74,8 @@ var frontEndManager = {
       //console.log(this.scoreBoardLocation["player"+pl].x)
       var x = this.scoreBoardLocation[pl].x;
       var y = this.scoreBoardLocation[pl].y;
-      this.livesDigitSprite[lives].drawAt(x,y,ctx);
+      if (lives >= 0)
+        this.livesDigitSprite[lives].drawAt(x,y,ctx);
     }
  },
 
