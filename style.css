@@ -10,17 +10,11 @@ body{
 	background-image:url('https://notendur.hi.is/~pap5/bomberman/pic/Bomberman%20generation.jpg');
 }
 
-200
-#myCanvas{
-	display: inline;
-	margin-left: 0px;
-	margin: auto;
-	width: 60%;
-}
 
 #livesCanvas{
 	margin-bottom: 20%;
 	background-color: #F08000;
+	width: 15%;
 }
 canvas{
 	float:left ;
@@ -30,6 +24,7 @@ canvas{
 	padding: 10px;
 	border: solid;
 	border-color: grey;
+	width: 50%;
 
 }
 
@@ -43,7 +38,7 @@ canvas{
 	float: left;
 	color: white;
 	font-family: sans-serif;
-	width: 30%;
+	width: 20%;
 	background-color: black;
 	background-repeat: no-repeat;
 }
@@ -59,7 +54,7 @@ canvas{
 	float: left;
 	color: white;
 	font-family: sans-serif;
-	width: 30%;
+	width: 15%;
 }
 
 a:link{
@@ -68,5 +63,4 @@ a:link{
 
 a:visited{
 	color: white;
->>>>>>> 5babaf9470881b2203d3d30bfbfd001fb4e2059d
 }
