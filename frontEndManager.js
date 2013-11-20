@@ -63,8 +63,8 @@ var frontEndManager = {
  scoreBoardLocation : {
   player0 : {x:50, y:10},
   player1 : {x:146, y:10},
-  player2 : {x:146, y:60},
-  player3 : {x: 50, y: 60},
+  player3 : {x:146, y:60},
+  player2 : {x: 50, y: 60},
  },
   
  renderScoreBoard : function (ctx){
@@ -204,12 +204,16 @@ var frontEndManager = {
           this.numPlayerScreen = false;
           this.numOpponentScreen = true;
           this.num_players = i;
+          if (i == 1)
+            this.playerLives.player1 = 0;
           //break;
       }
       else if (this.numOpponentScreen){
         this.num_opponents = i;
         this.themeScreen = true;
         this.numOpponentScreen = false;
+        if (i == 1)
+            this.playerLives.player3 = 0;
        // break;
       }
       else if (this.themeScreen){
