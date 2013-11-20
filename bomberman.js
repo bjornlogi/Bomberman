@@ -316,7 +316,8 @@ function requestPreloads() {
         grassbrick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
         grassbarrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
         grassboundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png",
-        scoreboard : "https://notendur.hi.is/~bls4/bombaman/images/scoreboard.png"
+        livesboard : "https://notendur.hi.is/~bls4/bombaman/images/scoreboard.png",
+        lives : "https://notendur.hi.is/~bls4/bombaman/images/lives.png"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
@@ -339,7 +340,8 @@ var sprites = {
     barrel : [], 
     boundary : [],
     brick : [],
-    scoreboard : []
+    livesboard : [],
+    lives : []
 };
 
 function createPlayerSprites(NUM_PLAYERS, NUM_OPPONENTS){
@@ -422,16 +424,19 @@ function createThemeSprites(theme){
 }
 
 function createScoreBoard(){
-    console.log(g_sheets.scoreboard)
-    sprites.scoreboard.push(new Sprite(g_sheets.scoreboard, 0, 0,
+    console.log(g_sheets.livesboard)
+    sprites.livesboard.push(new Sprite(g_sheets.livesboard, 0, 0,
                         184, 100));
-    frontEndManager.scoreboardSprite = sprites.scoreboard[0];
+    frontEndManager.scoreboardSprite = sprites.livesboard[0];
 }
 
 function createObjects(){
     createBombSprites();
 
     createPowerUpSprites();
+
+    sprites.explosion.push(new Sprite(g_sheets.fire, 0, 0,
+                                40, 40));
 
     createScoreBoard();
     createBrick();
