@@ -251,11 +251,9 @@ function processDiagnostics() {
         createObjects();
     }
 
-    // if (eatKey(KEY_0)) entityManager.toggleRocks();
+    if (eatKey(KEY_1)) frontEndManager.handleUserInput(1);
 
-    // if (eatKey(KEY_1)) entityManager.generateShip({
-    //     cx : g_mouseX,
-    //     cy : g_mouseY,
+    if (eatKey(KEY_2)) frontEndManager.handleUserInput(2);
         
     //     sprite : g_sprites.ship});
 

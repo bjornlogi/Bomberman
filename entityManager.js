@@ -143,12 +143,11 @@ updatePlayerPositions : function(playerWhoDied){
         );
     }
     else if (lastPlayer == 0) frontEndManager.updateWinner(-1); //one player mode and player dies
+    
     if (lastPlayer < 1) {
         this._reset();
         return;
     }
-    
-
 
     for (var i = playerWhoDied; i <= lastPlayer; ++i){
         --this._players[i].NUM_PLAYER;

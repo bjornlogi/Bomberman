@@ -38,6 +38,16 @@ var frontEndManager = {
   else if (this.themeScreen)
     this.renderThemeScreen(ctx);
  	if (this.gameOver) this.renderGameOverScreen(ctx);
+  else{
+    var my_gradient=ctx.createLinearGradient(150,550,450,570);
+    my_gradient.addColorStop(0,"#F57100");
+    my_gradient.addColorStop(0.5,"#DDDDAC");
+    my_gradient.addColorStop(1,"#F57100");
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle=my_gradient;
+    ctx.fillText("Click buttons or press 1 or 2", 150, 550);
+  }
+
  },
 
  renderStartScreen : function (ctx){
@@ -142,19 +152,24 @@ var frontEndManager = {
  		var b_BRight= util.getBottomRightCorner(b.cx, b.cy, b.halfWidth, b.halfHeight);
 
  		if (mouseX >= b_TLeft.x && mouseX <= b_BRight.x &&
- 		mouseY >= b_TLeft.y && mouseY <= b_BRight.y){
-      if (this.numPlayerScreen){
-     			//this.playGame = true;
-    			this.numPlayerScreen = false;
+ 		mouseY >= b_TLeft.y && mouseY <= b_BRight.y)
+      this.handleUserInput(i+1);
+	}
+ },
+
+ handleUserInput : function (i){
+    if (this.numPlayerScreen){
+          //this.playGame = true;
+          this.numPlayerScreen = false;
           this.numOpponentScreen = true;
-          this.num_players = i+1;
-          break;
+          this.num_players = i;
+          //break;
       }
       else if (this.numOpponentScreen){
-        this.num_opponents = i+1;
+        this.num_opponents = i;
         this.themeScreen = true;
         this.numOpponentScreen = false;
-        break;
+       // break;
       }
       else if (this.themeScreen){
         this.playGame = true;
@@ -164,12 +179,6 @@ var frontEndManager = {
         createThemeSprites(this.theme);
         this.intro.play();
       }
- 		}
-	}
  },
-
- determineTheme : function (i){
-
- }
 
 };
