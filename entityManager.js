@@ -143,12 +143,13 @@ handleDeath : function(playerWhoDied){
         this._deadPlayers.push(this._players[playerWhoDied]);
     var deathNumber = this._deadPlayers.length;
     var numOppon = this._opponents.length;
-    if (deathNumber == 2){
+    if (deathNumber == 2 || 
+        (deathNumber == 1 && frontEndManager.num_players == 1)){
         frontEndManager.updateWinner(-1);
         this._reset();
     }
 
-    if (deathNumber == 1 && numOppon == 0){
+    if (deathNumber == 1 && numOppon == 0 && frontEndManager.num_players == 1){
         frontEndManager.updateWinner(
             playerWhoDied == 0 ? 1 : 0);
         this._reset();
