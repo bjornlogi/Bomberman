@@ -424,7 +424,7 @@ function createThemeSprites(theme){
 function createScoreBoard(){
     console.log(g_sheets.scoreboard)
     sprites.scoreboard.push(new Sprite(g_sheets.scoreboard, 0, 0,
-                        40, 40));
+                        200, 59));
     frontEndManager.scoreboardSprite = sprites.scoreboard[0];
 }
 
