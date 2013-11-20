@@ -190,7 +190,7 @@ var frontEndManager = {
       else if (this.themeScreen){
         this.playGame = true;
         this.themeScreen = false;
-        i==0 ? this.theme = "grass" : this.theme = "space";
+        i==1 ? this.theme = "grass" : this.theme = "space";
         createPlayerSprites(this.num_players, this.num_opponents);
         createThemeSprites(this.theme);
         this.intro.play();

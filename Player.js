@@ -54,7 +54,8 @@ Player.prototype.render = function (ctx) {
         cel = this.deathAnimation(ctx,cel);
     else cel = this.sprites[this.playerOrientation];
 
-    cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
+    if (!this._isDeadNow)
+        cel.drawAt(this.cx-this.halfWidth, this.cy-this.halfHeight);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     var pbr = {x: this.cx + this.halfWidth, y: this.cy + this.halfHeight};
@@ -97,8 +98,9 @@ Player.prototype.update = function (du) {
     spatialManager.unregister(this);
     if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     if (this._isDeadNow){
-        entityManager.updatePlayerPositions(this.NUM_PLAYER);
-        return entityManager.KILL_ME_NOW;
+        entityManager.handleDeath(this.NUM_PLAYER);
+        return;
+        //return entityManager.KILL_ME_NOW;
     }
 
     if(this.immunity) this.immunityTimer -= du;

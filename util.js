@@ -206,6 +206,10 @@ containsPowerUp : function (re) {
     return false;
 },
 
+isOpponent : function (e){
+    return e instanceof Opponent;
+},
+
 /*
     Collision checks for Robot to determine optimal direction
 */

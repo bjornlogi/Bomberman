@@ -11,6 +11,7 @@ _explosions : [],
 _Barrels : [],
 _PowerUp : [],
 _opponents : [],
+_deadPlayers : [],
 resetEM : false,
 
 // "PRIVATE" METHODS
@@ -135,23 +136,28 @@ generatePowerUp : function(cx,cy,pu){
     }));
 },
 
-updatePlayerPositions : function(playerWhoDied){
-    var lastPlayer = this._players.length-1;
-    if (lastPlayer == 1 && this._opponents.length == 0){ 
-        frontEndManager.updateWinner(
-        playerWhoDied == 0 ? 1 : 0
-        );
-    }
-    else if (lastPlayer == 0) frontEndManager.updateWinner(-1); //one player mode and player dies
-    
-    if (lastPlayer < 1) {
+handleDeath : function(playerWhoDied){
+    var player = this._players[playerWhoDied];
+    if (!util.isOpponent(this._players[playerWhoDied]) &&
+        this._deadPlayers.indexOf(player) == -1)
+        this._deadPlayers.push(this._players[playerWhoDied]);
+    var deathNumber = this._deadPlayers.length;
+    var numOppon = this._opponents.length;
+    console.log(deathNumber)
+    if (deathNumber == 2){
+        frontEndManager.updateWinner(-1);
         this._reset();
-        return;
     }
 
-    for (var i = playerWhoDied; i <= lastPlayer; ++i){
-        --this._players[i].NUM_PLAYER;
+    if (deathNumber == 1 && numOppon == 0){
+        frontEndManager.updateWinner(
+            playerWhoDied == 0 ? 1 : 0);
+        this._reset();
     }
+
+    // for (var i = playerWhoDied; i <= lastPlayer; ++i){
+    //     --this._players[i].NUM_PLAYER;
+    // }
 },
 
 
@@ -178,7 +184,9 @@ update: function(du) {
         var aCategory = this._categories[c];
         var i = 0;
 
-        
+        var playersLeft = this._players.length;
+        var oppsLeft = this._opponents.length;
+        // if ((playersLeft == 1 && oppsLeft == 0) )
 
         while (i < aCategory.length) {
             var status = aCategory[i].update(du);
