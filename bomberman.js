@@ -252,6 +252,12 @@ function processDiagnostics() {
         frontEndManager.numPlayerScreen = true;
         entityManager.resetEM = false;
         createObjects();
+        frontEndManager.playerLives = {
+            player0 : 3,
+            player1 : 3,
+            player2 : 3,
+            player3 : 3,
+        }
     }
 
     if (eatKey(KEY_1)) frontEndManager.handleUserInput(1);
