@@ -46,7 +46,7 @@ var frontEndManager = {
   else if (this.themeScreen)
     this.renderThemeScreen(ctx);
  	if (this.gameOver) this.renderGameOverScreen(ctx);
-  else{
+  else if (!this.playGame){
     var my_gradient=ctx.createLinearGradient(150,550,450,570);
     my_gradient.addColorStop(0,"#F57100");
     my_gradient.addColorStop(0.5,"#DDDDAC");
