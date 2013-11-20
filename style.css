@@ -24,11 +24,16 @@ canvas{
 #text{
 	display: block;
 	margin: auto;
+	text-align: center;
+	border:solid;
+	border-color: white;
 	font-size: 1.2em;
 	float: left;
 	color: white;
 	font-family: sans-serif;
 	width: 30%;
+	background-color: black;
+	background-repeat: no-repeat;
 }
 #moreText, #drop{
 
