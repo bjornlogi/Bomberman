@@ -20,6 +20,7 @@ body{
 
 #livesCanvas{
 	margin-bottom: 20%;
+	background-color: #F08000;
 }
 canvas{
 	float:left ;
