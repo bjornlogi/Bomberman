@@ -303,22 +303,17 @@ var g_sheets = {};
 function requestPreloads() {
     var requiredSheets = {
         players   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanplayerstrans.png",
-        //players2   : "https://notendur.hi.is/~bls4/bombaman/images/bombermanPlayers.png",
-        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/Block_2.png",
-        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/oie_transparent%20(2).png",
-        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/blocks.jpg",
+        spacebrick  : "https://notendur.hi.is/~pap5/bomberman/sprite/Block_2.png",
+        spacebarrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/oie_transparent%20(2).png",
+        spaceboundary : "https://notendur.hi.is/~pap5/bomberman/sprite/blocks.jpg",
         bomb :  "https://notendur.hi.is/~pap5/bomberman/sprite/bomb2.png",
         bombs :  "https://notendur.hi.is/~bls4/bombaman/images/bombsheet2.png",
-        power1 : "https://notendur.hi.is/~pap5/bomberman/sprite/mush.png",
         range : "https://notendur.hi.is/~bls4/bombaman/images/range.png",
         fire : "https://notendur.hi.is/~pap5/bomberman/sprite/Fire.png",
-        speed : "https://notendur.hi.is/~bls4/bombaman/images/speed.png"
-    };
-
-    var requiredSheets2 = {
-        brick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
-        barrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
-        boundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
+        speed : "https://notendur.hi.is/~bls4/bombaman/images/speed.png",
+        grassbrick  : "https://notendur.hi.is/~pap5/bomberman/sprite/arena_block.png",
+        grassbarrel   : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Red_Barrel.png",
+        grassboundary : "https://notendur.hi.is/~pap5/bomberman/sprite/40px-Small_Rock.png"
     };
 
     //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
@@ -412,17 +407,22 @@ function createPowerUpSprites(){
                         40, 40));
 }
 
+function createThemeSprites(theme){
+    sprites.brick.push(new Sprite(g_sheets[theme+"brick"], 0, 0,
+                                40, 40));
+    sprites.barrel.push(new Sprite(g_sheets[theme+"barrel"], 0, 0,
+                                40, 40));
+    sprites.boundary.push(new Sprite(g_sheets[theme+"boundary"], 0, 0,
+                                40, 40));
+    util.theme = theme;
+}
+
 function createObjects(){
     createBombSprites();
 
     createPowerUpSprites();
 
-    sprites.brick.push(new Sprite(g_sheets.brick, 0, 0,
-                                40, 40));
-    sprites.barrel.push(new Sprite(g_sheets.barrel, 0, 0,
-                                40, 40));
-    sprites.boundary.push(new Sprite(g_sheets.boundary, 0, 0,
-                                40, 40));
+    
     sprites.powerUp.push(new Sprite(g_sheets.power1, 0, 0,
                                 40, 40));
     sprites.explosion.push(new Sprite(g_sheets.fire, 0, 0,

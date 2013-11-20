@@ -7,11 +7,13 @@ var frontEndManager = {
 
  numPlayerScreen : true,
  numOpponentScreen : false,
+ themeScreen : false,
  playGame : false,
  gameOver : false,
  winner : -1,
  num_players : 0,
  num_opponents : 0,
+ theme : "",
  // P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
  // P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
  // buttons : [{cx : 300, cy: 400, halfWidth: 70, halfHeight : 25}, 
@@ -33,6 +35,8 @@ var frontEndManager = {
  		this.renderStartScreen(ctx);
   else if(this.numOpponentScreen)
     this.renderOpponentScreen(ctx);
+  else if (this.themeScreen)
+    this.renderThemeScreen(ctx);
  	if (this.gameOver) this.renderGameOverScreen(ctx);
  },
 
@@ -59,9 +63,19 @@ var frontEndManager = {
     var b2 = this.P2_Button;
     var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
     var b2_TLeft = util.getTopLeftCorner(b2.cx, b2.cy, b2.halfWidth, b2.halfHeight);
-    //console.log(b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2)
-    //util.fillBox (ctx, b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2, "white" );
-    //util.fillBox (ctx, b2_TLeft.x, b2_TLeft.y, b2.halfWidth*2, b2.halfHeight*2, "white" );
+    // util.fillBox (ctx, b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2, "white" );
+    // util.fillBox (ctx, b2_TLeft.x, b2_TLeft.y, b2.halfWidth*2, b2.halfHeight*2, "white" );
+
+ },
+
+ renderThemeScreen : function (ctx){
+    util.fillBox(ctx, 0,0,600,600,"black");
+    var b1 = this.P1_Button;
+    var b2 = this.P2_Button;
+    var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
+    var b2_TLeft = util.getTopLeftCorner(b2.cx, b2.cy, b2.halfWidth, b2.halfHeight);
+    util.fillBox (ctx, b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2, "white" );
+    util.fillBox (ctx, b2_TLeft.x, b2_TLeft.y, b2.halfWidth*2, b2.halfHeight*2, "white" );
 
  },
 
@@ -138,13 +152,24 @@ var frontEndManager = {
       }
       else if (this.numOpponentScreen){
         this.num_opponents = i+1;
-        this.playGame = true;
+        this.themeScreen = true;
         this.numOpponentScreen = false;
+        break;
+      }
+      else if (this.themeScreen){
+        this.playGame = true;
+        this.themeScreen = false;
+        i==0 ? this.theme = "grass" : this.theme = "space";
         createPlayerSprites(this.num_players, this.num_opponents);
+        createThemeSprites(this.theme);
         this.intro.play();
       }
  		}
 	}
+ },
+
+ determineTheme : function (i){
+
  }
 
 };
