@@ -137,6 +137,7 @@ var frontEndManager = {
     		winner_image.onload = function(){
     			ctx.drawImage(winner_image, 220, 230);
   			}	
+        ctx.fillText("Player "+ winner+" wins!", 250, 400);
   			ctx.fillText(points_p1 +" - "+points_p2, 300, 500);
  	 	}
  	//var textY = box.cy;
