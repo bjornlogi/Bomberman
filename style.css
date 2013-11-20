@@ -25,7 +25,7 @@ canvas{
 	float:left ;
 	display: block;
 	margin: 20px;
-	background-color:white;
+	background-color:orange;
 	padding: 10px;
 	border: solid;
 	border-color: grey;
@@ -37,7 +37,7 @@ canvas{
 	margin: auto;
 	text-align: center;
 	border:solid;
-	border-color: white;
+	border-color: orange;
 	font-size: 1.2em;
 	float: left;
 	color: white;
@@ -51,7 +51,7 @@ canvas{
 	display: block;
 	background-color: black;
 	border:solid;
-	border-color: white;
+	border-color: orange;
 	margin: auto;
 	padding: 10px;
 	font-size: 1.2em;

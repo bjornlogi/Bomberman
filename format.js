@@ -10,14 +10,14 @@ $(document).ready(function() {
 	        home += '<p>° A - Left</p>';
 	        home += '<p>° D - Right</p>';
 	        home += '<p>° E - Drop Bomb!</p>';
-	        home += '<p> </p>';
+	        home += '<p> - </p>';
 	        home += '<p>Player 2:</p>';
 	        home += '<p>° I - Up </p>';
 	        home += '<p>° K - Down</p>';
 	        home += '<p>° J - Left</p>';
 	        home += '<p>° L - Right</p>';
 	        home += '<p>° U - Drop Bomb!</p>';
-	        home += '<p> </p>';
+	        home += '<p> - </p>';
 	        home += '<p>° M - Mute music</p>';        
 			home += '</div>';
 											
