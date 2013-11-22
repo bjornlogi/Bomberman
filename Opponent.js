@@ -32,7 +32,7 @@ Opponent.prototype.update = function (du) {
 
     if (entityManager.resetEM) return entityManager.KILL_ME_NOW;
     if (this._isDeadNow){
-        //entityManager.updatePlayerPositions(this.NUM_PLAYER);
+        //entityManager.handleDeath(this.NUM_PLAYER);
         return entityManager.KILL_ME_NOW;
     }
 

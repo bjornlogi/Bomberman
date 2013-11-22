@@ -22,10 +22,6 @@ var frontEndManager = {
   player3 : 3,
  },
  theme : "",
- // P1_Button : {cx : 300, cy: 400, halfWidth: 70, halfHeight : 25},
- // P2_Button : {cx : 300, cy: 550, halfWidth: 70, halfHeight : 25},
- // buttons : [{cx : 300, cy: 400, halfWidth: 70, halfHeight : 25}, 
- // 			{cx : 300, cy: 480, halfWidth: 70, halfHeight : 25}],
 
  P1_Button : {cx : 180, cy: 460, halfWidth: 70, halfHeight : 70},
  P2_Button : {cx : 420, cy: 460, halfWidth: 70, halfHeight : 70},
@@ -56,7 +52,7 @@ var frontEndManager = {
     ctx.fillText("Click buttons or press 1 or 2", 150, 570);
   }
 
-  //if (this.playGame)
+  if (this.playGame)
     this.renderScoreBoard(lctx)
  },
 
@@ -201,13 +197,11 @@ var frontEndManager = {
 
  handleUserInput : function (i){
     if (this.numPlayerScreen){
-          //this.playGame = true;
           this.numPlayerScreen = false;
           this.numOpponentScreen = true;
           this.num_players = i;
           if (i == 1)
             this.playerLives.player1 = 0;
-          //break;
       }
       else if (this.numOpponentScreen){
         this.num_opponents = i;
@@ -215,7 +209,6 @@ var frontEndManager = {
         this.numOpponentScreen = false;
         if (i == 1)
             this.playerLives.player3 = 0;
-       // break;
       }
       else if (this.themeScreen){
         this.playGame = true;

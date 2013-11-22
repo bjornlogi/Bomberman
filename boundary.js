@@ -19,7 +19,6 @@ Boundary.prototype.update = function (du) {
 
 Boundary.prototype.render = function (ctx) {
 
-    // (cx, cy) is the centre; must offset it for drawing
     if (g_useDebug){
     ctx.fillStyle = this.color;
     ctx.strokeStyle="black";

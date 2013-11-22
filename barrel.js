@@ -18,14 +18,6 @@ Barrel.prototype = new Entity();
 Barrel.prototype.halfWidth = 20;
 Barrel.prototype.halfHeight = 20;
 
-/* Barrel.prototype.findNearest = function(){
-    var x = ((this.cx - 72) / 40).toFixed(0);
-    if (x < 0) x = 0;
-    var y = ((this.cy - 75) / 40).toFixed(0);
-    if (y < 0) y = 0;
-    return {t:x, s:y};
-}
-*/
 Barrel.prototype.update = function (du) {
 
   spatialManager.unregister(this);
@@ -34,7 +26,6 @@ Barrel.prototype.update = function (du) {
         {
             return entityManager.KILL_ME_NOW; 
         }
-    //this.wrapPosition();
     spatialManager.register(this);
 };
 
@@ -45,7 +36,6 @@ Barrel.prototype.takeExplosion = function(){
 };
 
 Barrel.prototype.render = function (ctx) {
-	//var nearest = this.findNearest();
     
     if (g_useDebug){
     	ctx.fillStyle="white";

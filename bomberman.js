@@ -39,7 +39,7 @@ var P2_KEY_FIRE = 'U'.charCodeAt(0);
 
 function createInitialPlayers(NUM_PLAYERS, NUM_OPPONENTS, width, height) {
 
-    entityManager._generatePlayer({
+    entityManager.generatePlayer({
         //-2 to cut off unused pixels in the spritesheet
         halfWidth: width/2-2,
         halfHeight: height/2,
@@ -54,7 +54,7 @@ function createInitialPlayers(NUM_PLAYERS, NUM_OPPONENTS, width, height) {
         sprites : sprites.player0
     });
     if (NUM_PLAYERS == 2){
-        entityManager._generatePlayer({
+        entityManager.generatePlayer({
         halfWidth: width/2-2,
         halfHeight: height/2,
         cx : 600-57,
@@ -101,7 +101,7 @@ function createBrick()
         nextX = 100;
         for (var j = 0; j < 6; j++) 
         {
-        entityManager._generateBrick({
+        entityManager.generateBrick({
             cx : nextX,
             cy : nextY
     
@@ -158,7 +158,7 @@ function createBarrels()
 
         if((Math.random()<chance) && !(i===5 && j===0))
         {
-              entityManager._generateBarrels({
+              entityManager.generateBarrels({
                   cx : locationX,
                   cy : locationY
               });
@@ -177,7 +177,7 @@ function createBarrels()
             if((Math.random()<chance) && !(k===6 &&
              (h<2 || h>10)))
             {
-              entityManager._generateBarrels({
+              entityManager.generateBarrels({
                   cx : locationX,
                   cy : locationY
               });
@@ -194,8 +194,6 @@ function createBarrels()
 // =============
 
 function gatherInputs() {
-    // Nothing to do here!
-    // The event handlers do everything we need for now.
 }
 
 
@@ -241,12 +239,6 @@ function processDiagnostics() {
 
     if (eatKey(KEY_DEBUG)) g_useDebug = !g_useDebug;
 
-    // if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
-
-    if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
-
-    // if (eatKey(KEY_HALT)) entityManager.haltShips();
-
     if (eatKey(KEY_RESET) && frontEndManager.gameOver) {
         frontEndManager.gameOver = false;
         frontEndManager.numPlayerScreen = true;
@@ -263,32 +255,12 @@ function processDiagnostics() {
     if (eatKey(KEY_1)) frontEndManager.handleUserInput(1);
 
     if (eatKey(KEY_2)) frontEndManager.handleUserInput(2);
-        
-    //     sprite : g_sprites.ship});
-
-    // if (eatKey(KEY_2)) entityManager.generateShip({
-    //     cx : g_mouseX,
-    //     cy : g_mouseY,
-        
-    //     sprite : g_sprites.ship2
-    //     });
-
-    // if (eatKey(KEY_K)) entityManager.killNearestShip(
-    //     g_mouseX, g_mouseY);
 }
 
 
 // =================
 // RENDER SIMULATION
 // =================
-
-// We take a very layered approach here...
-//
-// The primary `render` routine handles generic stuff such as
-// the diagnostic toggles (including screen-clearing).
-//
-// It then delegates the game-specific logic to `gameRender`
-
 
 // GAME-SPECIFIC RENDERING
 
@@ -326,14 +298,8 @@ function requestPreloads() {
         lives : "https://notendur.hi.is/~bls4/bombaman/images/lives.png"
     };
 
-    //var spriteSheet = "https://notendur.hi.is/~bls4/bombaman/images/bombermansheet.PNG";
-
     imagesPreload(requiredSheets, g_sheets, preloadDone);
 }
-
-
-//var player_sprites = [];
-//var bomb_sprites = [];
 
 var sprites = {
     player0 : [],

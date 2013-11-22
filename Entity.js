@@ -5,11 +5,6 @@
 
 Provides a set of common functions which can be "inherited" by all other
 game Entities.
-
-JavaScript's prototype-based inheritance system is unusual, and requires 
-some care in use. In particular, this "base" should only provide shared
-functions... shared data properties are potentially quite confusing.
-
 */
 
 "use strict";
@@ -22,13 +17,6 @@ functions... shared data properties are potentially quite confusing.
 */
 
 function Entity() {
-
-/*
-    // Diagnostics to check inheritance stuff
-    this._entityProperty = true;
-    console.dir(this);
-*/
-
 };
 
 Entity.prototype.setup = function (descr) {
@@ -41,7 +29,6 @@ Entity.prototype.setup = function (descr) {
     // Get my (unique) spatial ID
     this._ID = spatialManager.getNewID();
     
-    // I am not dead yet!
     this._isDeadNow = false;
     this._isDying = false;
 };
@@ -93,7 +80,6 @@ Entity.prototype.findHitEntity = function (isExplosion) {
     });
 };
 
-// This is just little "convenience wrapper"
 Entity.prototype.isColliding = function () {
     return this.findHitEntity();
 };

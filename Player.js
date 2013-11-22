@@ -85,7 +85,7 @@ Player.prototype.deathAnimation = function (ctx,cel){
     return cel;
 }
 
-Player.prototype.switchStep = 250 / NOMINAL_UPDATE_INTERVAL;
+Player.prototype.switchStep = 300 / NOMINAL_UPDATE_INTERVAL;
 Player.prototype.deathTimer = 2000/ NOMINAL_UPDATE_INTERVAL;
 Player.prototype.bombs = 1;
 
@@ -212,7 +212,7 @@ Player.prototype.takeExplosion = function(){
         this.gameOver.play();
 
     }
-    else {
+    else if (this.lives > 0){
         this.immunity = true;
         spatialManager.unregister(this);
         this.hit.play();

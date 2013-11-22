@@ -12,15 +12,13 @@ _Barrels : [],
 _PowerUp : [],
 _opponents : [],
 _deadPlayers : [],
+_deadOpponents : [],
 resetEM : false,
-
-// "PRIVATE" METHODS
-
 
 KILL_ME_NOW : -1,
 KILL_ME_CHILDREN : -2,
 
-_generatePlayer : function(descr) {
+generatePlayer : function(descr) {
     this._players.push(new Player(descr));
 },
 
@@ -28,15 +26,11 @@ generateOpponent : function(descr){
     this._opponents.push(new Opponent(descr));
 },
 
-_generateBrick : function(descr){
+generateBrick : function(descr){
     this._Brick.push(new Brick(descr));
 },
 
-_generateBricks : function() {
-    this.generateBrick();    
-},
-
-_generateBarrels : function(descr){
+generateBarrels : function(descr){
     this._Barrels.push(new Barrel(descr));
 },
 
@@ -122,10 +116,6 @@ generateBoundary : function(descr){
     this._Boundary.push(new Boundary(descr));
 },
 
-_generateBoundaries : function(descr){
-    this.generateBoundary();
-},
-
 powerUps : ["Range", "Bombs", "Speed"], 
 
 generatePowerUp : function(cx,cy,pu){
@@ -138,8 +128,8 @@ generatePowerUp : function(cx,cy,pu){
 
 handleDeath : function(playerWhoDied){
     var player = this._players[playerWhoDied];
-    if (!util.isOpponent(this._players[playerWhoDied]) &&
-        this._deadPlayers.indexOf(player) == -1)
+
+    if (this._deadPlayers.indexOf(player) == -1)
         this._deadPlayers.push(this._players[playerWhoDied]);
     var deathNumber = this._deadPlayers.length;
     var numOppon = this._opponents.length;
@@ -148,16 +138,20 @@ handleDeath : function(playerWhoDied){
         frontEndManager.updateWinner(-1);
         this._reset();
     }
+    if (deathNumber == 1 && this._opponents.length == 0)
+        frontEndManager.updateWinner(playerWhoDied == 0 ? 1 : 0);
+},
 
-    if (deathNumber == 1 && numOppon == 0 && frontEndManager.num_players == 1){
-        frontEndManager.updateWinner(
-            playerWhoDied == 0 ? 1 : 0);
-        this._reset();
-    }
-
-    // for (var i = playerWhoDied; i <= lastPlayer; ++i){
-    //     --this._players[i].NUM_PLAYER;
-    // }
+_checkForWinner : function (){
+    var deathNumber = this._deadPlayers.length;
+    if (deathNumber == 2 || (deathNumber == 1 && frontEndManager.num_players == 1)){
+            frontEndManager.updateWinner(-1); //noone wins
+            this._reset();
+        }
+    else if (frontEndManager.num_players == 1 && this._opponents.length == 0){
+            frontEndManager.updateWinner(0);
+            this._reset();
+        }
 },
 
 
@@ -173,7 +167,7 @@ _forEachOf: function(aCategory, fn) {
     }
 },
 
-_reset: function(du){
+_reset: function(){
     this.resetEM = true;
 },
 
@@ -196,8 +190,10 @@ update: function(du) {
         else {
                 ++i;
             }
+        }
     }
-}
+    if(frontEndManager.playGame)
+        this._checkForWinner();
 
 },
 

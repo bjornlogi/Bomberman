@@ -13,17 +13,22 @@ body{
 
 #livesCanvas{
 	margin-bottom: 20%;
-	background-color: #F08000;
+	/*background-color: #F08000;*/
 	width: 15%;
+}
+
+#myCanvas{
+	background-color:orange;
+	border: solid;
+	border-color: grey;
 }
 canvas{
 	float:left ;
 	display: block;
 	margin: 10px;
-	background-color:orange;
+	
 	padding: 10px;
-	border: solid;
-	border-color: grey;
+	
 	width: 55%;
 
 }

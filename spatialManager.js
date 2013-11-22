@@ -72,6 +72,7 @@ findEntityInRange: function(checker) {
 
 isColliding : function (entity,c){
 
+
     var points = {
         pbrNext : util.getBottomRightCorner(c.nextX, c.nextY, c.halfWidth, c.halfHeight),
         pbr : util.getBottomRightCorner(c.cx, c.cy, c.halfWidth, c.halfHeight),

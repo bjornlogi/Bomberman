@@ -4,8 +4,6 @@
 
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -21,9 +19,6 @@ function Bomb(descr) {
     }
     // Common inherited setup logic from Entity
     this.setup(descr);
-
-    // Make a noise when I am created (i.e. fired)
-    //this.fireSound.play();
 }
 
 Bomb.prototype = new Entity();
@@ -43,9 +38,6 @@ Bomb.prototype.update = function (du) {
     this.lifeSpan -= du;
     if (this.lifeSpan < 0){
         this.player.incrementBombs();
-       // entityManager._players[this.player].incrementBombs();
-
-        //++entityManager._players[this.player].bombs;
         entityManager.explode(this.cx, this.cy, this.bombReach, 16, 16);
         this.explode.stats = true;
         return entityManager.KILL_ME_NOW;
@@ -72,9 +64,7 @@ Bomb.prototype.render = function (ctx) {
         ctx.fillStyle=col;
         ctx.strokeStyle="black";
         ctx.fillRect(this.cx-this.halfWidth, this.cy-this.halfHeight, this.halfWidth*2,this.halfHeight*2);
-        //ctx.strokeRect(newX, newY,size,size);
         ctx.fill();
-        //ctx.stroke();
     }
     else{
         sprite.drawAt(this.cx-20, this.cy-20);
