@@ -216,15 +216,8 @@ var g_useDebug = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MUTE   = keyCode('M');;
-var KEY_DEBUG = keyCode('G');
-var KEY_AVE_VEL = keyCode('V');
-var KEY_SPATIAL = keyCode('X');
-
-var KEY_HALT  = keyCode('H');
+var KEY_MUTE   = keyCode('M');
 var KEY_RESET = keyCode('N');
-
-var KEY_0 = keyCode('0');
 
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
@@ -236,8 +229,6 @@ function processDiagnostics() {
     if (eatKey(KEY_MUTE)){
         mute = !mute;
     }
-
-    if (eatKey(KEY_DEBUG)) g_useDebug = !g_useDebug;
 
     if (eatKey(KEY_RESET) && frontEndManager.gameOver) {
         frontEndManager.gameOver = false;

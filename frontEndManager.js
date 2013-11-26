@@ -67,7 +67,6 @@ var frontEndManager = {
     this.livesboardSprite.drawAt(0,0, ctx);
     for (var pl in this.playerLives){
       var lives = this.playerLives[pl];
-      //console.log(this.scoreBoardLocation["player"+pl].x)
       var x = this.scoreBoardLocation[pl].x;
       var y = this.scoreBoardLocation[pl].y;
       if (lives >= 0)
@@ -88,7 +87,6 @@ var frontEndManager = {
   },
  
  renderOpponentScreen : function (ctx){
-    //util.fillBox(ctx, 0,0,600,600,"black");
     var opponent_image = new Image();
       opponent_image.src = 'https://notendur.hi.is/~pap5/bomberman/pic/opponent.png';
       opponent_image.onload = function(){
@@ -98,13 +96,10 @@ var frontEndManager = {
     var b2 = this.P2_Button;
     var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
     var b2_TLeft = util.getTopLeftCorner(b2.cx, b2.cy, b2.halfWidth, b2.halfHeight);
-    // util.fillBox (ctx, b1_TLeft.x, b1_TLeft.y, b1.halfWidth*2, b1.halfHeight*2, "white" );
-    // util.fillBox (ctx, b2_TLeft.x, b2_TLeft.y, b2.halfWidth*2, b2.halfHeight*2, "white" );
 
  },
 
  renderThemeScreen : function (ctx){
-   //util.fillBox(ctx, 0,0,600,600,"black");
     var b1 = this.P1_Button;
     var b2 = this.P2_Button;
     var b1_TLeft = util.getTopLeftCorner(b1.cx, b1.cy, b1.halfWidth, b1.halfHeight);
@@ -163,7 +158,6 @@ var frontEndManager = {
     			ctx.drawImage(winner_image, 220, 230);
   			}	
         ctx.fillText("Player "+ winner+" wins!", 250, 400);
-  			ctx.fillText(points_p1 +" - "+points_p2, 300, 500);
  	 	}
 },
  	//button for 
